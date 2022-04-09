@@ -20,7 +20,7 @@ fun main() {
     }
 }
 
-val maxNumberOfSlices = 10
+const val maxNumberOfSlices = 10
 
 @Markup
 @Composable
