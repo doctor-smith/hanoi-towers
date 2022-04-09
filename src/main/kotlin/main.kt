@@ -117,7 +117,7 @@ fun Body() {
             attrs = {
                 onClick {
                     isPlaying = !isPlaying
-                    GlobalScope.launch{
+                    CoroutineScope(Job()).launch{
                         while(isPlaying && indexOfCurrentMove < numberOfMoves) {
                             promise {
                                 delay((1_000.floorDiv(movesPerSecond)).toLong())
