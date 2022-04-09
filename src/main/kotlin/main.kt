@@ -8,6 +8,7 @@ import data.Hanoi as Towers
 import data.Moves
 import data.Tower
 import kotlinx.coroutines.*
+import lib.compose.Markup
 import lib.maths.toThe
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
@@ -21,6 +22,7 @@ fun main() {
 
 val maxNumberOfSlices = 10
 
+@Markup
 @Composable
 @Suppress("FunctionName")
 fun Body() {
