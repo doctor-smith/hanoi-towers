@@ -1,8 +1,10 @@
 package component
 
 import androidx.compose.runtime.Composable
+import lib.compose.Markup
 import org.jetbrains.compose.web.dom.Div
 
+@Markup
 @Composable
 @Suppress("FunctionName")
 fun Tower(
@@ -14,6 +16,6 @@ fun Tower(
         *slizes.toTypedArray()
     )
     Div({}) {
-        filled.map{Slice(it)}
+        filled.map{ Slice(it) }
     }
 }

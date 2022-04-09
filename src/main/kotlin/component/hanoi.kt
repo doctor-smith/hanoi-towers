@@ -2,10 +2,12 @@ package component
 
 import androidx.compose.runtime.Composable
 import data.Moves
+import lib.compose.Markup
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 
 
+@Markup
 @Composable
 @Suppress("FunctionName")
 fun Hanoi(

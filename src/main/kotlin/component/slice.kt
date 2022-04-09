@@ -1,11 +1,13 @@
 package component
 
 import androidx.compose.runtime.Composable
+import lib.compose.Markup
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.Color.black
 import org.jetbrains.compose.web.css.Color.transparent
 import org.jetbrains.compose.web.dom.Div
 
+@Markup
 @Composable
 @Suppress("FunctionName")
 fun Slice(size: Int, maxWidth: Int = 100) {

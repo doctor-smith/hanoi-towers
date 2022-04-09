@@ -1,10 +1,12 @@
 package component
 
 import androidx.compose.runtime.Composable
+import lib.compose.Markup
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
 
+@Markup
 @Composable
 @Suppress("FunctionName")
 fun OnError(message: String?, onHide: ()->Unit) {
