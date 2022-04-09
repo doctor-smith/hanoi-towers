@@ -1,5 +1,6 @@
 import alg.*
 import androidx.compose.runtime.*
+import component.Container
 import component.OnError
 import component.Hanoi
 import component.Label
@@ -34,12 +35,7 @@ fun Body() {
     var movesPerSecond by remember { mutableStateOf(4) }
     var error by remember { mutableStateOf<String?>(null) }
 
-
-
-    Div({style {
-        width(80.pc)
-        marginLeft(20.pc)
-    }}) {
+    Container{
         H1 { Text("Die Türme von Hanoi") }
 
         Form{
