@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import data.Moves
 import lib.compose.Markup
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.Color.black
 import org.jetbrains.compose.web.dom.Div
 
 
@@ -19,12 +20,24 @@ fun Hanoi(
 ) {
     Div({ style {
         display(DisplayStyle("flex"))
+        paddingLeft(10.px)
     }}) {
         Tower(one,capacity)
         Tower(two,capacity)
         Tower(three,capacity)
     }
+
+    Div({
+        style {
+            height(3.px)
+            width(100.pc)
+            color(black)
+            backgroundColor(black)
+            maxWidth(320.px)
+        }
+    }){}
 }
+
 
 
 
