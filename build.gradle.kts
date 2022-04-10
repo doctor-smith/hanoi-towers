@@ -28,6 +28,15 @@ kotlin {
                 implementation(compose.runtime)
             }
         }
+
+        val jsTest by getting {
+            kotlin.srcDir("src/jsTest/kotlin")
+
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation(kotlin("test-js"))
+            }
+        }
     }
 }
 
