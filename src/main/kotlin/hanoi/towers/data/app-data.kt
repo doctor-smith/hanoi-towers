@@ -1,4 +1,4 @@
-package data
+package hanoi.towers.data
 
 import lib.lens.Lens
 

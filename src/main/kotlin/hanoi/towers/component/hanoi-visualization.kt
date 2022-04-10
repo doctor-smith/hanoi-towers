@@ -1,7 +1,7 @@
-package component
+package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
-import data.*
+import hanoi.towers.data.*
 import lib.compose.Markup
 import lib.lens.Storage
 import org.jetbrains.compose.web.css.paddingLeft

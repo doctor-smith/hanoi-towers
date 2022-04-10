@@ -1,11 +1,11 @@
-package component
+package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
-import data.*
+import hanoi.towers.data.*
 import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times
-import maxNumberOfSlices
+import hanoi.towers.maxNumberOfSlices
 import org.jetbrains.compose.web.dom.*
 
 @Markup

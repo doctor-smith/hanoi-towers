@@ -1,4 +1,4 @@
-package data
+package hanoi.towers.data
 
 data class Hanoi (
     val one: List<Int> = listOf(),

@@ -1,4 +1,4 @@
-package component
+package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
@@ -12,11 +12,11 @@ import org.w3c.dom.HTMLElement
 @Composable
 @Suppress("FunctionName")
 inline fun <reified Data> Store(
-    data: Data,
+    hanoi.towers.data: Data,
     content: @Composable /*ElementScope<HTMLElement>.*/(read: ()->Data, write:  Data.()->Unit)->Unit,
 
 ) {
-    var store by remember { mutableStateOf(data) }
+    var store by remember { mutableStateOf(hanoi.towers.data) }
 
     var set: Unit.(Data.()->Data)->Unit  by remember {
         mutableStateOf({

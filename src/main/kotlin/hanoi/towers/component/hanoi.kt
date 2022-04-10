@@ -1,7 +1,7 @@
-package component
+package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
-import data.Moves
+import hanoi.towers.data.Moves
 import lib.compose.Markup
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.Color.black

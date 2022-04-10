@@ -1,4 +1,4 @@
-package component
+package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
 import lib.compose.Markup

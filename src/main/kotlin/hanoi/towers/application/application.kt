@@ -1,13 +1,13 @@
-package application
+package hanoi.towers.application
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import component.Body
-import data.AppData
-import data.Hanoi
-import data.Moves
+import hanoi.towers.component.Body
+import hanoi.towers.data.AppData
+import hanoi.towers.data.Hanoi
+import hanoi.towers.data.Moves
 import lib.compose.Markup
 import lib.lens.Storage
 import org.jetbrains.compose.web.renderComposable
