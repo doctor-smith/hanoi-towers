@@ -26,17 +26,24 @@ fun ListOdMoves(
         if (isComputingMoves.read()) {
             Text("Spielzüge werden berechnet ...")
         } else {
-            Ul {
-                moves.read().forEachIndexed { index, it ->
-                    Li({
-                        style {
-                            listStyleType("none")
+            with(moves.read()) {
+                if(isEmpty()) {
+                    Text("Bitte wähle eine Turmhöhe > 0")
+                } else {
+                    Ul {
+                        forEachIndexed { index, it ->
+                            Li({
+                                style {
+                                    listStyleType("none")
+                                }
+                            }) {
+                                Text("$it // ${index + 1}")
+                            }
                         }
-                    }) {
-                        Text("$it // ${index + 1}")
                     }
                 }
             }
+
         }
     }
 }
