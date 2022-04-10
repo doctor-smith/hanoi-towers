@@ -3,6 +3,7 @@ package hanoi.towers.component
 import hanoi.towers.alg.moveTower
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.Hanoi
+import hanoi.towers.data.*
 import hanoi.towers.data.Moves
 import kotlinx.coroutines.*
 import lib.compose.Markup
@@ -59,9 +60,9 @@ fun Form(
                         moves.write(
                             moveTower(
                                 hight = numberOfSlices.read(),
-                                from = hanoi.towers.data.Tower.One,
-                                to = hanoi.towers.data.Tower.Three,
-                                stack = hanoi.towers.data.Tower.Two
+                                from = Tower.One,
+                                to = Tower.Three,
+                                stack = Tower.Two
                             )(Moves())
                         )
                     }.await()
