@@ -2,6 +2,7 @@ package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.*
+import hanoi.towers.language.De
 import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times

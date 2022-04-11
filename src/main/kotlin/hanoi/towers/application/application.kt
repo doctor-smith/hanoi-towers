@@ -8,7 +8,10 @@ import hanoi.towers.component.Body
 import hanoi.towers.data.AppData
 import hanoi.towers.data.Hanoi
 import hanoi.towers.data.Moves
+import hanoi.towers.language.De
+import hanoi.towers.language.En
 import lib.compose.Markup
+import lib.language.Language
 import lib.lens.Storage
 import org.jetbrains.compose.web.renderComposable
 
@@ -25,7 +28,12 @@ fun Application() = renderComposable(rootElementId = "root") {
     var isPlaying by remember { mutableStateOf(false) }
     var movesPerSecond by remember { mutableStateOf(4) }
     var error by remember { mutableStateOf<String?>(null) }
-
+    var locale by remember { mutableStateOf("de") }
+    var language by remember { mutableStateOf<Language>( De ) }
+    val languages = mapOf(
+        "de" to De,
+        "en" to En
+    )
     val storage = Storage<AppData> (
         {
             AppData(
@@ -37,6 +45,8 @@ fun Application() = renderComposable(rootElementId = "root") {
                 isComputingMoves,
                 isPlaying,
                 movesPerSecond,
+                locale,
+                language,
                 error
             )
         },
@@ -50,6 +60,15 @@ fun Application() = renderComposable(rootElementId = "root") {
             isPlaying = data.isPlaying
             movesPerSecond = data.movesPerSecond
             error = data.error
+
+            if(data.locale != locale) {
+                try {
+                    language = languages[locale]!!
+                    locale = data.locale
+                } catch (exception: Exception) {
+                    console.log(exception)
+                }
+            }
         }
     )
     Body(storage)
