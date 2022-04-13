@@ -5,6 +5,7 @@ import hanoi.towers.alg.inverse
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.Hanoi
 import hanoi.towers.data.Moves
+import hanoi.towers.data.reset
 import kotlinx.coroutines.*
 import lib.compose.Markup
 import lib.lens.Storage
@@ -46,7 +47,6 @@ fun ActionBar(
     ) {
         Text(">")
     }
-
     Button(
         attrs = {
             onClick {
@@ -65,5 +65,16 @@ fun ActionBar(
         }
     ) {
         Text(if(isPlaying.read()){"Pause"}else{"Play >"})
+    }
+
+    // Coole Aufgabe?
+    // Reset Button einbauen.
+    Button(attrs = {
+        onClick {
+            hanoi.write(hanoi.read().reset())
+            indexOfCurrentMove.write(0)
+        }
+    }) {
+        Text("Reset")
     }
 }

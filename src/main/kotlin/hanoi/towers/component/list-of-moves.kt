@@ -10,7 +10,7 @@ import org.jetbrains.compose.web.dom.*
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun ListOdMoves(
+fun ListOfMoves(
     moves: Storage<Moves>,
     isComputingMoves: Storage<Boolean>
 

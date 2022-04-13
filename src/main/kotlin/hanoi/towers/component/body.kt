@@ -29,7 +29,7 @@ fun Body(storage: Storage<AppData>) {
 
         P{ Text("Anzahl der nötigen Züge: 2^${storage.read().numberOfSlices} -1 = ${storage.read().numberOfMoves}") }
         Flex {
-            ListOdMoves(
+            ListOfMoves(
                 storage * movesLens,
                 storage * isComputingMovesLens
             )
