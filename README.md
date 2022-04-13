@@ -15,8 +15,8 @@ Instead of manually compiling and executing a Kotlin/JS project every time you w
 
 
 
-## Aufgaben:
+## Exercises:
 
-Mögliche Aufgaben sind durch todos gekennzeichnet.
-(Im jetzigen Zustand sind die Lösungen teilweise noch nicht wieder ausgebaut)
+Possible exercises have been makerd as todos. Note that not all solutions have been removed yet
+
 
