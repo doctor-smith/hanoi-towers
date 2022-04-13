@@ -12,3 +12,11 @@ Instead of manually compiling and executing a Kotlin/JS project every time you w
 ```
 ./gradlew jsBrowserRun --continuous
 ```
+
+
+
+## Aufgaben:
+
+Mögliche Aufgaben sind durch todos gekennzeichnet.
+(Im jetzigen Zustand sind die Lösungen teilweise noch nicht wieder ausgebaut)
+

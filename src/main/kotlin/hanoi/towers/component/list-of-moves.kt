@@ -30,6 +30,7 @@ fun ListOfMoves(
                 if(isEmpty()) {
                     Text("Bitte wähle eine Turmhöhe > 0")
                 } else {
+                    // TODO("Finde andere Darstellung, etwa durch Tabelle oder FlexBoxes")
                     Ul {
                         forEachIndexed { index, it ->
                             Li({

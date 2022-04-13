@@ -67,7 +67,7 @@ fun ActionBar(
         Text(if(isPlaying.read()){"Pause"}else{"Play >"})
     }
 
-    // Coole Aufgabe?
+    // TODO("Reset Button einbauen.")
     // Reset Button einbauen.
     Button(attrs = {
         onClick {
