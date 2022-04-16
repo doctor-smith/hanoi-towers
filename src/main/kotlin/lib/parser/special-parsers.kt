@@ -84,7 +84,7 @@ fun BalanceBase(left: Char, right: Char): Parser<Pair<Int, String>> =
         }
     }
 
-
+@Suppress("FunctionName")
 fun Balance(left: Char, right: Char,pair: Pair<Int,String>): Parser<String> =
     BalanceBase(left,right) * {p -> with((pair.first + p.first) x "${pair.second}${p.second}"){
         if(first == 0) {
@@ -94,4 +94,5 @@ fun Balance(left: Char, right: Char,pair: Pair<Int,String>): Parser<String> =
         }
     } }
 
+@Suppress("FunctionName")
 fun Balance(left: Char, right: Char): Parser<String> = (FirstMatches(left) map { 1 x "$left" }) * { pair ->  Balance(left,right,pair) }
