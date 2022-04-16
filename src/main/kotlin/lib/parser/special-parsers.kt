@@ -56,10 +56,13 @@ val When: ((Char)->Boolean)->Parser<Char> = {
         }
     }
 }
+
 @Suppress("FunctionName")
 fun CollectWhile(predicate:(Char)->Boolean): Parser<String> =
     ( When(predicate)  * { result -> CollectWhile(predicate) map { "$result$it" }} ) OR Succeed("")
 
+
+@Suppress("FunctionName")
 fun DropWhile(predicate:(Char)->Boolean): Parser<String> =
     When(predicate) * { DropWhile(predicate) } OR Succeed("")
 
@@ -67,11 +70,11 @@ fun DropWhile(predicate:(Char)->Boolean): Parser<String> =
 fun Between(left: Char, right: Char): Parser<String> = FirstMatches(left) dL CollectWhile { it != right } dR FirstMatches(right)
 
 
-
+@Suppress("FunctionName")
 fun BetweenNested(left: Char, right: Char): Parser<String> =
     Balance(left, right) map { it.drop(1).dropLast(1)}
 
-
+@Suppress("FunctionName")
 fun BalanceBase(left: Char, right: Char): Parser<Pair<Int, String>> =
     First * {first ->
         when (first) {
