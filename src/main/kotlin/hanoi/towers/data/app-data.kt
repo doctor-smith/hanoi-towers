@@ -1,5 +1,6 @@
 package hanoi.towers.data
 
+import lib.language.Lang
 import lib.language.Language
 import lib.lens.Lens
 
@@ -14,7 +15,8 @@ data class AppData(
     val isPlaying: Boolean,
     val movesPerSecond: Int,
     val locale: String,
-    val language: Language,
+    val locales: List<String>,
+    val language: Lang,
     val error: String?
 )
 
@@ -63,9 +65,14 @@ val localeLens = Lens<AppData,String>(
     {s: String -> {data -> data.copy(locale = s)}}
 )
 
-val languageLens = Lens<AppData,Language>(
+val localesLens = Lens<AppData, List<String>>(
+    {data -> data.locales},
+    {s: List<String> -> TODO("Locales is to be Readonly")} //-> {data -> data.copy(locale = s)}}
+)
+
+val languageLens = Lens<AppData,Lang>(
     {data -> data.language},
-    {s: Language -> TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
+    {s: Lang -> TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
 )
 
 val errorLens = Lens<AppData,String?>(

@@ -1,0 +1,32 @@
+en{
+    hanoi{
+        mainPage{
+            title: "Towers of Hanoi"
+            headline: "The Towers of Hanoi"
+            Form {
+                towerHeight: "Tower height"
+            }
+            Statistics{
+                numberOfNecessaryMoves: "Minimal number of necessary moves"
+            }
+            ListOfMoves {
+                headline: "List of moves"
+                hint: "Chose the number of towers, please"
+            }
+            Visualization {
+                headline: "Visualization"
+                ActionBar {
+
+                }
+            }
+            Error {
+                limitedNumberOfSlices: "The number of slices is limited to __MAX_NUMBER_OF_SLICES__."
+                numberOfSlicesMustBeNonNegative: "The number of slices must be non-negative"
+            }
+        }
+        locales {
+            de: "German"
+            en: "English"
+        }
+    }
+}

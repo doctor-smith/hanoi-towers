@@ -1,0 +1,32 @@
+de{
+    hanoi{
+        mainPage{
+            title: "Türme von Hanoi"
+            headline: "Die Türme von Hanoi"
+            Form {
+                towerHeight: "Turmhöhe"
+            }
+            Statistics{
+                numberOfNecessaryMoves: "Anzahl der nötigen Züge"
+            }
+            ListOfMoves {
+                headline: "Spielzüge"
+                hint: "Bitte wähle eine Turmhöhe > 0"
+            }
+            Visualization {
+                headline: "Visualisierung"
+                ActionBar {
+
+                }
+            }
+            Error {
+                limitedNumberOfSlices: "Mehr als __MAX_NUMBER_OF_SLICES__ Scheiben sind nicht erlaubt."
+                numberOfSlicesMustBeNonNegative: "Die Turmhöhe muss nicht-negativ sein."
+            }
+        }
+        locales{
+            de: "Deutsch"
+            en: "Englisch"
+        }
+    }
+}

@@ -2,19 +2,28 @@ package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.*
-import hanoi.towers.language.De
 import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times
 import hanoi.towers.maxNumberOfSlices
+import lib.language.get
 import org.jetbrains.compose.web.dom.*
 
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun Body(storage: Storage<AppData>) {
+
+    val texts = (storage * languageLens).read()
+
     Container{
-        H1 { Text("Die Türme von Hanoi") }
+        NavBar(
+            storage * localesLens,
+            storage * localeLens,
+            texts
+        )
+        H1 { Text(texts["hanoi.mainPage.headline"]) }
+
         Form(
             storage * numberOfSlicesLens,
             storage * numberOfMovesLens,
