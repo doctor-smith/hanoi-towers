@@ -118,6 +118,8 @@ infix fun <S> Parser<S>.OR(other: Parser<S>): Parser<S> = Parser {
     }
 }
 
+//fun <T> Empty(): Parser<String>
+
 infix fun <S, T> Parser<S>.discardLeft(right: Parser<T>): Parser<T> = this * { right }
 
 infix fun <S, T> Parser<S>.dL(right: Parser<T>): Parser<T> = this discardLeft right
