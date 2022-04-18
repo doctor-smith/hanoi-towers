@@ -29,4 +29,18 @@ class StorageTest {
 
         assertEquals("flo",name.read())
     }
+
+    @Test
+    fun storageDSL() {
+        var x = 1
+        val storage = Storage(
+            {x},
+            {s -> x = s}
+        )
+
+        val X = Read from storage
+        assertEquals(1 ,X)
+        write(5)  to storage
+        assertEquals(5, read (storage))
+    }
 }
