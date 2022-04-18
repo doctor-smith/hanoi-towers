@@ -1,6 +1,5 @@
 package lib.language
 
-import lib.maths.x
 import lib.parser.*
 
 typealias Var = Lang.Variable
@@ -40,4 +39,19 @@ fun Content(): Parser<List<Lang>> =
     LanguageP() * {x -> Content() map { list -> listOf(x, *list.toTypedArray())}} OR Succeed(listOf()) dR
     sequenceA(DropAllWhitespace(), DropAllNewline())
 
+fun Comment(): Parser<String> = seqA(DropAllWhitespace(), StartsWith("/*")) dL
+        CollectWhile { it != '/' } * { collected -> when(collected.endsWith("*")){
+            true -> Parser{ s -> Result(collected.dropLast(1), "*$s") }
+            false -> Parser{ s -> Result("collected/", s.drop(1))  }
+        }  } dR
+        seqA(StartsWith("*/"), DropAllWhitespace())
+
 fun LanguageP(): Parser<Lang> = (Variable() OR Block())
+
+
+fun Segment(): Parser<String> = CollectWhile{ it != '.' } dR DropWhile { it == '.' }
+
+fun Path(): Parser<List<String>> = Segment() * { seg -> when(seg.isEmpty()){
+   true -> Succeed(listOf())
+   false -> Path() map{ list -> listOf(seg, *list.toTypedArray()) }
+} }
