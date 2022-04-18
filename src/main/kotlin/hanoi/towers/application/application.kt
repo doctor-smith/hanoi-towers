@@ -4,12 +4,25 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import hanoi.towers.api.i18n
 import hanoi.towers.component.Body
+import hanoi.towers.component.Flex
+import hanoi.towers.component.Loading
 import hanoi.towers.data.AppData
 import hanoi.towers.data.Hanoi
 import hanoi.towers.data.Moves
+import kotlinx.coroutines.*
 import lib.compose.Markup
+import lib.language.Block
+import lib.language.Lang
+import lib.language.LanguageP
+import lib.language.get
 import lib.lens.Storage
+import org.jetbrains.compose.web.css.DisplayStyle
+import org.jetbrains.compose.web.css.display
+import org.jetbrains.compose.web.css.justifySelf
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
 
 
@@ -25,6 +38,29 @@ fun Application() = renderComposable(rootElementId = "root") {
     var isPlaying by remember { mutableStateOf(false) }
     var movesPerSecond by remember { mutableStateOf(4) }
     var error by remember { mutableStateOf<String?>(null) }
+    var locale by remember { mutableStateOf("de") }
+    var locales by remember { mutableStateOf(listOf<String>()) }
+    var language by remember { mutableStateOf<Lang>( Block("de", listOf()) ) }
+
+    val langLoaded: ()->Boolean = {
+        (language as Lang.Block).value.isNotEmpty() &&
+        locales.isNotEmpty()
+    }
+
+    if(!langLoaded()) {
+        CoroutineScope(Job()).launch {
+            with(LanguageP().run(i18n("de")).result) {
+                if (this != null) {
+                    language = this
+                }
+            }
+            with(LanguageP().run(i18n("locales")).result) {
+                if (this != null) {
+                    locales = (this as Lang.Block).value.map { it.key }
+                }
+            }
+        }
+    }
 
     val storage = Storage<AppData> (
         {
@@ -37,6 +73,9 @@ fun Application() = renderComposable(rootElementId = "root") {
                 isComputingMoves,
                 isPlaying,
                 movesPerSecond,
+                locale,
+                locales,
+                language,
                 error
             )
         },
@@ -50,7 +89,28 @@ fun Application() = renderComposable(rootElementId = "root") {
             isPlaying = data.isPlaying
             movesPerSecond = data.movesPerSecond
             error = data.error
+
+            if(data.locale != locale) {
+                CoroutineScope(Job()).launch {
+                    try {
+                        with(LanguageP().run(i18n(data.locale)).result) {
+                            if(this != null) {
+                                locale = data.locale
+                                language = this
+                            }
+                        }
+                    } catch (exception: Exception) {
+                        console.log(exception)
+                    }
+                }
+            }
         }
     )
-    Body(storage)
+    if(langLoaded()) {
+        Body(storage)
+    } else {
+        // TODO("CSS load-spinner")
+        //  Loading()
+        Div({style { justifySelf("center") }}) { Text("Loading I18N") }
+    }
 }

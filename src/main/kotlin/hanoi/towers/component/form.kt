@@ -7,6 +7,9 @@ import hanoi.towers.data.*
 import hanoi.towers.data.Moves
 import kotlinx.coroutines.*
 import lib.compose.Markup
+import lib.language.Block
+import lib.language.Lang
+import lib.language.get
 import lib.lens.Storage
 import lib.maths.toThe
 import org.jetbrains.compose.web.dom.NumberInput
@@ -22,10 +25,11 @@ fun Form(
     isComputingMoves: Storage<Boolean>,
     indexOfCurrentMove: Storage<Int>,
     error: Storage<String?>,
+    texts: Block,
     maxNumberOfSlices: Int
 ) {
     org.jetbrains.compose.web.dom.Form {
-        Label("Turmhöhe")
+        Label(texts["hanoi.mainPage.form.towerHeight"])
         NumberInput(
             value = numberOfSlices.read(),
             min = 0,
@@ -41,7 +45,9 @@ fun Form(
                                     this
                                 } else {
                                     error.write(
-                                        "Mehr als $maxNumberOfSlices Scheiben sind nicht erlaubt (Dauert einfach zu lang!)"
+                                        texts["hanoi.mainPage.error.limitedNumberOfSlices"]
+                                            .replace("__MAX_NUMBER_OF_SLICES__", "$maxNumberOfSlices")
+                                        //"Mehr als $maxNumberOfSlices Scheiben sind nicht erlaubt (Dauert einfach zu lang!)"
                                     )
                                     numberOfSlices.read()
                                 }

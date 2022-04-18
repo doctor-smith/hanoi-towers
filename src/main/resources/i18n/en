@@ -1,0 +1,33 @@
+en{
+    hanoi{
+        mainPage{
+            title: "Towers of Hanoi"
+            headline: "The Towers of Hanoi"
+            form {
+                towerHeight: "Tower height"
+            }
+            statistics{
+                numberOfNecessaryMoves: "Minimal number of necessary moves: 2^__NUMBER_OF_SLICES__ = __NUMBER_OF_MOVES__"
+            }
+            listOfMoves {
+                headline: "List of moves"
+                hint: "Chose a positive number of slices, please"
+                computingMovesMessage: "Computing moves..."
+            }
+            visualization {
+                headline: "Visualization"
+                ActionBar {
+
+                }
+            }
+            error {
+                limitedNumberOfSlices: "The number of slices is limited to __MAX_NUMBER_OF_SLICES__."
+                numberOfSlicesMustBeNonNegative: "The number of slices must be non-negative"
+            }
+        }
+        locales {
+            de: "German"
+            en: "English"
+        }
+    }
+}
