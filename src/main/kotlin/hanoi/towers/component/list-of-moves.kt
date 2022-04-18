@@ -3,6 +3,8 @@ package hanoi.towers.component
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.Moves
 import lib.compose.Markup
+import lib.language.Block
+import lib.language.get
 import lib.lens.Storage
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
@@ -12,10 +14,11 @@ import org.jetbrains.compose.web.dom.*
 @Suppress("FunctionName")
 fun ListOfMoves(
     moves: Storage<Moves>,
-    isComputingMoves: Storage<Boolean>
+    isComputingMoves: Storage<Boolean>,
+    texts: Block
 
 )  = Div {
-    H3 { Text("Spielzüge") }
+    H3 { Text(texts["hanoi.mainPage.listOfMoves.headline"]) }
     Div({
         style {
             overflowY("auto")
@@ -24,11 +27,11 @@ fun ListOfMoves(
         }
     }) {
         if (isComputingMoves.read()) {
-            Text("Spielzüge werden berechnet ...")
+            Text(texts["hanoi.mainPage.listOfMoves.computingMovesMessage"])
         } else {
             with(moves.read()) {
                 if(isEmpty()) {
-                    Text("Bitte wähle eine Turmhöhe > 0")
+                    Text(texts["hanoi.mainPage.listOfMoves.hint"])
                 } else {
                     Ul {
                         forEachIndexed { index, it ->

@@ -3,23 +3,24 @@ de{
         mainPage{
             title: "Türme von Hanoi"
             headline: "Die Türme von Hanoi"
-            Form {
+            form {
                 towerHeight: "Turmhöhe"
             }
-            Statistics{
-                numberOfNecessaryMoves: "Anzahl der nötigen Züge"
+            statistics{
+                numberOfNecessaryMoves: "Anzahl der nötigen Züge: 2^__NUMBER_OF_SLICES__ = __NUMBER_OF_MOVES__"
             }
-            ListOfMoves {
+            listOfMoves {
                 headline: "Spielzüge"
                 hint: "Bitte wähle eine Turmhöhe > 0"
+                computingMovesMessage: "Spielzüge werden berechnet..."
             }
-            Visualization {
+            visualization {
                 headline: "Visualisierung"
                 ActionBar {
 
                 }
             }
-            Error {
+            error {
                 limitedNumberOfSlices: "Mehr als __MAX_NUMBER_OF_SLICES__ Scheiben sind nicht erlaubt."
                 numberOfSlicesMustBeNonNegative: "Die Turmhöhe muss nicht-negativ sein."
             }

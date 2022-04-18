@@ -3,23 +3,24 @@ en{
         mainPage{
             title: "Towers of Hanoi"
             headline: "The Towers of Hanoi"
-            Form {
+            form {
                 towerHeight: "Tower height"
             }
-            Statistics{
-                numberOfNecessaryMoves: "Minimal number of necessary moves"
+            statistics{
+                numberOfNecessaryMoves: "Minimal number of necessary moves: 2^__NUMBER_OF_SLICES__ = __NUMBER_OF_MOVES__"
             }
-            ListOfMoves {
+            listOfMoves {
                 headline: "List of moves"
-                hint: "Chose the number of towers, please"
+                hint: "Chose a positive number of slices, please"
+                computingMovesMessage: "Computing moves..."
             }
-            Visualization {
+            visualization {
                 headline: "Visualization"
                 ActionBar {
 
                 }
             }
-            Error {
+            error {
                 limitedNumberOfSlices: "The number of slices is limited to __MAX_NUMBER_OF_SLICES__."
                 numberOfSlicesMustBeNonNegative: "The number of slices must be non-negative"
             }
