@@ -2,6 +2,7 @@ package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
 import lib.compose.Markup
+import lib.language.Block
 import lib.language.Lang
 import lib.language.get
 import lib.lens.Storage
@@ -17,7 +18,7 @@ import org.jetbrains.compose.web.dom.Text
 fun NavBar(
     locales: Storage<List<String>>,
     locale: Storage<String>,
-    texts: Lang
+    texts: Block
 ) = Div({
     style {
         display(DisplayStyle.Flex)
@@ -35,7 +36,7 @@ fun NavBar(
                     locale.write(s)
                 }
             }) {
-                Text(texts["hanoi.locales.$s"])
+                Text(texts[s])
             }
         }
     }
