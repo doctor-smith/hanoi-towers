@@ -1,10 +1,7 @@
 package lib.language
 
-import org.w3c.files.File
-import org.w3c.files.FileReader
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 class ParserTest {
@@ -41,7 +38,7 @@ class ParserTest {
         """.trimMargin()
 
         val result = Block().run(arg)
-        println(result)
+      //  println(result)
 
       //  println(LanguageP().run(arg))
         assertTrue{true}
@@ -79,7 +76,20 @@ class ParserTest {
         assertEquals("b", b)
     }
 
-     @Test fun load() {
+    @Test fun component() {
+        val c = Block("c", listOf())
+        val lang = Lang.Block(
+            "x",
+            listOf(
+                Var("k1", "v1"),
+                Var("k2", "v2"),
+                Block("y", listOf(c)),
+                Block("z", listOf(Var("a", "b")))
+            )
+        )
 
-     }
+        val result = lang.component("y.c")
+        println(result)
+        assertEquals(c, result)
+    }
 }

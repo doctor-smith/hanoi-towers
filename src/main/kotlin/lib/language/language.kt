@@ -36,12 +36,13 @@ operator fun Lang.get(path: String): String = with(Segment().run(path)) {
 }
 
 fun Block.component(path: String): Block = with(Segment().run(path)) {
+    println("result = $result\n")
     with(this@component.value.find { it.key == result!! }) {
         when(this)  {
             null, is Var -> throw Exception("There is no block in block '${this@component.key}' with key = '$result'")
-            else -> when(this.key == rest){
+            is Block -> when(rest == ""){
                 true -> this as Block
-                false -> component(rest)
+                false -> this.component(rest)
             }
         }
     }
