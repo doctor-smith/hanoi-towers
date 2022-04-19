@@ -6,9 +6,7 @@ import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times
 import hanoi.towers.maxNumberOfSlices
-import lib.language.Block
-import lib.language.component
-import lib.language.get
+import lib.language.*
 import org.jetbrains.compose.web.dom.*
 
 @Markup
@@ -17,16 +15,15 @@ import org.jetbrains.compose.web.dom.*
 fun Body(storage: Storage<AppData>) {
 
     val texts = (storage * languageLens).read() as Block
-
-  //  val mainPageTexts = (texts as Block).component("hanoi.mainPage")
+    val mainPageTexts = texts.component("hanoi.mainPage")
 
     Container{
         NavBar(
             storage * localesLens,
             storage * localeLens,
-            texts
+            texts.component("hanoi.locales")
         )
-        H1 { Text( texts["hanoi.mainPage.headline"]) }
+        H1 { Text( mainPageTexts["headline"]) }
 
         Form(
             storage * numberOfSlicesLens,
@@ -36,21 +33,22 @@ fun Body(storage: Storage<AppData>) {
             storage * isComputingMovesLens,
             storage * indexOfCurrentMoveLens,
             storage * errorLens,
-            texts,
+            texts, //mainPageTexts.component("form"), // TODO(Conceptual mistake: see OnError )
             maxNumberOfSlices
         )
-        OnError(storage * errorLens)
+        OnError(storage * errorLens) // TODO(Conceptual mistake: Must be part of the form component)
 
-        P{ Text(//"Anzahl der nötigen Züge: 2^${storage.read().numberOfSlices} -1 = ${storage.read().numberOfMoves}"
-            texts["hanoi.mainPage.statistics.numberOfNecessaryMoves"]
-                .replace("__NUMBER_OF_SLICES__", "${storage.read().numberOfSlices}")
-                .replace("__NUMBER_OF_MOVES__", "${storage.read().numberOfMoves}")
-        ) }
+        Statistics(
+            storage * numberOfSlicesLens,
+            storage * numberOfMovesLens,
+            "statistics" of mainPageTexts
+        )
+
         Flex {
             ListOfMoves(
                 storage * movesLens,
                 storage * isComputingMovesLens,
-                texts
+                "listOfMoves" of mainPageTexts
             )
             HanoiVisualization(
                 storage * movesLens,
@@ -59,7 +57,7 @@ fun Body(storage: Storage<AppData>) {
                 storage * indexOfCurrentMoveLens,
                 storage * movesPerSecondLens,
                 storage * isPlayingLens,
-                texts
+                "visualization" of mainPageTexts
             )
         }
     }

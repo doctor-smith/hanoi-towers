@@ -23,6 +23,7 @@ fun Lang?.find(name: String): Lang? = when(this) {
     is Lang.Block -> value.find { this.key == name }
 }
 
+@I18N
 operator fun Lang.get(path: String): String = with(Segment().run(path)) {
     when(this@get) {
         is Var -> this@get.value
@@ -35,13 +36,19 @@ operator fun Lang.get(path: String): String = with(Segment().run(path)) {
     }
 }
 
+@I18N
+infix fun String.ofComponent(component: Block): Block = component.component(this)
+
+@I18N
+infix fun String.of(component: Block): Block = component.component(this)
+
+@I18N
 fun Block.component(path: String): Block = with(Segment().run(path)) {
-    println("result = $result\n")
     with(this@component.value.find { it.key == result!! }) {
         when(this)  {
             null, is Var -> throw Exception("There is no block in block '${this@component.key}' with key = '$result'")
             is Block -> when(rest == ""){
-                true -> this as Block
+                true -> this
                 false -> this.component(rest)
             }
         }

@@ -32,7 +32,7 @@ fun HanoiVisualization(
         paddingLeft(10.px)
     }
 }){
-    H3{ Text(texts["hanoi.mainPage.visualization.headline"]) }
+    H3{ Text(texts["headline"]) }
 
     Hanoi(
         moves.read(),

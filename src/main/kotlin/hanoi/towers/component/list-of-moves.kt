@@ -18,7 +18,7 @@ fun ListOfMoves(
     texts: Block
 
 )  = Div {
-    H3 { Text(texts["hanoi.mainPage.listOfMoves.headline"]) }
+    H3 { Text(texts["headline"]) }
     Div({
         style {
             overflowY("auto")
@@ -27,11 +27,11 @@ fun ListOfMoves(
         }
     }) {
         if (isComputingMoves.read()) {
-            Text(texts["hanoi.mainPage.listOfMoves.computingMovesMessage"])
+            Text(texts["computingMovesMessage"])
         } else {
             with(moves.read()) {
                 if(isEmpty()) {
-                    Text(texts["hanoi.mainPage.listOfMoves.hint"])
+                    Text(texts["hint"])
                 } else {
                     Ul {
                         forEachIndexed { index, it ->
