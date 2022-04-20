@@ -1,9 +1,6 @@
 package hanoi.towers.application
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import hanoi.towers.api.i18n
 import hanoi.towers.component.Body
 import hanoi.towers.component.Flex
@@ -11,19 +8,27 @@ import hanoi.towers.component.Loading
 import hanoi.towers.data.AppData
 import hanoi.towers.data.Hanoi
 import hanoi.towers.data.Moves
+import hanoi.towers.data.modalsLens
 import kotlinx.coroutines.*
 import lib.compose.Markup
+import lib.compose.Modal
 import lib.language.Block
 import lib.language.Lang
 import lib.language.LanguageP
 import lib.language.get
 import lib.lens.Storage
+import lib.lens.put
+import lib.lens.remove
+import lib.lens.times
+import lib.maths.x
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.display
 import org.jetbrains.compose.web.css.justifySelf
 import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.ElementScope
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
+import org.w3c.dom.HTMLElement
 
 
 @Markup
@@ -41,6 +46,10 @@ fun Application() = renderComposable(rootElementId = "root") {
     var locale by remember { mutableStateOf("de") }
     var locales by remember { mutableStateOf(listOf<String>()) }
     var language by remember { mutableStateOf<Lang>( Block("de", listOf()) ) }
+
+    var isCookieDisclaimerConfirmed by remember { mutableStateOf(false) }
+
+    var modals by remember { mutableStateOf<Map<Int,@Composable ElementScope<HTMLElement>.() -> Unit>>( mapOf()) }
 
     val langLoaded: ()->Boolean = {
         (language as Lang.Block).value.isNotEmpty() &&
@@ -73,9 +82,11 @@ fun Application() = renderComposable(rootElementId = "root") {
                 isComputingMoves,
                 isPlaying,
                 movesPerSecond,
+                isCookieDisclaimerConfirmed,
                 locale,
                 locales,
                 language,
+                modals,
                 error
             )
         },
@@ -87,7 +98,12 @@ fun Application() = renderComposable(rootElementId = "root") {
             numberOfMoves = data.numberOfMoves
             isComputingMoves = data.isComputingMoves
             isPlaying = data.isPlaying
+            isCookieDisclaimerConfirmed = data.isCookieDisclaimerConfirmed
             movesPerSecond = data.movesPerSecond
+            modals = data.modals
+
+            console.log("modals = ${data.modals}")
+
             error = data.error
 
             if(data.locale != locale) {
