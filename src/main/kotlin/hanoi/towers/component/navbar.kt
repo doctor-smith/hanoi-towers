@@ -28,18 +28,7 @@ fun NavBar(
     }
 }) {
     val currentLocale = locale.read()
-    Select({
-
-        style {
-
-        }
-    }) {
-        /*
-        Option(currentLocale){
-            Text(texts[currentLocale])
-        }
-
-         */
+    Select {
         locales.read().forEach { s ->
             Option(s, {
                 if(s == currentLocale){
