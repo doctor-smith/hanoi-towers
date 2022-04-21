@@ -48,8 +48,8 @@ fun <Id, T> Storage<Map<Id, T>>.remove(id: Id): Unit = write(
 
 fun <Id, T> Storage<Map<Id,T>>.first(predicate: (Pair<Id, T>)->Boolean): T = readAndFilter(predicate).values.first()
 
-
-fun <T> Storage<Map<Int, T>>.nextId(): Int = read().keys.reduce{ acc, next -> when{
+fun <T> Storage<Map<Int, T>>.nextId(): Int = read().keys.fold(1){ acc, next -> when{
     abs(acc-next) >= 2 -> min(acc,next) +1
     else -> max(acc, next)
 } }
+

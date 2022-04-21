@@ -25,6 +25,18 @@ de{
                 numberOfSlicesMustBeNonNegative: "Die Turmhöhe muss nicht-negativ sein."
             }
         }
+        cookieDisclaimer {
+            title: "Cookie Richtlinie"
+            content {
+                hint: "Wir verwenden Cookies um das User Experience auf unserer Website kontinuierlich zu verbessern. Dazu speichern wir die bevorzugte Sprache des Nutzers."
+            }
+            okButton {
+                title: "Ok"
+            }
+            cancelButton {
+                title: "Abbrechen"
+            }
+        }
         locales{
             de: "Deutsch"
             en: "Englisch"

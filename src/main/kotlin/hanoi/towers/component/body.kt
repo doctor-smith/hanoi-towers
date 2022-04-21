@@ -8,7 +8,6 @@ import lib.lens.times
 import hanoi.towers.maxNumberOfSlices
 import lib.compose.ModalLayer
 import lib.language.*
-import lib.lens.put
 import org.jetbrains.compose.web.dom.*
 
 @Markup
@@ -23,18 +22,11 @@ fun Body(storage: Storage<AppData>) {
         1000,
         storage * modalsLens
     ) {
-        if(!(storage * isCookieDisclaimerConfirmedLens).read()) {
-            //CoroutineScope(Job()).launch{
-                //delay(1_000)
-                (storage * modalsLens).put(
-                    CookieDisclaimer(
-                    storage * modalsLens,
-                    storage * isCookieDisclaimerConfirmedLens
-                    )
-                )
-            //}
-        }
-
+        CookieDisclaimer(
+            texts.component("hanoi.cookieDisclaimer"),
+            storage * modalsLens,
+            storage * isCookieDisclaimerConfirmedLens
+        )
 
         Container {
             NavBar(

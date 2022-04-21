@@ -25,6 +25,18 @@ en{
                 numberOfSlicesMustBeNonNegative: "The number of slices must be non-negative"
             }
         }
+        cookieDisclaimer {
+            title: "Cookie Disclaimer"
+            content {
+                hint: "bla bla bla ..."
+            }
+            okButton {
+                title: "Ok"
+            }
+            cancelButton {
+                title: "Cancel"
+            }
+        }
         locales {
             de: "German"
             en: "English"

@@ -1,28 +1,17 @@
 package hanoi.towers.application
 
 import androidx.compose.runtime.*
-import hanoi.towers.api.i18n
+import hanoi.towers.api.*
 import hanoi.towers.component.Body
-import hanoi.towers.component.Flex
-import hanoi.towers.component.Loading
 import hanoi.towers.data.AppData
 import hanoi.towers.data.Hanoi
 import hanoi.towers.data.Moves
-import hanoi.towers.data.modalsLens
 import kotlinx.coroutines.*
 import lib.compose.Markup
-import lib.compose.Modal
 import lib.language.Block
 import lib.language.Lang
 import lib.language.LanguageP
-import lib.language.get
 import lib.lens.Storage
-import lib.lens.put
-import lib.lens.remove
-import lib.lens.times
-import lib.maths.x
-import org.jetbrains.compose.web.css.DisplayStyle
-import org.jetbrains.compose.web.css.display
 import org.jetbrains.compose.web.css.justifySelf
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.ElementScope
@@ -43,12 +32,14 @@ fun Application() = renderComposable(rootElementId = "root") {
     var isPlaying by remember { mutableStateOf(false) }
     var movesPerSecond by remember { mutableStateOf(4) }
     var error by remember { mutableStateOf<String?>(null) }
-    var locale by remember { mutableStateOf("de") }
+    var locale by remember { mutableStateOf(readLang()?:"de") }
     var locales by remember { mutableStateOf(listOf<String>()) }
     var language by remember { mutableStateOf<Lang>( Block("de", listOf()) ) }
-
-    var isCookieDisclaimerConfirmed by remember { mutableStateOf(false) }
-
+    var isCookieDisclaimerConfirmed by remember { mutableStateOf(
+        with(readCookie()) {
+            this != null
+        }
+    ) }
     var modals by remember { mutableStateOf<Map<Int,@Composable ElementScope<HTMLElement>.() -> Unit>>( mapOf()) }
 
     val langLoaded: ()->Boolean = {
@@ -58,7 +49,7 @@ fun Application() = renderComposable(rootElementId = "root") {
 
     if(!langLoaded()) {
         CoroutineScope(Job()).launch {
-            with(LanguageP().run(i18n("de")).result) {
+            with(LanguageP().run(i18n(locale)).result) {
                 if (this != null) {
                     language = this
                 }
@@ -98,12 +89,16 @@ fun Application() = renderComposable(rootElementId = "root") {
             numberOfMoves = data.numberOfMoves
             isComputingMoves = data.isComputingMoves
             isPlaying = data.isPlaying
+            if(isCookieDisclaimerConfirmed != data.isCookieDisclaimerConfirmed) {
+                if(data.isCookieDisclaimerConfirmed) {
+                    CoroutineScope(Job()).launch {
+                        writeCookie()
+                    }
+                }
+            }
             isCookieDisclaimerConfirmed = data.isCookieDisclaimerConfirmed
             movesPerSecond = data.movesPerSecond
             modals = data.modals
-
-            console.log("modals = ${data.modals}")
-
             error = data.error
 
             if(data.locale != locale) {
@@ -112,6 +107,7 @@ fun Application() = renderComposable(rootElementId = "root") {
                         with(LanguageP().run(i18n(data.locale)).result) {
                             if(this != null) {
                                 locale = data.locale
+                                writeLang(data.locale)
                                 language = this
                             }
                         }
