@@ -1,8 +1,10 @@
 package hanoi.towers.data
 
+import androidx.compose.runtime.Composable
 import lib.language.Lang
-import lib.language.Language
 import lib.lens.Lens
+import org.jetbrains.compose.web.dom.ElementScope
+import org.w3c.dom.HTMLElement
 
 
 data class AppData(
@@ -14,9 +16,11 @@ data class AppData(
     val isComputingMoves: Boolean,
     val isPlaying: Boolean,
     val movesPerSecond: Int,
+    val isCookieDisclaimerConfirmed: Boolean,
     val locale: String,
     val locales: List<String>,
     val language: Lang,
+    val modals: Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>,
     val error: String?
 )
 
@@ -60,6 +64,11 @@ val isPlayingLens = Lens<AppData,Boolean>(
     {s: Boolean -> {data -> data.copy(isPlaying = s)}}
 )
 
+val isCookieDisclaimerConfirmedLens = Lens<AppData,Boolean>(
+    {data -> data.isCookieDisclaimerConfirmed},
+    {s: Boolean -> {data -> data.copy(isCookieDisclaimerConfirmed = s)}}
+)
+
 val localeLens = Lens<AppData,String>(
     {data -> data.locale},
     {s: String -> {data -> data.copy(locale = s)}}
@@ -73,6 +82,11 @@ val localesLens = Lens<AppData, List<String>>(
 val languageLens = Lens<AppData,Lang>(
     {data -> data.language},
     {s: Lang -> TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
+)
+
+val modalsLens = Lens<AppData, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (
+    {data -> data.modals},
+    {s -> {data -> data.copy(modals = s)}}
 )
 
 val errorLens = Lens<AppData,String?>(
