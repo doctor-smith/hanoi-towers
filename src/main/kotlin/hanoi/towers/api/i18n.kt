@@ -13,9 +13,10 @@ suspend fun i18n(locale: String): String =
 
 suspend fun i18n(): Any =
     with(HttpClient(Js)) {
-        val x = get<Any>("/i18n/"){
+        get<Any>("/i18n/"){
             port = 8080
         }
-        console.log(x)
-        x
     }
+
+
+
