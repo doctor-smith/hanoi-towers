@@ -34,7 +34,6 @@ fun readCookie(): Cookie? {
         val cookie = split(";")
             .mapNotNull { parser.run(it.trim()).result }
             .firstOrNull()
-        console.log(cookie)
         cookie
     }
 }
@@ -46,13 +45,12 @@ fun writeCookie() {
 }
 
 fun readLang(): String? {
-    val parser: Parser<String> = seqA(StartsWith("hanoi.lang"), Between('=',';')) map { it[1].trim() }//{ Cookie("hanoi.cookie_consent", "true") }
+    val parser: Parser<String> = seqA(StartsWith("hanoi.lang"), Between('=',';')) map { it[1].trim() }
 
     return with(document.cookie) {
         val cookie = split(";")
             .mapNotNull { parser.run(it.trim()+";").result }
             .firstOrNull()
-        console.log("lang from cookies: $cookie")
         cookie
     }
 }
