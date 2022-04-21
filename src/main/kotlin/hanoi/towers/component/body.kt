@@ -44,10 +44,9 @@ fun Body(storage: Storage<AppData>) {
                 storage * isComputingMovesLens,
                 storage * indexOfCurrentMoveLens,
                 storage * errorLens,
-                texts, //mainPageTexts.component("form"), // TODO(Conceptual mistake: see OnError )
+                mainPageTexts.component("form"),
                 maxNumberOfSlices
             )
-            OnError(storage * errorLens) // TODO(Conceptual mistake: Must be part of the form component)
 
             Statistics(
                 storage * numberOfSlicesLens,

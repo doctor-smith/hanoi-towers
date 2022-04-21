@@ -11,6 +11,7 @@ import lib.language.Block
 import lib.language.Lang
 import lib.language.get
 import lib.lens.Storage
+import lib.lens.times
 import lib.maths.toThe
 import org.jetbrains.compose.web.dom.NumberInput
 
@@ -29,7 +30,7 @@ fun Form(
     maxNumberOfSlices: Int
 ) {
     org.jetbrains.compose.web.dom.Form {
-        Label(texts["hanoi.mainPage.form.towerHeight"])
+        Label(texts["towerHeight"])
         NumberInput(
             value = numberOfSlices.read(),
             min = 0,
@@ -45,9 +46,11 @@ fun Form(
                                     this
                                 } else {
                                     error.write(
-                                        texts["hanoi.mainPage.error.limitedNumberOfSlices"]
-                                            .replace("__MAX_NUMBER_OF_SLICES__", "$maxNumberOfSlices")
-                                        //"Mehr als $maxNumberOfSlices Scheiben sind nicht erlaubt (Dauert einfach zu lang!)"
+                                        texts["error.limitedNumberOfSlices"]
+                                            .replace(
+                                                "__MAX_NUMBER_OF_SLICES__",
+                                                "$maxNumberOfSlices"
+                                            )
                                     )
                                     numberOfSlices.read()
                                 }
@@ -77,6 +80,7 @@ fun Form(
                 }
             }
         }
+        OnError(error)
     }
 }
 
