@@ -25,7 +25,6 @@ fun Slice(size: Int, maxWidth: Int = 100) {
             if(size > 0) {
                 style {
                     width((size*10).pc)
-
                     border {
                         style = LineStyle("solid")
                         color = black

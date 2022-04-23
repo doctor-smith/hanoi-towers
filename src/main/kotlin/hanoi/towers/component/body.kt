@@ -34,6 +34,7 @@ fun Body(storage: Storage<AppData>) {
                 storage * localeLens,
                 texts.component("hanoi.locales")
             )
+            // TODO("MainPage componente bauen und den restlichen Inhalt integrieren")
             H1 { Text(mainPageTexts["headline"]) }
 
             Form(

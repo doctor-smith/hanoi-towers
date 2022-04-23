@@ -16,7 +16,7 @@ fun moveTower(hight: Int, from: Tower, to: Tower, stack: Tower): (Moves)-> Moves
             Move(from, to)
         )
     }
-    else -> { moves ->
+    else -> { moves ->  // TODO("Implementiere den folgenden Schritt (Die Idee dazu kommt aus dem theoretischen Teil des Workshops heraus)")
         (
             moveTower(
                 hight = hight -1,

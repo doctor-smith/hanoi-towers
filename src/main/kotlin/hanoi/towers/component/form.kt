@@ -36,6 +36,8 @@ fun Form(
             min = 0,
             max = maxNumberOfSlices
         ) {
+            // TODO("Code in Funktion auslagern")
+            // TODO("Eventhandling und UX verbessern")
             onInput { event ->
                 numberOfSlices.write(
                     with(event.value) {

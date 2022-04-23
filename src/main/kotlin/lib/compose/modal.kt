@@ -8,12 +8,14 @@ import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.HTMLElement
 
+typealias ModalStorage<Id> = Storage<Map<Id, @Composable ElementScope<HTMLElement>.() -> Unit>>
+
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun <Id> ModalLayer(
     zIndex: Int = 1000,
-    modals: Storage<Map<Id, @Composable ElementScope<HTMLElement>.() -> Unit>>,
+    modals: ModalStorage<Id>,
     content: @Composable ElementScope<HTMLElement>.()->Unit
 ) {
     if(modals.read().keys.isNotEmpty()) {
@@ -43,12 +45,11 @@ fun <Id> Modal(
     texts: Block,
     onOk: ()->Unit,
     onCancel: (()->Unit)?,
-    close: ()-> Unit,
+    close: Id.()-> Unit,
     content: @Composable ElementScope<HTMLElement>.()->Unit
 ):  @Composable ElementScope<HTMLElement>.()->Unit = {
     Div({
         style {
-            // minHeight("300px")
             border {
                 style = LineStyle.Solid
                 color = Color("black")
@@ -70,7 +71,7 @@ fun <Id> Modal(
             }) {
                 Button({
                     style { classes("button") }
-                    onClick { close() }
+                    onClick { id.close() }
                 }) {
                     // Text("x")
 
@@ -117,7 +118,7 @@ fun <Id> Modal(
                 Button({
                     onClick {
                         onCancel()
-                        close()
+                        id.close()
                     }
                 }) {
                     Text(texts["cancelButton.title"])
@@ -126,7 +127,7 @@ fun <Id> Modal(
             Button({
                 onClick {
                     onOk()
-                    close()
+                    id.close()
                 }
             }) {
                 Text(texts["okButton.title"])

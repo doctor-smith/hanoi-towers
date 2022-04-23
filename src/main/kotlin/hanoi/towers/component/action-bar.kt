@@ -68,13 +68,13 @@ fun ActionBar(
     }
 
     // TODO("Reset Button einbauen.")
-    // Reset Button einbauen.
     Button(attrs = {
         onClick {
             hanoi.write(hanoi.read().reset())
             indexOfCurrentMove.write(0)
         }
     }) {
+        // TODO(I18n des Reset buttons)
         Text("Reset")
     }
 }

@@ -54,6 +54,7 @@ fun CookieDisclaimerModal(
 ) {
     Div {
         with(texts.component("content")) {
+            // TODO("Texte / Content verbessern")
             Text(this["hint"])
         }
     }
