@@ -4,18 +4,19 @@ import androidx.compose.runtime.Composable
 import lib.language.Block
 import lib.language.get
 import lib.lens.Storage
+import lib.lens.remove
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.HTMLElement
 
-typealias ModalStorage<Id> = Storage<Map<Id, @Composable ElementScope<HTMLElement>.() -> Unit>>
+typealias Modals<Id> = Map<Id, @Composable ElementScope<HTMLElement>.() -> Unit>
 
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun <Id> ModalLayer(
     zIndex: Int = 1000,
-    modals: ModalStorage<Id>,
+    modals: Storage<Modals<Id>>,
     content: @Composable ElementScope<HTMLElement>.()->Unit
 ) {
     if(modals.read().keys.isNotEmpty()) {
@@ -42,14 +43,18 @@ fun <Id> ModalLayer(
 @Suppress("FunctionName")
 fun <Id> Modal(
     id: Id,
-    texts: Block,
+    modals: Storage<Modals<Id>>,
     onOk: ()->Unit,
     onCancel: (()->Unit)?,
-    close: Id.()-> Unit,
+    texts: Block,
     content: @Composable ElementScope<HTMLElement>.()->Unit
 ):  @Composable ElementScope<HTMLElement>.()->Unit = {
+
+    val close: Id.()-> Unit = { modals.remove( this )}
+
     Div({
         style {
+            // minHeight("300px")
             border {
                 style = LineStyle.Solid
                 color = Color("black")

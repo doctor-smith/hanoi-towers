@@ -3,6 +3,7 @@ package hanoi.towers.component
 import androidx.compose.runtime.Composable
 import lib.compose.Markup
 import lib.compose.Modal
+import lib.compose.Modals
 import lib.language.Block
 import lib.language.component
 import lib.language.get
@@ -18,7 +19,7 @@ import org.w3c.dom.HTMLElement
 @Suppress("FunctionName")
 fun CookieDisclaimer(
     texts: Block,
-    modals: Storage<Map<Int,@Composable ElementScope<HTMLElement>.() -> Unit>>,
+    modals: Storage<Modals<Int>>,
     isCookieDisclaimerConfirmed: Storage<Boolean>
 ) = Div {
     if (!isCookieDisclaimerConfirmed.read()) {
@@ -41,16 +42,16 @@ fun CookieDisclaimer(
 fun CookieDisclaimerModal(
     id: Int,
     texts: Block,
-    modals: Storage<Map<Int,@Composable ElementScope<HTMLElement>.() -> Unit>>,
+    modals: Storage<Modals<Int>>,
     isCookieDisclaimerConfirmed: Storage<Boolean>
 ): @Composable ElementScope<HTMLElement>.()->Unit = Modal(
     id,
-    texts,
+    modals,
     onOk = {
         isCookieDisclaimerConfirmed.write(true)
     },
     onCancel = null,
-    close = { modals.remove(id) }
+    texts = texts
 ) {
     Div {
         with(texts.component("content")) {
