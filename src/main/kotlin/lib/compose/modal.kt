@@ -4,16 +4,19 @@ import androidx.compose.runtime.Composable
 import lib.language.Block
 import lib.language.get
 import lib.lens.Storage
+import lib.lens.remove
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.HTMLElement
+
+typealias Modals<Id> = Map<Id, @Composable ElementScope<HTMLElement>.() -> Unit>
 
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun <Id> ModalLayer(
     zIndex: Int = 1000,
-    modals: Storage<Map<Id, @Composable ElementScope<HTMLElement>.() -> Unit>>,
+    modals: Storage<Modals<Id>>,
     content: @Composable ElementScope<HTMLElement>.()->Unit
 ) {
     if(modals.read().keys.isNotEmpty()) {
@@ -40,12 +43,15 @@ fun <Id> ModalLayer(
 @Suppress("FunctionName")
 fun <Id> Modal(
     id: Id,
-    texts: Block,
+    modals: Storage<Modals<Id>>,
     onOk: ()->Unit,
     onCancel: (()->Unit)?,
-    close: ()-> Unit,
+    texts: Block,
     content: @Composable ElementScope<HTMLElement>.()->Unit
 ):  @Composable ElementScope<HTMLElement>.()->Unit = {
+
+    val close: Id.()-> Unit = { modals.remove( this )}
+
     Div({
         style {
             // minHeight("300px")
@@ -70,7 +76,7 @@ fun <Id> Modal(
             }) {
                 Button({
                     style { classes("button") }
-                    onClick { close() }
+                    onClick { id.close() }
                 }) {
                     // Text("x")
 
@@ -117,7 +123,7 @@ fun <Id> Modal(
                 Button({
                     onClick {
                         onCancel()
-                        close()
+                        id.close()
                     }
                 }) {
                     Text(texts["cancelButton.title"])
@@ -126,7 +132,7 @@ fun <Id> Modal(
             Button({
                 onClick {
                     onOk()
-                    close()
+                    id.close()
                 }
             }) {
                 Text(texts["okButton.title"])

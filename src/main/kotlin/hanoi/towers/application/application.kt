@@ -8,16 +8,15 @@ import hanoi.towers.data.Hanoi
 import hanoi.towers.data.Moves
 import kotlinx.coroutines.*
 import lib.compose.Markup
+import lib.compose.Modals
 import lib.language.Block
 import lib.language.Lang
 import lib.language.LanguageP
 import lib.lens.Storage
 import org.jetbrains.compose.web.css.justifySelf
 import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.ElementScope
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
-import org.w3c.dom.HTMLElement
 
 
 @Markup
@@ -40,7 +39,7 @@ fun Application() = renderComposable(rootElementId = "root") {
             this != null
         }
     ) }
-    var modals by remember { mutableStateOf<Map<Int,@Composable ElementScope<HTMLElement>.() -> Unit>>( mapOf()) }
+    var modals by remember { mutableStateOf<Modals<Int>>( mapOf()) }
 
     val langLoaded: ()->Boolean = {
         (language as Lang.Block).value.isNotEmpty() &&
