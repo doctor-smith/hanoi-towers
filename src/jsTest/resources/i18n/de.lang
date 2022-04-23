@@ -1,0 +1,7 @@
+Page1 {
+    headline: "Guten Tag"
+    Form {
+        label: "Name"
+        default: "Nullinger"
+    }
+}
