@@ -1,3 +1,5 @@
+rootProject.name = "hanoi-towers"
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
