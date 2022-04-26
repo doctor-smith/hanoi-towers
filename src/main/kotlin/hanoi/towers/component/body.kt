@@ -6,6 +6,7 @@ import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times
 import hanoi.towers.maxNumberOfSlices
+import kotlinx.browser.document
 import lib.compose.ModalLayer
 import lib.language.*
 import org.jetbrains.compose.web.dom.*
@@ -17,6 +18,8 @@ fun Body(storage: Storage<AppData>) {
 
     val texts = (storage * languageLens).read() as Block
     val mainPageTexts = texts.component("hanoi.mainPage")
+
+    document.title = mainPageTexts["title"]
 
     ModalLayer(
         1000,
