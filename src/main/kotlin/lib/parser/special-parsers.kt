@@ -2,6 +2,7 @@ package lib.parser
 
 import lib.maths.x
 
+val All: Parser<String> = Parser { s -> Result(s, "") }
 
 val First: Parser<Char> = Parser {
     s -> when{
