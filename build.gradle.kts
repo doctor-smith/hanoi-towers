@@ -26,6 +26,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
                 implementation("io.ktor:ktor-client-core-js:1.6.8")
                 implementation("io.ktor:ktor-client-js:1.6.8")
+
                 implementation(compose.web.core)
                 implementation(compose.runtime)
             }
@@ -37,6 +38,7 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
                 implementation(kotlin("test-js"))
+                implementation(compose.web.testUtils)
             }
         }
     }

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web_app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./build/distributions/:/usr/local/apache2/htdocs/

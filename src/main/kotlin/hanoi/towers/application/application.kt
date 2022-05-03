@@ -2,7 +2,7 @@ package hanoi.towers.application
 
 import androidx.compose.runtime.*
 import hanoi.towers.api.*
-import hanoi.towers.component.Body
+import hanoi.towers.component.UI
 import hanoi.towers.data.AppData
 import hanoi.towers.data.Hanoi
 import hanoi.towers.data.Moves
@@ -118,7 +118,7 @@ fun Application() = renderComposable(rootElementId = "root") {
         }
     )
     if(langLoaded()) {
-        Body(storage)
+        UI(storage)
     } else {
         // TODO("CSS load-spinner")
         //  Loading()
