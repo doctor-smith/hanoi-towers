@@ -50,14 +50,15 @@ fun <T> Parser(run: (String)->Result<T>): Parser<T> = object : Parser<T> {
     override val run: (String) -> Result<T> = run
 }
 
+@Suppress("FunctionName")
 fun <T> ReturnParser(result: T): Parser<T> = Parser<T> {
     Result(result, it )
 }
 
+@Suppress("FunctionName")
 fun <T> Fail():Parser<T> = Parser { s-> Result(null, s) }
 
-
-
+@Suppress("FunctionName")
 fun <T> Succeed(t: T): Parser<T> = ReturnParser(t)
 
 infix fun <S, T> Parser<S>.map(f: (S)->T): Parser<T> = Parser<T>{
@@ -109,6 +110,7 @@ infix fun <T> Parser<T>.o(previous: Parser<T>): Parser<List<T>> = seqA(previous,
 
 operator fun <S, T> Parser<S>.times(kleisli: (S)->Parser<T>): Parser<T> = (this map kleisli).mult()
 
+@Suppress("FunctionName")
 infix fun <S> Parser<S>.OR(other: Parser<S>): Parser<S> = Parser {
     s -> with(this@OR.run(s))  {
         when(hasFailed()) {
@@ -118,7 +120,13 @@ infix fun <S> Parser<S>.OR(other: Parser<S>): Parser<S> = Parser {
     }
 }
 
-//fun <T> Empty(): Parser<String>
+
+val Empty: Parser<Unit> = Parser { s ->
+    when(s.isEmpty()) {
+        true -> Result(Unit,s)
+        else -> Result(null,s)
+    }
+}
 
 infix fun <S, T> Parser<S>.discardLeft(right: Parser<T>): Parser<T> = this * { right }
 
