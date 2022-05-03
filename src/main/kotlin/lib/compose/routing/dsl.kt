@@ -97,7 +97,7 @@ fun routing(
 }
 
 fun Location.newPath() = "${pathname}${search}"//.ifBlank{ "/" }
-internal val currentPath: MutableState<String> by lazy{ mutableStateOf(""/*window.location.newPath()*/) }
+internal val currentPath: MutableState<String> by lazy{ mutableStateOf(window.location.newPath()) }
 
 @RoutingDsl
 fun navigate(to: String) {
