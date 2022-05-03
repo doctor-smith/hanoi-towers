@@ -35,5 +35,5 @@ fun readLang(): String? {
 }
 
 fun writeLang(locale: String) {
-    document.cookie="hanoi.lang=$locale"
+    document.cookie="hanoi.lang=$locale; SameSite=None; Secure"
 }
