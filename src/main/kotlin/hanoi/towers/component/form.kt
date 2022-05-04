@@ -30,12 +30,13 @@ fun Form(
     maxNumberOfSlices: Int
 ) {
     org.jetbrains.compose.web.dom.Form {
-        Label(texts["towerHeight"])
+        Label(texts["towerHeight"], id="tower-height")
         NumberInput(
             value = numberOfSlices.read(),
             min = 0,
-            max = maxNumberOfSlices
+            max = maxNumberOfSlices,
         ) {
+            id("tower-height")
             onInput { event ->
                 numberOfSlices.write(
                     with(event.value) {
