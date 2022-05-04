@@ -6,7 +6,6 @@ import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times
 import hanoi.towers.page.mainpage.MainPage
-import hanoi.towers.page.testpage.TestPage
 import kotlinx.browser.document
 import lib.compose.ModalLayer
 import lib.compose.routing.Routing
