@@ -16,35 +16,41 @@ fun Slice(size: Int, maxWidth: Int = 100) {
         height(20.px)
         maxWidth(maxWidth.px)
     }}) {
-        Div({
-            style {
-                width(((10-size)*5).pc)
-            }
-        }) {  }
-        Div({
-            if(size > 0) {
-                style {
-                    width((size*10).pc)
-
-                    border {
-                        style = LineStyle("solid")
-                        color = black
-                        width = 1.px
-                    }
-                }
-            } else {
-                style {
-                    width(100.pc)
-                    border {
-                        color = transparent
-                    }
-                }
-            }
-        }) {}
-        Div({
-            style {
-                width(((10-size)*5).pc)
-            }
-        }) {  }
+        Space(size)
+        Box(size)
+        Space(size)
     }
 }
+
+@Markup
+@Composable
+@Suppress("FunctionName")
+private fun Space(size: Int) =  Div({
+    style {
+        width(((10-size)*5).pc)
+    }
+}) {  }
+
+@Markup
+@Composable
+@Suppress("FunctionName")
+private fun Box(size:Int) = Div({
+    if(size > 0) {
+        style {
+            width((size*10).pc)
+            border {
+                style = LineStyle.Solid
+                color = black
+                width = 1.px
+            }
+            boxSizing("border-box")
+        }
+    } else {
+        style {
+            width(100.pc)
+            border {
+                color = transparent
+            }
+        }
+    }
+}) {}
