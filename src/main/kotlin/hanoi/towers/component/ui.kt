@@ -9,9 +9,7 @@ import hanoi.towers.page.mainpage.MainPage
 import kotlinx.browser.document
 import lib.compose.ModalLayer
 import lib.compose.routing.Routing
-import lib.compose.routing.navigate
 import lib.language.*
-import org.jetbrains.compose.web.dom.*
 
 @Markup
 @Composable
