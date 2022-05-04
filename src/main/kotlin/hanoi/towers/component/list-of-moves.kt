@@ -17,13 +17,18 @@ fun ListOfMoves(
     isComputingMoves: Storage<Boolean>,
     texts: Block
 
-)  = Div {
+)  = Div({
+    style {
+       // width(100.percent)
+    }
+}) {
     H3 { Text(texts["headline"]) }
     Div({
         style {
             overflowY("auto")
             maxHeight(500.px)
-            width(20.pc)
+            minWidth(30.pc)
+            flex(1)
         }
     }) {
         if (isComputingMoves.read()) {

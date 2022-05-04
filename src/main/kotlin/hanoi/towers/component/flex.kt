@@ -14,6 +14,7 @@ fun Flex(content: @Composable ElementScope<HTMLElement>.()->Unit) {
     Div({
         style {
             display(DisplayStyle("flex"))
+            flexWrap(FlexWrap.Wrap)
         }
     }) {
         content()
