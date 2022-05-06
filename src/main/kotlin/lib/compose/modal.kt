@@ -25,10 +25,13 @@ fun <Id> ModalLayer(
             style {
                 property("z-index", zIndex)
                 position(Position.Absolute)
-                width(99.percent)
+                width(100.vw)
+                boxSizing("border-box")
                 display(DisplayStyle.Flex)
                 flexDirection(FlexDirection.Column)
-                height(98.vh)
+                height(100.vh)
+                backgroundColor(Color.black)
+                opacity(0.5)
                 if(bottomUp) {
                     justifyContent(JustifyContent.FlexEnd)
                 }

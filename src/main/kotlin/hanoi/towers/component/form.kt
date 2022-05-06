@@ -8,11 +8,10 @@ import hanoi.towers.data.Moves
 import kotlinx.coroutines.*
 import lib.compose.Markup
 import lib.language.Block
-import lib.language.Lang
 import lib.language.get
 import lib.lens.Storage
-import lib.lens.times
 import lib.maths.toThe
+import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.NumberInput
 
 @Markup
@@ -29,7 +28,7 @@ fun Form(
     texts: Block,
     maxNumberOfSlices: Int
 ) {
-    org.jetbrains.compose.web.dom.Form {
+    Div {
         Label(texts["towerHeight"], id="tower-height")
         NumberInput(
             value = numberOfSlices.read(),
