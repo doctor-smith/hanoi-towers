@@ -1,10 +1,51 @@
+:root{
+    --button-padding: 4px 8px;
+    --button-border-radius: 5px;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 Button {
     background-color: white;
-    border-radius: 5px;
+    border-radius: var(--button-border-radius);
+    padding: var(--button-padding);
+    cursor: pointer;
 }
 
 Select {
     background-color: white;
+    color: black;
+    /* font-size: 1rem; */
     border-radius: 5px;
-    /* border: none; */
+    /* appearance: none; */
+    outline: 0;
+    /*box-shadow: none;*/
+    border-radius: var(--button-border-radius);
+    border: 1px solid #000;
+    padding: var(--button-padding);
+    cursor: pointer;
+}
+
+.select {
+    position: relative;
+    display: flex;
+    background-color: white;
+    color: black;
+}
+
+
+option {
+    background-color: white;
+    width: 100%;
+    color: black;
+    padding: var(--button-padding);
+}
+
+Input[type="number"] {
+    padding: var(--button-padding);
+    border-radius:var(--button-border-radius);
 }

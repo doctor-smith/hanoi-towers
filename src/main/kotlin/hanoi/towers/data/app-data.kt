@@ -1,6 +1,8 @@
 package hanoi.towers.data
 
 import androidx.compose.runtime.Composable
+import hanoi.towers.data.hanoi.Hanoi
+import hanoi.towers.data.hanoi.Moves
 import lib.language.Lang
 import lib.lens.Lens
 import org.jetbrains.compose.web.dom.ElementScope
@@ -31,12 +33,12 @@ val numberOfSlicesLens = Lens<AppData, Int>(
 
 val movesLens = Lens<AppData, Moves>(
     {data -> data.moves},
-    {s: Moves -> {data -> data.copy(moves = s)}}
+    {s: Moves -> { data -> data.copy(moves = s)}}
 )
 
 val hanoiLens = Lens<AppData, Hanoi>(
     {data -> data.hanoi},
-    {s: Hanoi -> {data -> data.copy(hanoi = s)}}
+    {s: Hanoi -> { data -> data.copy(hanoi = s)}}
 )
 
 val indexOfCurrentMoveLens = Lens<AppData,Int>(

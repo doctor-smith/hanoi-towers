@@ -1,5 +1,4 @@
-package hanoi.towers.data
-
+package hanoi.towers.data.hanoi
 
 
 data class Move(

@@ -1,11 +1,11 @@
-package hanoi.towers.component
+package hanoi.towers.component.hanoi
 
 import hanoi.towers.alg.apply
 import hanoi.towers.alg.inverse
 import androidx.compose.runtime.Composable
-import hanoi.towers.data.Hanoi
-import hanoi.towers.data.Moves
-import hanoi.towers.data.reset
+import hanoi.towers.data.hanoi.Hanoi
+import hanoi.towers.data.hanoi.Moves
+import hanoi.towers.data.hanoi.reset
 import kotlinx.coroutines.*
 import lib.compose.Markup
 import lib.lens.Storage

@@ -1,6 +1,7 @@
-package lib.compose
+package lib.compose.modal
 
 import androidx.compose.runtime.Composable
+import lib.compose.Markup
 import lib.language.Block
 import lib.language.get
 import lib.lens.Storage
@@ -17,6 +18,7 @@ typealias Modals<Id> = Map<Id, @Composable ElementScope<HTMLElement>.() -> Unit>
 fun <Id> ModalLayer(
     zIndex: Int = 1000,
     modals: Storage<Modals<Id>>,
+    bottomUp: Boolean = false,
     content: @Composable ElementScope<HTMLElement>.()->Unit
 ) {
     if(modals.read().keys.isNotEmpty()) {
@@ -24,9 +26,16 @@ fun <Id> ModalLayer(
             style {
                 property("z-index", zIndex)
                 position(Position.Absolute)
-                marginLeft(20.pc)
-                marginTop(10.pc)
-                width(80.pc)
+                width(100.vw)
+                boxSizing("border-box")
+                display(DisplayStyle.Flex)
+                flexDirection(FlexDirection.Column)
+                height(100.vh)
+                backgroundColor(Color.black)
+                opacity(0.5)
+                if(bottomUp) {
+                    justifyContent(JustifyContent.FlexEnd)
+                }
             }
         }){
             modals.read().values.forEach {
@@ -61,7 +70,9 @@ fun <Id> Modal(
                 width = 1.px
             }
             borderRadius(10.px)
-            backgroundColor(Color("white"))
+            backgroundColor(Color.white)
+            width(90.percent)
+            marginLeft(5.percent)
         }
     }) {
         //

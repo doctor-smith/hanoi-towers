@@ -22,12 +22,12 @@ fun Loading() = Div({
                 style = LineStyle.Solid
                 color = Color("#f3f3f3")
             }
-            borderRadius(50.pc)
+            borderRadius(50.percent)
             //borderTop()
             width(120.px)
             height(120.px)
             animation("spin") {
-                // TODO("Animate")
+                 // TODO("Animate")
             }
 
         }

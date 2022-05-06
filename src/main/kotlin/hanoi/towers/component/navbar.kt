@@ -21,22 +21,25 @@ fun NavBar(
     texts: Block
 ) = Div({
     style {
+        paddingTop(10.px)
         display(DisplayStyle.Flex)
         justifyContent(JustifyContent.FlexEnd)
     }
 }) {
     val currentLocale = locale.read()
-    Select {
-        locales.read().forEach { s ->
-            Option(s, {
-                if(s == currentLocale){
-                    selected()
+    Div({classes("select")}) {
+        Select {
+            locales.read().forEach { s ->
+                Option(s, {
+                    if (s == currentLocale) {
+                        selected()
+                    }
+                    onClick {
+                        locale.write(s)
+                    }
+                }) {
+                    Text(texts[s])
                 }
-                onClick {
-                    locale.write(s)
-                }
-            }) {
-                Text(texts[s])
             }
         }
     }

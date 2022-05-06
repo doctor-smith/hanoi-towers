@@ -1,17 +1,17 @@
 package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
+import hanoi.towers.component.cookie.CookieDisclaimer
+import hanoi.towers.component.layout.Container
 import hanoi.towers.data.*
 import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times
 import hanoi.towers.page.mainpage.MainPage
 import kotlinx.browser.document
-import lib.compose.ModalLayer
+import lib.compose.modal.ModalLayer
 import lib.compose.routing.Routing
-import lib.compose.routing.navigate
 import lib.language.*
-import org.jetbrains.compose.web.dom.*
 
 @Markup
 @Composable
@@ -25,7 +25,8 @@ fun UI(storage: Storage<AppData>) {
 
     ModalLayer(
         1000,
-        storage * modalsLens
+        storage * modalsLens,
+    true
     ) {
         CookieDisclaimer(
             texts.component("hanoi.cookieDisclaimer"),
@@ -42,16 +43,6 @@ fun UI(storage: Storage<AppData>) {
             Routing("/") {
                 component {
                     MainPage(storage, mainPageTexts)
-                }
-                route("/test"){
-                    component{
-                        Div{ Text("Test Route") }
-                        Button({
-                            onClick { navigate("/") }
-                        }){
-                            Text("Home")
-                        }
-                    }
                 }
             }
         }

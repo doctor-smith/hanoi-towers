@@ -1,7 +1,7 @@
-package hanoi.towers.component
+package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.Composable
-import hanoi.towers.data.Moves
+import hanoi.towers.data.hanoi.Moves
 import lib.compose.Markup
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.Color.black
@@ -30,7 +30,7 @@ fun Hanoi(
     Div({
         style {
             height(3.px)
-            width(100.pc)
+            width(100.percent)
             color(black)
             backgroundColor(black)
             maxWidth(320.px)

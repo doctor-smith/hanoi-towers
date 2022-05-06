@@ -1,4 +1,4 @@
-package hanoi.towers.data
+package hanoi.towers.data.hanoi
 
 sealed class Tower {
     object One : Tower()

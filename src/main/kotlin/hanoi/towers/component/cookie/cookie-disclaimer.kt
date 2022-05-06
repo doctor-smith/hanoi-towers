@@ -1,9 +1,9 @@
-package hanoi.towers.component
+package hanoi.towers.component.cookie
 
 import androidx.compose.runtime.Composable
 import lib.compose.Markup
-import lib.compose.Modal
-import lib.compose.Modals
+import lib.compose.modal.Modal
+import lib.compose.modal.Modals
 import lib.language.Block
 import lib.language.component
 import lib.language.get
