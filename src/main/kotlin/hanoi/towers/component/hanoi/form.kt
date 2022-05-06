@@ -1,12 +1,14 @@
-package hanoi.towers.component
+package hanoi.towers.component.hanoi
 
 import hanoi.towers.alg.moveTower
 import androidx.compose.runtime.Composable
-import hanoi.towers.data.Hanoi
-import hanoi.towers.data.*
-import hanoi.towers.data.Moves
+import hanoi.towers.data.hanoi.Hanoi
+import hanoi.towers.data.hanoi.Moves
+import hanoi.towers.data.hanoi.Tower
 import kotlinx.coroutines.*
 import lib.compose.Markup
+import lib.compose.error.OnError
+import lib.compose.label.Label
 import lib.language.Block
 import lib.language.get
 import lib.lens.Storage
@@ -15,7 +17,6 @@ import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.NumberInput
 import org.jetbrains.compose.web.events.SyntheticInputEvent
 import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.events.Event
 
 @Markup
 @Composable

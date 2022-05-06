@@ -1,7 +1,7 @@
-package hanoi.towers.component
+package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.Composable
-import hanoi.towers.data.Moves
+import hanoi.towers.data.hanoi.Moves
 import lib.compose.Markup
 import lib.language.Block
 import lib.language.get

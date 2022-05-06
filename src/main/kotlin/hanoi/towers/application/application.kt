@@ -4,11 +4,11 @@ import androidx.compose.runtime.*
 import hanoi.towers.api.*
 import hanoi.towers.component.UI
 import hanoi.towers.data.AppData
-import hanoi.towers.data.Hanoi
-import hanoi.towers.data.Moves
+import hanoi.towers.data.hanoi.Hanoi
+import hanoi.towers.data.hanoi.Moves
 import kotlinx.coroutines.*
 import lib.compose.Markup
-import lib.compose.Modals
+import lib.compose.modal.Modals
 import lib.language.Block
 import lib.language.Lang
 import lib.language.LanguageP

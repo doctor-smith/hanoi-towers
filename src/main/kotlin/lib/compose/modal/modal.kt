@@ -1,6 +1,7 @@
-package lib.compose
+package lib.compose.modal
 
 import androidx.compose.runtime.Composable
+import lib.compose.Markup
 import lib.language.Block
 import lib.language.get
 import lib.lens.Storage

@@ -1,9 +1,8 @@
-package hanoi.towers.component
+package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.Composable
-import hanoi.towers.data.Moves
+import hanoi.towers.data.hanoi.Moves
 import lib.compose.Markup
-import lib.lens.write
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.Color.black
 import org.jetbrains.compose.web.dom.Div

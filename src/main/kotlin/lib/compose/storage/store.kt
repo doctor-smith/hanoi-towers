@@ -1,4 +1,4 @@
-package hanoi.towers.component
+package lib.compose.storage
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*

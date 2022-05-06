@@ -1,9 +1,9 @@
 package hanoi.towers.alg
 
-import hanoi.towers.data.Hanoi
-import hanoi.towers.data.Move
-import hanoi.towers.data.Moves
-import hanoi.towers.data.Tower
+import hanoi.towers.data.hanoi.Hanoi
+import hanoi.towers.data.hanoi.Move
+import hanoi.towers.data.hanoi.Moves
+import hanoi.towers.data.hanoi.Tower
 import lib.list.dropFirst
 import lib.maths.Maths
 import lib.maths.o

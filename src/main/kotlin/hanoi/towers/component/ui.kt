@@ -1,13 +1,15 @@
 package hanoi.towers.component
 
 import androidx.compose.runtime.Composable
+import hanoi.towers.component.cookie.CookieDisclaimer
+import hanoi.towers.component.layout.Container
 import hanoi.towers.data.*
 import lib.compose.Markup
 import lib.lens.Storage
 import lib.lens.times
 import hanoi.towers.page.mainpage.MainPage
 import kotlinx.browser.document
-import lib.compose.ModalLayer
+import lib.compose.modal.ModalLayer
 import lib.compose.routing.Routing
 import lib.language.*
 

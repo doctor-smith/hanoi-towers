@@ -1,16 +1,15 @@
 package hanoi.towers.page.mainpage
 
 import androidx.compose.runtime.Composable
-import hanoi.towers.component.Flex
-import hanoi.towers.component.Form
-import hanoi.towers.component.HanoiVisualization
-import hanoi.towers.component.ListOfMoves
-import hanoi.towers.component.Statistics
+import hanoi.towers.component.layout.Flex
+import hanoi.towers.component.hanoi.Form
+import hanoi.towers.component.hanoi.HanoiVisualization
+import hanoi.towers.component.hanoi.ListOfMoves
+import hanoi.towers.component.hanoi.Statistics
 import hanoi.towers.data.*
 import hanoi.towers.maxNumberOfSlices
 import lib.compose.Markup
 import lib.language.Block
-import lib.language.component
 import lib.language.get
 import lib.language.of
 import lib.lens.Storage

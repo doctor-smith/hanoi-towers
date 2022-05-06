@@ -1,4 +1,4 @@
-package hanoi.towers.component
+package hanoi.towers.component.layout
 
 import androidx.compose.runtime.Composable
 import lib.compose.Markup
@@ -10,12 +10,11 @@ import org.w3c.dom.HTMLElement
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Container(content: @Composable ElementScope<HTMLElement>.()->Unit) {
+fun Flex(content: @Composable ElementScope<HTMLElement>.()->Unit) {
     Div({
         style {
-            width(80.percent)
-            marginLeft(10.percent)
-            marginRight(10.percent)
+            display(DisplayStyle("flex"))
+            flexWrap(FlexWrap.Wrap)
         }
     }) {
         content()
