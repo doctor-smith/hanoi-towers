@@ -1,5 +1,7 @@
-package lib.lens
+package lib.optics.lens
 
+import lib.optics.lens.Lens
+import lib.optics.lens.times
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -10,10 +12,10 @@ class LensTest {
 
         val lens = Lens(
             {w: W -> w.p},
-            {p: P -> {w : W -> w.copy(p = p)}}
+            {p: P -> { w : W -> w.copy(p = p)}}
         )
         val lens2 = Lens(
-            {p:P->p.name},
+            {p: P ->p.name},
             {name: String -> {p: P -> p.copy(name = name) }}
         )
 
@@ -24,7 +26,7 @@ class LensTest {
         val name = lens * lens2
 
         val result = name.set("joe") (data)
-        val expected = W(1,P("joe"))
+        val expected = W(1, P("joe"))
 
 
 

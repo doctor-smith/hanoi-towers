@@ -8,7 +8,7 @@ import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.reset
 import kotlinx.coroutines.*
 import lib.compose.Markup
-import lib.lens.Storage
+import lib.optics.lens.Storage
 import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Text
 

@@ -12,8 +12,8 @@ import lib.compose.Markup
 import lib.language.Block
 import lib.language.get
 import lib.language.of
-import lib.lens.Storage
-import lib.lens.times
+import lib.optics.lens.Storage
+import lib.optics.lens.times
 import org.jetbrains.compose.web.dom.*
 
 @Markup

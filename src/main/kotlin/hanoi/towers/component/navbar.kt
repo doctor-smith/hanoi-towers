@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import lib.compose.Markup
 import lib.language.Block
 import lib.language.get
-import lib.lens.Storage
+import lib.optics.lens.Storage
 import org.jetbrains.compose.web.attributes.selected
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
 import lib.language.Lang
-import lib.lens.Lens
+import lib.optics.lens.Lens
 import org.jetbrains.compose.web.dom.ElementScope
 import org.w3c.dom.HTMLElement
 

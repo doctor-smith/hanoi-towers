@@ -1,4 +1,4 @@
-package lib.lens
+package lib.optics.lens
 
 import lib.maths.Maths
 import lib.maths.o
@@ -30,4 +30,4 @@ fun <T> Storage<T>.lens(): Lens<Unit, T> = Lens(
 )
 
 @Maths
-operator fun <W, P> Storage<W>.times(lens: Lens<W,P>): Storage<P> = (lens() * lens).storage()
+operator fun <W, P> Storage<W>.times(lens: Lens<W, P>): Storage<P> = (lens() * lens).storage()

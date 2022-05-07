@@ -5,7 +5,7 @@ import hanoi.towers.data.hanoi.Moves
 import lib.compose.Markup
 import lib.language.Block
 import lib.language.get
-import lib.lens.Storage
+import lib.optics.lens.Storage
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 

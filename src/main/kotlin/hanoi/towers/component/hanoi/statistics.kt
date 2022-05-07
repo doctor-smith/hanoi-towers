@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import lib.compose.Markup
 import lib.language.Lang
 import lib.language.get
-import lib.lens.Storage
+import lib.optics.lens.Storage
 import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 

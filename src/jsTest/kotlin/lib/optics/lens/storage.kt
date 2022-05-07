@@ -1,5 +1,11 @@
-package lib.lens
+package lib.optics.lens
 
+import lib.lens.read
+import lib.lens.write
+import lib.optics.lens.*
+import lib.optics.lens.Lens
+import lib.optics.lens.Read
+import lib.optics.lens.Storage
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -7,14 +13,14 @@ import kotlin.test.assertEquals
 class StorageTest {
     @Test
     fun composeStorageWithLenses() {
-        var w: W = W(0,P(""))
+        var w: W = W(0, P(""))
         val storage = Storage<W>(
             {w},
             {w = it}
         )
         assertEquals(w, storage.read())
-        val w1 = W(1,P(""))
-        storage.write(W(1,P("")))
+        val w1 = W(1, P(""))
+        storage.write(W(1, P("")))
         assertEquals(w1, storage.read())
 
         val p = storage * Lens<W, P>(
