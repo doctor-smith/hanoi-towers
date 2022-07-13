@@ -12,7 +12,7 @@ import lib.compose.modal.Modals
 import lib.language.Block
 import lib.language.Lang
 import lib.language.LanguageP
-import lib.lens.Storage
+import lib.optics.storage.Storage
 import org.jetbrains.compose.web.css.justifySelf
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text

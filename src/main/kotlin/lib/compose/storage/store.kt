@@ -3,7 +3,7 @@ package lib.compose.storage
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import lib.compose.Markup
-import lib.lens.Storage
+import lib.optics.storage.Storage
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.ElementScope
 import org.w3c.dom.HTMLElement

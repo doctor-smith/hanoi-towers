@@ -1,4 +1,4 @@
-package lib.lens
+package lib.optics
 
 
 data class P(val name: String)
