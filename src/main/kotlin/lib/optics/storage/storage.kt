@@ -1,4 +1,4 @@
-package lib.optics.lens
+package lib.optics.storage
 
 import lib.maths.x
 import kotlin.math.abs

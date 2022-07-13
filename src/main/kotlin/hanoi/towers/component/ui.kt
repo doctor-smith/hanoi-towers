@@ -5,8 +5,8 @@ import hanoi.towers.component.cookie.CookieDisclaimer
 import hanoi.towers.component.layout.Container
 import hanoi.towers.data.*
 import lib.compose.Markup
-import lib.optics.lens.Storage
-import lib.optics.lens.times
+import lib.optics.storage.Storage
+import lib.optics.transform.times
 import hanoi.towers.page.mainpage.MainPage
 import kotlinx.browser.document
 import lib.compose.modal.ModalLayer

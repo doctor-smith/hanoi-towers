@@ -1,7 +1,7 @@
 package lib.optics.lens
 
-import lib.optics.lens.Lens
-import lib.optics.lens.times
+import lib.optics.P
+import lib.optics.W
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -27,8 +27,6 @@ class LensTest {
 
         val result = name.set("joe") (data)
         val expected = W(1, P("joe"))
-
-
 
         assertEquals(expected, result)
     }

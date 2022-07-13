@@ -2,7 +2,7 @@ package lib.compose.error
 
 import androidx.compose.runtime.Composable
 import lib.compose.Markup
-import lib.optics.lens.Storage
+import lib.optics.storage.Storage
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text

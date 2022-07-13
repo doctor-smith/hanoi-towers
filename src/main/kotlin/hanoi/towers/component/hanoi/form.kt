@@ -11,7 +11,7 @@ import lib.compose.error.OnError
 import lib.compose.label.Label
 import lib.language.Block
 import lib.language.get
-import lib.optics.lens.Storage
+import lib.optics.storage.Storage
 import lib.maths.toThe
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.NumberInput

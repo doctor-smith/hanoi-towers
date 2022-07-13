@@ -7,11 +7,10 @@ import lib.compose.modal.Modals
 import lib.language.Block
 import lib.language.component
 import lib.language.get
-import lib.lens.*
 import lib.maths.x
-import lib.optics.lens.Storage
-import lib.optics.lens.nextId
-import lib.optics.lens.put
+import lib.optics.storage.Storage
+import lib.optics.storage.nextId
+import lib.optics.storage.put
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.ElementScope
 import org.jetbrains.compose.web.dom.Text

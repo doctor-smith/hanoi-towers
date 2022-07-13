@@ -1,11 +1,9 @@
-package lib.optics.lens
+package lib.optics.storage
 
-import lib.lens.read
-import lib.lens.write
+import lib.optics.P
+import lib.optics.W
 import lib.optics.lens.*
-import lib.optics.lens.Lens
-import lib.optics.lens.Read
-import lib.optics.lens.Storage
+import lib.optics.transform.times
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,4 +1,4 @@
-package lib.optics.lens
+package lib.optics.sg
 
 import lib.maths.o
 
