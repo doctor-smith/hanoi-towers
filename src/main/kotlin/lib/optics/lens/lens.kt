@@ -1,7 +1,8 @@
-package lib.lens
+package lib.optics.lens
 
 import lib.maths.Maths
 import lib.maths.o
+import lib.maths.x as X
 
 @Maths
 data class Lens<W, P> (
@@ -17,17 +18,10 @@ operator fun <W, P, D> Lens<W, P>.times(other: Lens<P, D>): Lens<W, D> = Lens(
     }
 }
 
-@Maths
-fun <T> Lens<Unit, T>.storage(): Storage<T> = Storage(
-    {get(Unit)},
-    {t: T -> set(t)(Unit)}
-)
 
 @Maths
-fun <T> Storage<T>.lens(): Lens<Unit, T> = Lens(
-    {read()},
-    {t:T  -> {write(t)}}
-)
-
-@Maths
-operator fun <W, P> Storage<W>.times(lens: Lens<W,P>): Storage<P> = (lens() * lens).storage()
+fun <V, W, P, Q> Lens<V, P>.x(other: Lens<W, Q>): Lens<Pair<V, W>, Pair<P, Q>> = Lens(
+    get X other.get
+) {
+    pXq -> set(pXq.first) X other.set(pXq.second)
+}
