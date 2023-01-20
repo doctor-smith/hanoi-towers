@@ -2,6 +2,7 @@ package hanoi.towers.application
 
 import androidx.compose.runtime.*
 import hanoi.towers.api.*
+import hanoi.towers.component.Loading
 import hanoi.towers.component.UI
 import hanoi.towers.data.AppData
 import hanoi.towers.data.hanoi.Hanoi
@@ -17,9 +18,6 @@ import lib.language.Lang
 import lib.language.LanguageP
 import lib.optics.storage.Storage
 import lib.optics.transform.times
-import org.jetbrains.compose.web.css.justifySelf
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
 
 
@@ -121,7 +119,6 @@ fun Application() = renderComposable(rootElementId = "root") {
             }
             with(LanguageP().run(i18n("locales")).result) {
                 if (this != null) {
-
                     locales = (this as Lang.Block).value.map { it.key }
                 }
             }
@@ -136,7 +133,6 @@ fun Application() = renderComposable(rootElementId = "root") {
 
     val languageStorage = (storage * languageLens)
     val localesStorage = (storage * localesLens)
-    // val localeStorage = (storage * localeLens)
 
     val langLoaded: () -> Boolean = {
         (languageStorage.read() as Lang.Block).value.isNotEmpty() &&
@@ -145,9 +141,7 @@ fun Application() = renderComposable(rootElementId = "root") {
     if (langLoaded()) {
         UI(storage)
     } else {
-        // TODO("CSS load-spinner")
-        //  Loading()
-        Div({ style { justifySelf("center") } }) { Text("Loading I18N") }
+        Loading()
     }
 
 }
