@@ -78,12 +78,13 @@ val localeLens = Lens<AppData,String>(
 
 val localesLens = Lens<AppData, List<String>>(
     {data -> data.locales},
-    {s: List<String> -> TODO("Locales is to be Readonly")} //-> {data -> data.copy(locale = s)}}
+    {s: List<String> ->  {data -> data.copy(locales = s)}}//TODO("Locales is to be Readonly")} //-> {data -> data.copy(locale = s)}}
 )
 
 val languageLens = Lens<AppData,Lang>(
     {data -> data.language},
-    {s: Lang -> TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
+    {s: Lang -> {data -> data.copy(language = s)}}
+    //TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
 )
 
 val modalsLens = Lens<AppData, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (

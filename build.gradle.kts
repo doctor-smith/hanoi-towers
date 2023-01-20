@@ -1,9 +1,8 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
+    kotlin("multiplatform") version "1.7.20"
+    id("org.jetbrains.compose") version "1.2.2"
 }
 
 repositories {
@@ -23,7 +22,7 @@ kotlin {
             resources.srcDir("src/main/resources")
 
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation("io.ktor:ktor-client-core-js:1.6.8")
                 implementation("io.ktor:ktor-client-js:1.6.8")
 
@@ -36,7 +35,7 @@ kotlin {
             kotlin.srcDir("src/jsTest/kotlin")
 
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
                 implementation(kotlin("test-js"))
                 implementation(compose.web.testUtils)
             }
