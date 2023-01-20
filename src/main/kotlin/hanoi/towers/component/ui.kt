@@ -9,6 +9,7 @@ import lib.optics.storage.Storage
 import lib.optics.transform.times
 import hanoi.towers.page.mainpage.MainPage
 import hanoi.towers.page.testpage.TestPage
+import hanoi.towers.page.testpage.TestStorageComponent
 import kotlinx.browser.document
 import lib.compose.modal.ModalLayer
 import lib.compose.routing.Routing
@@ -46,8 +47,15 @@ fun UI(storage: Storage<AppData>) {
                     MainPage(storage, mainPageTexts)
                 }
                 route("test") {
-                    component {
-                        TestPage()
+                    route("loader") {
+                        component {
+                            TestPage()
+                        }
+                    }
+                    route("storage") {
+                        component{
+                            TestStorageComponent()
+                        }
                     }
                 }
             }
