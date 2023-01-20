@@ -2,6 +2,7 @@ package hanoi.towers.application
 
 import androidx.compose.runtime.*
 import hanoi.towers.api.*
+import hanoi.towers.component.Loading
 import hanoi.towers.component.UI
 import hanoi.towers.data.AppData
 import hanoi.towers.data.hanoi.Hanoi
@@ -17,9 +18,6 @@ import lib.language.Lang
 import lib.language.LanguageP
 import lib.optics.storage.Storage
 import lib.optics.transform.times
-import org.jetbrains.compose.web.css.justifySelf
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
 
 
@@ -103,11 +101,6 @@ fun Application() = renderComposable(rootElementId = "root") {
         }
     )
 
-
-
-
-    // val storage = Storage()
-
     val languageStorage = (storage * languageLens)
     val localesStorage = (storage * localesLens)
     val localeStorage = (storage * localeLens)
@@ -121,15 +114,12 @@ fun Application() = renderComposable(rootElementId = "root") {
         CoroutineScope(Job()).launch {
             with(LanguageP().run(i18n(localeStorage.read())).result) {
                 if (this != null) {
-                    //languageStorage.write(this)
-                    language = this //Storage.write( this )
+                    language = this
                 }
             }
             with(LanguageP().run(i18n("locales")).result) {
                 if (this != null) {
-
                     locales = (this as Lang.Block).value.map { it.key }
-                    //localesStorage.write((this as Lang.Block).value.map { it.key })
                 }
             }
         }
@@ -143,34 +133,15 @@ fun Application() = renderComposable(rootElementId = "root") {
 
     val languageStorage = (storage * languageLens)
     val localesStorage = (storage * localesLens)
-    // val localeStorage = (storage * localeLens)
 
     val langLoaded: () -> Boolean = {
         (languageStorage.read() as Lang.Block).value.isNotEmpty() &&
                 localesStorage.read().isNotEmpty()
     }
-/*
-    if (!langLoaded()) {
-        CoroutineScope(Job()).launch {
-            with(LanguageP().run(i18n(localeStorage.read())).result) {
-                if (this != null) {
-                    languageStorage.write( this )
-                }
-            }
-            with(LanguageP().run(i18n("locales")).result) {
-                if (this != null) {
-                    localesStorage.write( (this as Lang.Block).value.map { it.key } )
-                }
-            }
-        }
-    }
-*/
     if (langLoaded()) {
         UI(storage)
     } else {
-        // TODO("CSS load-spinner")
-        //  Loading()
-        Div({ style { justifySelf("center") } }) { Text("Loading I18N") }
+        Loading()
     }
 
 }

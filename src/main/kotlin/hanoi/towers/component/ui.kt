@@ -8,6 +8,7 @@ import lib.compose.Markup
 import lib.optics.storage.Storage
 import lib.optics.transform.times
 import hanoi.towers.page.mainpage.MainPage
+import hanoi.towers.page.testpage.TestPage
 import kotlinx.browser.document
 import lib.compose.modal.ModalLayer
 import lib.compose.routing.Routing
@@ -43,6 +44,11 @@ fun UI(storage: Storage<AppData>) {
             Routing("/") {
                 component {
                     MainPage(storage, mainPageTexts)
+                }
+                route("test") {
+                    component {
+                        TestPage()
+                    }
                 }
             }
         }

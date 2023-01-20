@@ -6,22 +6,26 @@ typealias Var = Lang.Variable
 typealias Block = Lang.Block
 
 
+@Suppress("FunctionName")
 fun Variable(): Parser<Lang> = sequenceA(
     Key(),
     Value()
 )  map { list -> Var(list[0], list[1]) }
 
 
+@Suppress("FunctionName")
 private fun Key(): Parser<String> =
     DropAllWhitespace() dL
     CollectWhile { !it.isWhitespace() && it != ':'  } dR
     sequenceA(DropAllWhitespace(), FirstMatches(':') map {"$it"})
 
+@Suppress("FunctionName")
 private fun Value(): Parser<String> =
     DropAllWhitespace() dL
     Between('"','"') dR
     DropAllWhitespace()
 
+@Suppress("FunctionName")
 fun Block(): Parser<Lang> = sequenceA(
     DropAllWhitespace() dL
         CollectWhile { !it.isWhitespace() && it != '{' } dR DropAllWhitespace(),
@@ -34,11 +38,13 @@ fun Block(): Parser<Lang> = sequenceA(
     it.result!!
 }
 
+@Suppress("FunctionName")
 fun Content(): Parser<List<Lang>> =
     sequenceA(DropAllWhitespace(), DropAllNewline()) dL
     LanguageP() * {x -> Content() map { list -> listOf(x, *list.toTypedArray())}} OR Succeed(listOf()) dR
     sequenceA(DropAllWhitespace(), DropAllNewline())
 
+@Suppress("FunctionName")
 fun Comment(): Parser<String> = seqA(DropAllWhitespace(), StartsWith("/*")) dL
         CollectWhile { it != '/' } * { collected -> when(collected.endsWith("*")){
             true -> Parser{ s -> Result(collected.dropLast(1), "*$s") }
@@ -46,11 +52,14 @@ fun Comment(): Parser<String> = seqA(DropAllWhitespace(), StartsWith("/*")) dL
         }  } dR
         seqA(StartsWith("*/"), DropAllWhitespace())
 
+@Suppress("FunctionName")
 fun LanguageP(): Parser<Lang> = (Variable() OR Block())
 
 
+@Suppress("FunctionName")
 fun Segment(): Parser<String> = CollectWhile{ it != '.' } dR DropWhile { it == '.' }
 
+@Suppress("FunctionName")
 fun Path(): Parser<List<String>> = Segment() * { seg -> when(seg.isEmpty()){
    true -> Succeed(listOf())
    false -> Path() map{ list -> listOf(seg, *list.toTypedArray()) }
