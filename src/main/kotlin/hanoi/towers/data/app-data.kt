@@ -5,6 +5,8 @@ import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
 import lib.language.Lang
 import lib.optics.lens.Lens
+import lib.optics.storage.Storage
+import lib.optics.transform.times
 import org.jetbrains.compose.web.dom.ElementScope
 import org.w3c.dom.HTMLElement
 
@@ -86,6 +88,16 @@ val languageLens = Lens<AppData,Lang>(
     {s: Lang -> {data -> data.copy(language = s)}}
     //TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
 )
+
+
+fun Storage<AppData>.langLoaded (): Boolean  {
+
+    val languageStorage = (this * languageLens)
+    val localesStorage = (this * localesLens)
+
+    return (languageStorage.read() as Lang.Block).value.isNotEmpty() &&
+            localesStorage.read().isNotEmpty()
+}
 
 val modalsLens = Lens<AppData, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (
     {data -> data.modals},
