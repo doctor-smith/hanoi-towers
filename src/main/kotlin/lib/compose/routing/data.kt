@@ -15,12 +15,8 @@ data class Parameter(
 )
 
 data class Route(
-    //val hostname: String,
-    //val port: Int,
-    //val protocol: Protocol,
     val segments: List<RouteSegment>,
     val queryParameters: List<Parameter>,
-    //val anchor: String? = null
 )
 
 data class ComposableRoute(

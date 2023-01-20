@@ -103,11 +103,6 @@ fun Application() = renderComposable(rootElementId = "root") {
         }
     )
 
-
-
-
-    // val storage = Storage()
-
     val languageStorage = (storage * languageLens)
     val localesStorage = (storage * localesLens)
     val localeStorage = (storage * localeLens)
@@ -121,15 +116,13 @@ fun Application() = renderComposable(rootElementId = "root") {
         CoroutineScope(Job()).launch {
             with(LanguageP().run(i18n(localeStorage.read())).result) {
                 if (this != null) {
-                    //languageStorage.write(this)
-                    language = this //Storage.write( this )
+                    language = this
                 }
             }
             with(LanguageP().run(i18n("locales")).result) {
                 if (this != null) {
 
                     locales = (this as Lang.Block).value.map { it.key }
-                    //localesStorage.write((this as Lang.Block).value.map { it.key })
                 }
             }
         }
@@ -149,22 +142,6 @@ fun Application() = renderComposable(rootElementId = "root") {
         (languageStorage.read() as Lang.Block).value.isNotEmpty() &&
                 localesStorage.read().isNotEmpty()
     }
-/*
-    if (!langLoaded()) {
-        CoroutineScope(Job()).launch {
-            with(LanguageP().run(i18n(localeStorage.read())).result) {
-                if (this != null) {
-                    languageStorage.write( this )
-                }
-            }
-            with(LanguageP().run(i18n("locales")).result) {
-                if (this != null) {
-                    localesStorage.write( (this as Lang.Block).value.map { it.key } )
-                }
-            }
-        }
-    }
-*/
     if (langLoaded()) {
         UI(storage)
     } else {

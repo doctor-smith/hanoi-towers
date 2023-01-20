@@ -12,3 +12,8 @@ Instead of manually compiling and executing a Kotlin/JS project every time you w
 ```
 ./gradlew jsBrowserRun --continuous
 ```
+
+
+## Kotlin compatibility
+
+[Kotlin Compat](https://github.com/JetBrains/compose-jb/blob/master/VERSIONING.md#kotlin-compatibility)

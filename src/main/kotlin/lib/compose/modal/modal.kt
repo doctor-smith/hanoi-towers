@@ -86,17 +86,11 @@ fun <Id> Modal(
                 }
             }) {
                 Button({
-                    //style {
                         classes("button")
-                    //}
                     onClick { id.close() }
                 }) {
-                    // Text("x")
-
                     I({
-                        // style {
                         classes("fa-solid", "fa-xmark")
-                    //}
                     })
                 }
             }
