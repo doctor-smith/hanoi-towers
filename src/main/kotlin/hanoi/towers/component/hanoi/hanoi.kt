@@ -1,8 +1,10 @@
 package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.Composable
+import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.hanoi.Moves
 import lib.compose.Markup
+import lib.optics.storage.Storage
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.Color.black
 import org.jetbrains.compose.web.dom.Div
@@ -13,18 +15,19 @@ import org.jetbrains.compose.web.dom.Div
 @Suppress("FunctionName")
 fun Hanoi(
     moves: Moves,
-    one: List<Int> = listOf(),
-    two: List<Int>  = listOf(),
-    three: List<Int>  = listOf(),
-    capacity: Int
+    one: Storage<List<Int>>,
+    two: Storage<List<Int>>,
+    three: Storage<List<Int>>,
+    capacity: Int,
+    mode: Mode
 ) {
     Div({ style {
         display(DisplayStyle("flex"))
         paddingLeft(10.px)
     }}) {
-        Tower(one,capacity)
-        Tower(two,capacity)
-        Tower(three,capacity)
+        Tower(one,capacity, mode)
+        Tower(two,capacity, mode)
+        Tower(three,capacity, mode)
     }
 
     Div({

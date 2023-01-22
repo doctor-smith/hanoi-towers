@@ -15,3 +15,8 @@ fun Hanoi.reset(): Hanoi = with(this){
     (1..numberOfSlices()).map { it }
 )
 }
+
+sealed class Mode {
+    object Automatic: Mode()
+    object Play: Mode()
+}

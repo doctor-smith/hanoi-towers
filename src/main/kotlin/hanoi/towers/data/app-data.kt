@@ -3,6 +3,7 @@ package hanoi.towers.data
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
+import hanoi.towers.data.hanoi.Tower
 import lib.language.Lang
 import lib.optics.lens.Lens
 import lib.optics.storage.Storage
@@ -42,6 +43,21 @@ val hanoiLens = Lens<AppData, Hanoi>(
     {data -> data.hanoi},
     {s: Hanoi -> { data -> data.copy(hanoi = s)}}
 )
+
+val towerLens: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
+    Tower.One -> Lens(
+        {data -> data.one},
+        {s: List<Int> -> {data -> data.copy(one = s)}}
+    )
+    Tower.Two -> Lens(
+        {data -> data.two},
+        {s: List<Int> -> {data -> data.copy(two = s)}}
+    )
+    Tower.Three -> Lens(
+        {data -> data.three},
+        {s: List<Int> -> {data -> data.copy(three = s)}}
+    )
+}}
 
 val indexOfCurrentMoveLens = Lens<AppData,Int>(
     {data -> data.indexOfCurrentMove},
