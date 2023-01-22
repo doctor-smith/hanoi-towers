@@ -8,7 +8,8 @@ import lib.compose.Markup
 import lib.optics.storage.Storage
 import lib.optics.transform.times
 import hanoi.towers.page.mainpage.MainPage
-import hanoi.towers.page.testpage.TestPage
+import hanoi.towers.page.testpage.DragDropTestPage
+import hanoi.towers.page.testpage.LoadingSpinnerTestPage
 import hanoi.towers.page.testpage.TestStorageComponent
 import kotlinx.browser.document
 import lib.compose.modal.ModalLayer
@@ -49,12 +50,17 @@ fun UI(storage: Storage<AppData>) {
                 route("test") {
                     route("loader") {
                         component {
-                            TestPage()
+                            LoadingSpinnerTestPage()
                         }
                     }
                     route("storage") {
                         component{
                             TestStorageComponent()
+                        }
+                    }
+                    route("drag-and-drop") {
+                        component{
+                            DragDropTestPage()
                         }
                     }
                 }
