@@ -7,6 +7,6 @@ import lib.compose.Markup
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun TestPage() {
+fun LoadingSpinnerTestPage() {
     Loading()
 }
