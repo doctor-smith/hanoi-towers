@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.component.cookie.CookieDisclaimer
 import hanoi.towers.component.layout.Container
 import hanoi.towers.data.*
+import hanoi.towers.page.game.GamePage
 import lib.compose.Markup
 import lib.optics.storage.Storage
 import lib.optics.transform.times
@@ -46,6 +47,11 @@ fun UI(storage: Storage<AppData>) {
             Routing("/") {
                 component {
                     MainPage(storage, mainPageTexts)
+                }
+                route("game") {
+                    component {
+                        GamePage(storage, mainPageTexts)
+                    }
                 }
                 route("test") {
                     route("loader") {
