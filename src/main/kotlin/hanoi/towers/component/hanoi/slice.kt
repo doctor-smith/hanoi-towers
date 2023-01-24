@@ -1,6 +1,7 @@
 package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.*
+import hanoi.towers.data.geometry.Coordinates
 import hanoi.towers.data.hanoi.Mode
 import lib.compose.Markup
 import org.jetbrains.compose.web.attributes.Draggable
@@ -17,7 +18,9 @@ import org.w3c.dom.HTMLElement
 fun Slice(
     size: Int,
     maxWidth: Int = 100,
-    mode: Mode = Mode.Automatic
+    mode: Mode = Mode.Automatic,
+    setMouseCoordinates: (Coordinates)->Unit = {},
+    onDrop: ()->Unit = {}
 ) = when(mode) {
         Mode.Automatic ->
             Div({style {
@@ -30,7 +33,10 @@ fun Slice(
             Box(size)
             Space(size)
         }
-        Mode.Play -> Draggable {
+        Mode.Play -> Draggable(
+            setMouseCoordinates,
+            onDrop
+        ) {
             Div({style {
                 display(DisplayStyle("flex"))
                 height(20.px)
@@ -83,7 +89,7 @@ private fun Box(size:Int) = Div({
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Draggable(content: @Composable ElementScope<HTMLElement>.()->Unit) {
+fun Draggable(notify: (Coordinates)->Unit, onDrop: ()->Unit, content: @Composable ElementScope<HTMLElement>.()->Unit) {
     var left by remember { mutableStateOf<Double>(0.0) }
     var top by remember { mutableStateOf<Double>(0.0) }
     var x by remember { mutableStateOf<Double>(0.0) }
@@ -99,6 +105,7 @@ fun Draggable(content: @Composable ElementScope<HTMLElement>.()->Unit) {
         y = 0.0
         dX = 0.0
         dY = 0.0
+        notify(Coordinates(-1.0,-1.0))
     }
 
     Div({
@@ -121,6 +128,10 @@ fun Draggable(content: @Composable ElementScope<HTMLElement>.()->Unit) {
         }
 
         onMouseMove {
+            notify(Coordinates(
+                it.pageX,
+                it.pageY
+            ))
             if (mousePressed) {
                 dX = it.pageX - x
                 dY = it.pageY - y
@@ -144,6 +155,9 @@ fun Draggable(content: @Composable ElementScope<HTMLElement>.()->Unit) {
         }
         onMouseUp {
             reset()
+            left = 0.0
+            top = 0.0
+            onDrop()
         }
         onMouseLeave {
             reset()
