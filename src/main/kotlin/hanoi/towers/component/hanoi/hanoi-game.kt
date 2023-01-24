@@ -9,7 +9,7 @@ import hanoi.towers.data.hanoi.Tower.Two
 import hanoi.towers.data.hanoi.Tower.Three
 import hanoi.towers.data.towerLens
 import lib.compose.Markup
-import lib.language.Lang.Block
+import lib.language.Lang
 import lib.language.get
 import lib.optics.storage.Storage
 import lib.optics.transform.times
@@ -21,14 +21,10 @@ import org.jetbrains.compose.web.dom.Text
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun HanoiVisualization(
+fun HanoiGame(
     moves: Storage<Moves>,
     hanoi: Storage<Hanoi>,
-    numberOfMoves: Storage<Int>,
-    indexOfCurrentMove: Storage<Int>,
-    movesPerSecond: Storage<Int>,
-    isPlaying: Storage<Boolean>,
-    texts: Block,
+    texts: Lang.Block,
     maxNumberOfSlices: Int = 10
 ) = Div({
     style {
@@ -36,8 +32,8 @@ fun HanoiVisualization(
         width(75.percent)
         paddingLeft(10.px)
     }
-}){
-    H3{ Text(texts["headline"]) }
+}) {
+    H3 { Text(texts["headline"]) }
 
     Hanoi(
         moves.read(),
@@ -45,14 +41,6 @@ fun HanoiVisualization(
         hanoi * towerLens(Two),
         hanoi * towerLens(Three),
         capacity = maxNumberOfSlices,
-        mode = Mode.Automatic
-    )
-    ActionBar(
-        indexOfCurrentMove,
-        hanoi,
-        moves,
-        numberOfMoves,
-        isPlaying,
-        movesPerSecond
+        mode = Mode.Play
     )
 }
