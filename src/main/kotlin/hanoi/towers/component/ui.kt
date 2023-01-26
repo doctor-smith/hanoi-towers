@@ -9,6 +9,7 @@ import lib.compose.Markup
 import lib.optics.storage.Storage
 import lib.optics.transform.times
 import hanoi.towers.page.mainpage.MainPage
+import hanoi.towers.page.solwer.SolverPage
 import hanoi.towers.page.testpage.DragDropTestPage
 import hanoi.towers.page.testpage.LoadingSpinnerTestPage
 import hanoi.towers.page.testpage.TestStorageComponent
@@ -48,9 +49,14 @@ fun UI(storage: Storage<AppData>) {
                 component {
                     MainPage(storage, mainPageTexts)
                 }
+                route("solver") {
+                    component{
+                        SolverPage(storage,texts.component("hanoi.solverPage"))
+                    }
+                }
                 route("game") {
                     component {
-                        GamePage(storage, mainPageTexts)
+                        GamePage(storage, texts.component("hanoi.gamePage"))
                     }
                 }
                 route("test") {
