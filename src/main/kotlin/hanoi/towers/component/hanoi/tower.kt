@@ -38,7 +38,6 @@ fun Tower(
         it.id === "tower_${id}"
     } as HTMLElement?
 
-
     if( element != null
         && mouse.read().target != id.toString().toInt()
         && (sizeOfMinimalSlice == -1 || sizeOfMinimalSlice > mouse.read().slice)
@@ -48,6 +47,21 @@ fun Tower(
 
     Div({
         id("tower_${id}")
+        /*
+        style {
+            if(element != null){
+                backgroundColor(
+                    when{
+                        sizeOfMinimalSlice == -1 -> Color.green
+                        sizeOfMinimalSlice > mouse.read().slice -> Color.green
+                        else -> Color.red
+                    }
+                )
+            }
+        }
+
+         */
+
     }) {
         when(mode) {
             Mode.Play -> filled.map{ when(it){

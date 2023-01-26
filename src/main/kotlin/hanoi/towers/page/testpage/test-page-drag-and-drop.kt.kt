@@ -5,6 +5,7 @@ import androidx.compose.runtime.*
 import hanoi.towers.component.layout.Container
 import hanoi.towers.component.layout.Flex
 import lib.compose.Markup
+import lib.compose.dnd.DragDropEnvironment
 import org.jetbrains.compose.web.attributes.Draggable
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
@@ -15,6 +16,7 @@ import org.jetbrains.compose.web.dom.Text
 @Suppress("FunctionName")
 fun DragDropTestPage() {
 
+    DragDropEnvironment()
 
 
     Div {
