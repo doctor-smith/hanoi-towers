@@ -4,130 +4,57 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import hanoi.towers.component.layout.Container
 import hanoi.towers.component.layout.Flex
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import lib.compose.Markup
 import lib.compose.dnd.DragDropEnvironment
-import org.jetbrains.compose.web.attributes.Draggable
+import lib.compose.dnd.Draggable
+import lib.compose.dnd.source
+import lib.compose.dnd.sourceAndTarget
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.*
 
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun DragDropTestPage() {
 
-    DragDropEnvironment()
-
-
-    Div {
-        Text("hi test page")
-        Div(
-            attrs = {
-                draggable(Draggable.True)
-            }
-        ) {
-            Text("Drag me around - html d&d")
-        }
-
-        var left by remember { mutableStateOf<Double>(0.0) }
-        var dX by remember { mutableStateOf<Double>(0.0) }
-        var top by remember { mutableStateOf(0.0) }
-        var dY by remember { mutableStateOf<Double>(0.0) }
-        var x by remember { mutableStateOf<Double>(0.0) }
-        var y by remember { mutableStateOf<Double>(0.0) }
-        var mousePressed by remember { mutableStateOf(false) }
-        Div({
-
-            style {
-                position(Position.Relative)
-                left(left.px)
-                top(top.px)
-                height(30.px)
-                width(100.px)
-                border {
-                    style = LineStyle.Solid
-                    color = Color("black")
-                }
-                cursor(when{
-                    mousePressed ->"grabbing"
-                    else -> "grab"
-
-                })
-            }
-
-            onMouseDown {
-                mousePressed = true
-                x = it.pageX
-                y = it.pageY
-            }
-
-            onMouseMove {
-                if(mousePressed) {
-                    dX = it.pageX - x
-                    dY = it.pageY - y
-                    x = it.pageX
-                    y = it.pageY
-
-                    left += dX
-                    top += dY
-                }
-            }
-            onMouseLeave {
-                if(mousePressed) {
-                    dX = it.pageX - x
-                    dY = it.pageY - y
-                    x = it.pageX
-                    y = it.pageY
-
-                    left += dX
-                    top += dY
-                }
-            }
-            onMouseUp {
-                mousePressed = false
-            }
-        }) {
-            Text("custom")
-        }
-    }
-
-
-    Container {
+    DragDropEnvironment{
+        H1 { Text("Hello DragDropEnvironment") }
         Flex {
-            Div { Text("1") }
-            Div { Text("2") }
+            sourceAndTarget("area_1") {
+                H2 { Text("Area 1") }
+                Draggable(name = "drag_1") {
+                    Button({style { cursor("inherit") }}) { Text("DRAG 1") }
+                }
+                Draggable(name = "drag_2") {
+                    Button({style { cursor("inherit") }}) { Text("DRAG 2") }
+                }
+                Draggable(name = "drag_3") {
+                    Button({style { cursor("inherit") }}) { Text("DRAG 3") }
+                }
+                Draggable(name = "drag_4") {
+                    Button({style { cursor("inherit") }}) { Text("DRAG 4") }
+                }
+            }
+            Div({
+                style { width(500.px) }}
+            ){}
+            sourceAndTarget("area_2") {
+                H2 { Text("Area 2") }
+
+                H3{ Text("Sources") }
+                Ul {
+                    sources.read().map { Li { Text(it) } }
+                }
+
+                H3{ Text("Targets") }
+                Ul {
+                    targets.read().map { Li { Text(it) } }
+                }
+            }
         }
     }
 }
-
-/*
-
- <!DOCTYPE HTML>
-<html>
-<head>
-<script>
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
-}
-</script>
-</head>
-<body>
-
-<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-<img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69">
-
-</body>
-</html>
-
- */
