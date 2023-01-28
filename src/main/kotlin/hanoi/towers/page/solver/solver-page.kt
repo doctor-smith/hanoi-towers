@@ -1,12 +1,12 @@
-package hanoi.towers.page.solwer
+package hanoi.towers.page.solver
 
 
 import androidx.compose.runtime.Composable
-import hanoi.towers.component.layout.Flex
 import hanoi.towers.component.hanoi.Form
 import hanoi.towers.component.hanoi.HanoiVisualization
 import hanoi.towers.component.hanoi.ListOfMoves
 import hanoi.towers.component.hanoi.Statistics
+import hanoi.towers.component.layout.Flex
 import hanoi.towers.data.*
 import hanoi.towers.maxNumberOfSlices
 import lib.compose.Markup
