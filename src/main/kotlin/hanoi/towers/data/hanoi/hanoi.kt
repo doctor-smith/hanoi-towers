@@ -19,4 +19,5 @@ fun Hanoi.reset(): Hanoi = with(this){
 sealed class Mode {
     object Automatic: Mode()
     object Play: Mode()
+    object Cheat: Mode()
 }
