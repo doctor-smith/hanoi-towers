@@ -26,7 +26,7 @@ fun GamePage(storage: Storage<AppData>, texts: Lang.Block) {
     Form(
         storage * numberOfSlicesLens,
         storage * numberOfMovesLens,
-        storage * hanoiLens,
+        storage * hanoiGameLens,
         storage * movesLens,
         storage * isComputingMovesLens,
         storage * indexOfCurrentMoveLens,
@@ -36,16 +36,9 @@ fun GamePage(storage: Storage<AppData>, texts: Lang.Block) {
     )
 
     Flex {
-        /*
-        ListOfMoves(
-            storage * movesLens,
-            storage * isComputingMovesLens,
-            "listOfMoves" of texts
-        )
-        */
         HanoiGame(
             storage * movesLens,
-            storage * hanoiLens,
+            storage * hanoiGameLens,
             "visualization" of texts
         )
     }
