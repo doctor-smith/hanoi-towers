@@ -1,5 +1,19 @@
 en{
     hanoi{
+        navigation{
+            main{
+                url: "/"
+                label: "Home"
+            }
+            game{
+                url: "game"
+                label: "Spiel"
+            }
+            cheat{
+                url: "cheat"
+                label: "Schummeln"
+            }
+        }
         mainPage{
             title: "Towers of Hanoi"
             headline: "The Towers of Hanoi"
