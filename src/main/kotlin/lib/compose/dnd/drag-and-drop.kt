@@ -1,6 +1,5 @@
 package lib.compose.dnd
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import androidx.compose.web.events.SyntheticMouseEvent
 import kotlinx.browser.document
@@ -17,6 +16,7 @@ import org.jetbrains.compose.web.dom.Div
 @Suppress("FunctionName")
 fun DragDropEnvironment(
     onDrag: DragDropEnvironment.(name: String)->Unit = {},
+    allowDrag: (name: String, source: String?)->Boolean = {_,_->true},
     allowDrop: (dragged: List<String>, target: String?)->Boolean = {_,_->false},
     onDrop: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->},
     onDropRejected: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->},
@@ -98,13 +98,16 @@ fun DragDropEnvironment(
             name, src,  syntheticMouseEvent ->
                 draggedStorage.add(name)
                 source = src
-                dragging = true
+                if(allowDrag(name, source)) {
+                    dragging = true
+                }
         },
         onMouseUp = {
             name, syntheticMouseEvent ->
                 dragging = false
         },
         onDrag = onDrag,
+        allowDrag = allowDrag,
         allowDrop = allowDrop,
         onDrop = onDrop,
         onDropRejected = onDropRejected

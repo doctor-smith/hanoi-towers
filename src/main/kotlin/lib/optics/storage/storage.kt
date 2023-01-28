@@ -67,6 +67,15 @@ fun <T> Storage<List<T>>.add(items: List<T>): Unit = write(listOf(
     *items.toTypedArray()
 ))
 
+fun <T, R:Comparable<R>> Storage<List<T>>.sortBy( f: (T)->R ) {
+    write(
+        with(arrayListOf(*read().toTypedArray()) ){
+            sortBy(f)
+            this
+        }
+    )
+}
+
 fun <Id, T> Storage<Map<Id, T>>.readAndFilter(predicate: (Pair<Id, T>)->Boolean): Map<Id,T> = read().filter { s ->  predicate(Pair(s.key, s.value)) }
 
 fun <Id, T> Storage<Map<Id, T>>.put(item: Pair<Id,T>): Unit = write(mapOf(

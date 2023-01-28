@@ -4,19 +4,20 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.component.cookie.CookieDisclaimer
 import hanoi.towers.component.layout.Container
 import hanoi.towers.data.*
+import hanoi.towers.page.cheat.CheatPage
 import hanoi.towers.page.game.GamePage
-import lib.compose.Markup
-import lib.optics.storage.Storage
-import lib.optics.transform.times
 import hanoi.towers.page.mainpage.MainPage
 import hanoi.towers.page.solwer.SolverPage
 import hanoi.towers.page.testpage.DragDropTestPage
 import hanoi.towers.page.testpage.LoadingSpinnerTestPage
 import hanoi.towers.page.testpage.TestStorageComponent
 import kotlinx.browser.document
+import lib.compose.Markup
 import lib.compose.modal.ModalLayer
 import lib.compose.routing.Routing
 import lib.language.*
+import lib.optics.storage.Storage
+import lib.optics.transform.times
 
 @Markup
 @Composable
@@ -57,6 +58,11 @@ fun UI(storage: Storage<AppData>) {
                 route("game") {
                     component {
                         GamePage(storage, texts.component("hanoi.gamePage"))
+                    }
+                }
+                route("cheat") {
+                    component {
+                        CheatPage(storage, texts.component("hanoi.cheatPage"))
                     }
                 }
                 route("test") {
