@@ -1,10 +1,10 @@
 package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.*
-import hanoi.towers.data.geometry.Coordinates
 import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.hanoi.Tower
 import lib.compose.Markup
+import lib.compose.dnd.Coordinates
 import lib.compose.dnd.DragDropEnvironment
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.Color.black

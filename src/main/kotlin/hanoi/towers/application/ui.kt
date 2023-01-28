@@ -1,8 +1,9 @@
-package hanoi.towers.component
+package hanoi.towers.application
 
 import androidx.compose.runtime.Composable
 import hanoi.towers.component.cookie.CookieDisclaimer
 import hanoi.towers.component.layout.Container
+import hanoi.towers.component.navigation.NavBar
 import hanoi.towers.data.*
 import hanoi.towers.page.cheat.CheatPage
 import hanoi.towers.page.game.GamePage

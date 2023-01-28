@@ -1,4 +1,4 @@
-package hanoi.towers.component
+package hanoi.towers.component.navigation
 
 import androidx.compose.runtime.Composable
 import lib.compose.Markup
