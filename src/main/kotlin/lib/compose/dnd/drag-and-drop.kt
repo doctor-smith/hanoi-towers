@@ -70,14 +70,24 @@ fun DragDropEnvironment(
     )
 
     var dropAllowed by remember { mutableStateOf(false) }
+    val dropAllowedStorage: Storage<Boolean> = Storage(
+        read = {dropAllowed},
+        write = {dropAllowed = it}
+    )
     var source: String? by remember{ mutableStateOf( null ) }
     var hitTarget: String? by remember{ mutableStateOf( null ) }
+    val hitTargetStorage: Storage<String?> = Storage(
+        read = {hitTarget},
+        write = {hitTarget = it}
+    )
 
     val dragDropEnvironment = with(DragDropEnvironment(
         sources = sourcesStorage,
         targets = targetsStorage,
         draggables = draggablesStorage,
         dragged = draggedStorage,
+        hitTarget = hitTargetStorage,
+        dropAllowed = dropAllowedStorage,
         mouseCoordinates = coordinatesStorage,
         mouseVelocity = velocityStorage,
         onMouseMove = { syntheticMouseEvent: SyntheticMouseEvent ->
@@ -231,24 +241,23 @@ fun DragDropEnvironment.target(name: String, render: @Composable DragDropEnviron
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun DragDropEnvironment.sourceAndTarget(name: String, render: @Composable DragDropEnvironment.()->Unit) {
+fun DragDropEnvironment.sourceAndTarget(
+    name: String,
+    config: SourceTargetConfig = SourceTargetConfig(),
+    render: @Composable DragDropEnvironment.()->Unit
+) {
     sources.add(name)
     targets.add(name)
 
-    var bgColor by remember { mutableStateOf<CSSColorValue?>(null) }
+    val styleBuilder = config.target.style
 
     Div({
         id(name)
-        onMouseEnter {
-            bgColor = Color.azure
-        }
-        onMouseLeave{
-            bgColor = null
-        }
         style {
-            if (bgColor != null) {
-                backgroundColor(bgColor!!)
-            }
+            styleBuilder(
+                name,
+                this@sourceAndTarget
+            )
         }
     }) {
         render()

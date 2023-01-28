@@ -37,7 +37,7 @@ fun DragDropTestPage() {
         onDrag = { name -> dragged.add(
             with(name.convert()){ sourceData.filter { it.convert() > this} }
         )},
-        allowDrop = { dragged,target -> target == "area_2"},
+        allowDrop = { dragged ,target -> target == "area_2"},
         onDropRejected = { source, target ->
             draggables.onEach {
                 when(it.name in dragged) {

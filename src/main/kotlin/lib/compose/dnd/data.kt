@@ -2,6 +2,10 @@ package lib.compose.dnd
 
 import androidx.compose.web.events.SyntheticMouseEvent
 import lib.optics.storage.Storage
+import org.jetbrains.compose.web.css.CSSColorValue
+import org.jetbrains.compose.web.css.Color
+import org.jetbrains.compose.web.css.StyleScope
+import org.jetbrains.compose.web.css.backgroundColor
 
 data class Coordinates(
     val x: Double,
@@ -24,6 +28,8 @@ data class DragDropEnvironment(
     val targets: Storage<List<String>>,
     val draggables: Storage<List<Draggable>>,
     val dragged: Storage<List<String>>,
+    val hitTarget: Storage<String?>,
+    val dropAllowed: Storage<Boolean>,
     val mouseCoordinates: Storage<Coordinates>,
     val mouseVelocity: Storage<Velocity>,
     val onMouseMove: ( SyntheticMouseEvent ) -> Unit,
@@ -39,6 +45,28 @@ data class DraggableConfig(
     val cursorDropped: String = "grab",
     val cursorDrag: String = "grabbing",
     val dragLayer: Int = 1000
+)
+
+data class SourceConfig(val x : String = "")
+data class TargetConfig(
+    val dropExpectedColor: CSSColorValue = Color.green,
+    val dropRejectedColor: CSSColorValue = Color.red,
+    val style: StyleScope.(
+        name: String,
+        environment: DragDropEnvironment
+    )->Unit = {
+        name, environment -> if(name == environment.hitTarget.read()) {
+            when ( environment.dropAllowed.read() ) {
+                true -> backgroundColor(dropExpectedColor)
+                false -> backgroundColor(dropRejectedColor)
+            }
+        }
+    }
+)
+
+data class SourceTargetConfig(
+    val source: SourceConfig = SourceConfig(),
+    val target: TargetConfig = TargetConfig()
 )
 
 internal fun DragDropEnvironment.drop(): List<String> {
