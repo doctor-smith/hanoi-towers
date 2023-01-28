@@ -2,41 +2,80 @@ package hanoi.towers.page.testpage
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
-import hanoi.towers.component.layout.Container
 import hanoi.towers.component.layout.Flex
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import lib.compose.Markup
-import lib.compose.dnd.DragDropEnvironment
-import lib.compose.dnd.Draggable
-import lib.compose.dnd.source
-import lib.compose.dnd.sourceAndTarget
+import lib.compose.dnd.*
+import lib.optics.storage.add
+import lib.optics.storage.contains
+import lib.optics.storage.onEach
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.svg.SVGTitleElement
 
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun DragDropTestPage() {
 
-    DragDropEnvironment{
+    val sourceData: ArrayList<String> = arrayListOf(
+        "drag_0",
+        "drag_1",
+        "drag_2",
+        "drag_3",
+        "drag_4",
+        "drag_5",
+        "drag_6",
+        "drag_7",
+        "drag_8",
+        "drag_9",
+    )
+    val dropped: ArrayList<String> = arrayListOf()
+
+    val convert: String.( ) -> Int = {dropWhile { it != '_' }.substring(1).toInt() }
+
+    DragDropEnvironment(
+        onDrag = { name -> dragged.add(
+            with(name.convert()){ sourceData.filter { it.convert() > this} }
+        )},
+        allowDrop = { dragged,target -> target == "area_2"},
+        onDropRejected = { source, target ->
+            draggables.onEach {
+                when(it.name in dragged) {
+                    true -> it.copy(
+                        coordinates = Coordinates(
+                            0.0,0.0
+                        )
+                    )
+                    false -> it
+                }
+            }
+        },
+        onDrop = {
+            source, target ->
+                sourceData.removeAll(dragged.read().toSet())
+                dropped.addAll(dragged.read().filter { it !in dropped })
+                dropped.sort()
+                draggables.onEach {
+                    when(it.name in dragged) {
+                        true -> it.copy(
+                            coordinates = Coordinates(
+                                0.0,0.0
+                            )
+                        )
+                        false -> it
+                    }
+                }
+
+        }
+    ){
         H1 { Text("Hello DragDropEnvironment") }
         Flex {
             sourceAndTarget("area_1") {
                 H2 { Text("Area 1") }
-                Draggable(name = "drag_1") {
-                    Button({style { cursor("inherit") }}) { Text("DRAG 1") }
-                }
-                Draggable(name = "drag_2") {
-                    Button({style { cursor("inherit") }}) { Text("DRAG 2") }
-                }
-                Draggable(name = "drag_3") {
-                    Button({style { cursor("inherit") }}) { Text("DRAG 3") }
-                }
-                Draggable(name = "drag_4") {
-                    Button({style { cursor("inherit") }}) { Text("DRAG 4") }
+                sourceData.forEach {
+                    Draggable(name = it) {
+                        Button({style { cursor("inherit") }}) { Text(it) }
+                    }
                 }
             }
             Div({
@@ -44,15 +83,22 @@ fun DragDropTestPage() {
             ){}
             sourceAndTarget("area_2") {
                 H2 { Text("Area 2") }
-
-                H3{ Text("Sources") }
-                Ul {
-                    sources.read().map { Li { Text(it) } }
-                }
-
-                H3{ Text("Targets") }
-                Ul {
-                    targets.read().map { Li { Text(it) } }
+                Div({
+                    id("dropzone")
+                    style {
+                        width(200.px)
+                        height(300.px)
+                        border {
+                            style(LineStyle.Solid)
+                            width(1.px)
+                        }
+                    }
+                }) {
+                    dropped.forEach {
+                        Draggable(name = it) {
+                            Button({style { cursor("inherit") }}) { Text(it) }
+                        }
+                    }
                 }
             }
         }

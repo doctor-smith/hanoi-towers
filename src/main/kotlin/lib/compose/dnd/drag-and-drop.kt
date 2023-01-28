@@ -7,6 +7,7 @@ import kotlinx.browser.document
 import lib.compose.Markup
 import lib.optics.storage.Storage
 import lib.optics.storage.add
+import lib.optics.storage.onEach
 import lib.optics.storage.remove
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Button
@@ -18,6 +19,10 @@ import org.w3c.dom.HTMLElement
 @Composable
 @Suppress("FunctionName")
 fun DragDropEnvironment(
+    onDrag: DragDropEnvironment.(name: String)->Unit = {},
+    allowDrop: (dragged: List<String>, target: String?)->Boolean = {_,_->false},
+    onDrop: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->},
+    onDropRejected: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->},
     content: @Composable DragDropEnvironment.()->Unit
 ) = Div {
 
@@ -69,6 +74,8 @@ fun DragDropEnvironment(
     )
 
     var dropAllowed by remember { mutableStateOf(false) }
+    var source: String? by remember{ mutableStateOf( null ) }
+    var hitTarget: String? by remember{ mutableStateOf( null ) }
 
     val dragDropEnvironment = with(DragDropEnvironment(
         sources = sourcesStorage,
@@ -83,13 +90,19 @@ fun DragDropEnvironment(
         onMouseDown = {
             name, syntheticMouseEvent ->
                 draggedStorage.add(name)
+
                 dragging = true
         },
         onMouseUp = {
             name, syntheticMouseEvent ->
-                draggedStorage.remove { it === name }
+               //draggedStorage.remove { it === name }
+               //draggedStorage.remove { it === name }
                 dragging = false
-        }
+        },
+        onDrag = onDrag,
+        allowDrop = allowDrop,
+        onDrop = onDrop,
+        onDropRejected = onDropRejected
     ) ) {
         document.onmousedown = { event ->
             mouseX = event.pageX
@@ -107,27 +120,40 @@ fun DragDropEnvironment(
                 mouseCoordinates.write(Coordinates(mouseX, mouseY))
                 mouseVelocity.write(Velocity(dX, dY))
 
-                draggablesStorage.write(draggablesStorage.read().map{
+                draggablesStorage.onEach{
                     when(it.name in dragged) {
-                        true -> Draggable(
-                            it.name,
-                            Coordinates(
+                        true -> it.copy(
+                            coordinates = Coordinates(
                                 it.coordinates.x + dX,
                                 it.coordinates.y + dY
                             )
                         )
                         false -> it
                     }
-                })
+                }
 
-                val hitTarget = document.elementsFromPoint(mouseX, mouseY)
+                hitTarget = document.elementsFromPoint(mouseX, mouseY)
                     .filter { it.id in targets }
                     .map{ it.id }.firstOrNull()
-                    //.map { it as HTMLElement }
-                    //.map { it.style.backgroundColor = "${Color.green}" }
+
+                dropAllowed = allowDrop(dragged, hitTarget)
             }
         }
         document.onmouseup = {
+            when(dropAllowed) {
+                true -> {
+                    draggablesStorage.onEach {
+                        when(it.name in dragged) {
+                            true -> it.copy(
+                                source = hitTarget
+                            )
+                            false -> it
+                        }
+                    }
+                    onDrop(null, hitTarget)
+                }
+                false -> onDropRejected(null, hitTarget)
+            }
             dragging = false
             draggedStorage.write(emptyList())
             mouseVelocity.write(Velocity(0.0,0.0))
@@ -141,7 +167,12 @@ fun DragDropEnvironment(
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun DragDropEnvironment.Draggable(name: String, config: DraggableConfig = DraggableConfig(), render: @Composable DragDropEnvironment.()->Unit) {
+fun DragDropEnvironment.Draggable(
+    name: String,
+    source: String? = null,
+    config: DraggableConfig = DraggableConfig(),
+    render: @Composable DragDropEnvironment.()->Unit
+) {
 
     var left by remember { mutableStateOf(0.0) }
     var top by remember { mutableStateOf(0.0) }
@@ -149,7 +180,7 @@ fun DragDropEnvironment.Draggable(name: String, config: DraggableConfig = Dragga
 
     with(draggables.read().find { it.name == name }) {
         when(this) {
-            null -> draggables.add(Draggable(name, Coordinates(left,top)))
+            null -> draggables.add(Draggable(name,source, Coordinates(left,top)))
             else -> {
                 left = coordinates.x
                 top = coordinates.y
@@ -164,10 +195,14 @@ fun DragDropEnvironment.Draggable(name: String, config: DraggableConfig = Dragga
             left(left.px)
             top(top.px)
             cursor(cursor)
+            if (cursor == config.cursorDrag ) {
+                property("z-index", config.dragLayer)
+            }
         }
         onMouseDown {
             cursor = config.cursorDrag
             onMouseDown(name, it)
+            onDrag(name)
         }
         onMouseUp {
             cursor = config.cursorDropped

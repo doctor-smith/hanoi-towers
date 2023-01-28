@@ -15,6 +15,7 @@ data class Velocity(
 
 data class Draggable(
     val name: String,
+    val source: String?,
     val coordinates: Coordinates
 )
 
@@ -28,13 +29,16 @@ data class DragDropEnvironment(
     val onMouseMove: ( SyntheticMouseEvent ) -> Unit,
     val onMouseDown: (name: String, SyntheticMouseEvent)->Unit,
     val onMouseUp: (name: String, SyntheticMouseEvent)->Unit,
-    val allowDrop: (dragged: List<String>, target: String)->Boolean = {_,_->false},
-    val onDrop: (dragged: List<String>,source: String, target: String)->Unit = {_,_,_->}
+    val onDrag: DragDropEnvironment.(name: String)->Unit = {},
+    val allowDrop: (dragged: List<String>, target: String?)->Boolean = {_,_->false},
+    val onDrop: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->},
+    val onDropRejected: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->}
 )
 
 data class DraggableConfig(
     val cursorDropped: String = "grab",
-    val cursorDrag: String = "grabbing"
+    val cursorDrag: String = "grabbing",
+    val dragLayer: Int = 1000
 )
 
 internal fun DragDropEnvironment.drop(): List<String> {
