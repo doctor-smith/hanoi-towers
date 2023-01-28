@@ -16,6 +16,8 @@ data class AppData(
     val numberOfSlices: Int,
     val moves: Moves,
     val hanoi: Hanoi,
+    val hanoiGame: Hanoi,
+    val hanoiCheat: Hanoi,
     val indexOfCurrentMove: Int,
     val numberOfMoves: Int,
     val isComputingMoves: Boolean,
@@ -42,6 +44,16 @@ val movesLens = Lens<AppData, Moves>(
 val hanoiLens = Lens<AppData, Hanoi>(
     {data -> data.hanoi},
     {s: Hanoi -> { data -> data.copy(hanoi = s)}}
+)
+
+val hanoiGameLens = Lens<AppData, Hanoi>(
+    {data -> data.hanoiGame},
+    {s: Hanoi -> { data -> data.copy(hanoiGame = s)}}
+)
+
+val hanoiCheatLens = Lens<AppData, Hanoi>(
+    {data -> data.hanoiCheat},
+    {s: Hanoi -> { data -> data.copy(hanoiCheat = s)}}
 )
 
 val towerLens: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){

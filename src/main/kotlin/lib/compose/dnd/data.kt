@@ -50,8 +50,8 @@ data class DraggableConfig(
 
 data class SourceConfig(val x : String = "")
 data class TargetConfig(
-    val dropExpectedColor: CSSColorValue = Color.green,
-    val dropRejectedColor: CSSColorValue = Color.red,
+    val dropExpectedColor: CSSColorValue = Color.lightgreen,
+    val dropRejectedColor: CSSColorValue = Color.lightpink,
     val style: StyleScope.(
         name: String,
         environment: DragDropEnvironment

@@ -26,7 +26,7 @@ fun CheatPage(storage: Storage<AppData>, texts: Lang.Block) {
     Form(
         storage * numberOfSlicesLens,
         storage * numberOfMovesLens,
-        storage * hanoiLens,
+        storage * hanoiCheatLens,
         storage * movesLens,
         storage * isComputingMovesLens,
         storage * indexOfCurrentMoveLens,
@@ -36,16 +36,9 @@ fun CheatPage(storage: Storage<AppData>, texts: Lang.Block) {
     )
 
     Flex {
-        /*
-        ListOfMoves(
-            storage * movesLens,
-            storage * isComputingMovesLens,
-            "listOfMoves" of texts
-        )
-        */
         HanoiCheat(
             storage * movesLens,
-            storage * hanoiLens,
+            storage * hanoiCheatLens,
             "visualization" of texts
         )
     }
