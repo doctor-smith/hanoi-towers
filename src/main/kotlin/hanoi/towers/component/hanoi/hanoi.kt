@@ -1,12 +1,12 @@
 package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.*
-import hanoi.towers.data.geometry.Coordinates
 import hanoi.towers.data.hanoi.DragEvent
 import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.Tower.*
 import lib.compose.Markup
+import lib.compose.dnd.Coordinates
 import lib.compose.dnd.DragDropEnvironment
 import lib.compose.dnd.resetCoordinatesOfDraggedElements
 import lib.compose.dnd.sourceAndTarget

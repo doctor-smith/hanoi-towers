@@ -2,8 +2,7 @@ package hanoi.towers.application
 
 import androidx.compose.runtime.*
 import hanoi.towers.api.*
-import hanoi.towers.component.Loading
-import hanoi.towers.component.UI
+import hanoi.towers.component.loading.Loading
 import hanoi.towers.data.*
 import kotlinx.coroutines.*
 import lib.compose.Markup
@@ -21,5 +20,3 @@ fun Application() = renderComposable(rootElementId = "root") {
         }
     }
 }
-
-

@@ -1,6 +1,6 @@
 package hanoi.towers.data.hanoi
 
-import hanoi.towers.data.geometry.Coordinates
+import lib.compose.dnd.Coordinates
 import lib.optics.lens.Lens
 
 
