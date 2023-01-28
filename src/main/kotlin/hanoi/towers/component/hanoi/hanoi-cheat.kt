@@ -19,7 +19,7 @@ import org.jetbrains.compose.web.dom.Text
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun HanoiGame(
+fun HanoiCheat(
     moves: Storage<Moves>,
     hanoi: Storage<Hanoi>,
     texts: Lang.Block,
@@ -39,6 +39,6 @@ fun HanoiGame(
         hanoi * towerLens(Two),
         hanoi * towerLens(Three),
         capacity = maxNumberOfSlices,
-        mode = Mode.Play
+        mode = Mode.Cheat
     )
 }

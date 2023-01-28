@@ -2,130 +2,91 @@ package hanoi.towers.page.testpage
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
-import hanoi.towers.component.layout.Container
 import hanoi.towers.component.layout.Flex
 import lib.compose.Markup
-import org.jetbrains.compose.web.attributes.Draggable
+import lib.compose.dnd.*
+import lib.optics.storage.add
+import lib.optics.storage.contains
+import lib.optics.storage.onEach
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.svg.SVGTitleElement
 
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun DragDropTestPage() {
 
+    var sourceData: List<String> by remember {  mutableStateOf( listOf(
+        "drag_0",
+        "drag_1",
+        "drag_2",
+        "drag_3",
+        "drag_4",
+        "drag_5",
+        "drag_6",
+        "drag_7",
+        "drag_8",
+        "drag_9",
+    ))}
+    var dropped: List<String> by remember {  mutableStateOf( listOf() ) }
 
+    val convert: String.( ) -> Int = {dropWhile { it != '_' }.substring(1).toInt() }
 
-    Div {
-        Text("hi test page")
-        Div(
-            attrs = {
-                draggable(Draggable.True)
-            }
-        ) {
-            Text("Drag me around - html d&d")
+    DragDropEnvironment(
+        onDrag = { name -> dragged.add(
+            with(name.convert()){ sourceData.filter { it.convert() > this} }
+        )},
+        allowDrop = { dragged ,target -> target == "area_2"},
+        onDropRejected = { source, target ->
+            resetCoordinatesOfDraggedElements()
+        },
+        onDrop = {
+            source, target ->
+                sourceData = sourceData.filter { it !in dragged.read() }
+                resetCoordinatesOfDraggedElements()
+                dropped = with( arrayListOf(
+                    *dropped.toTypedArray(),
+                    *dragged.read().filter { it !in dropped }.toTypedArray()
+                )){
+                    sort()
+                    this
+                }
         }
-
-        var left by remember { mutableStateOf<Double>(0.0) }
-        var dX by remember { mutableStateOf<Double>(0.0) }
-        var top by remember { mutableStateOf(0.0) }
-        var dY by remember { mutableStateOf<Double>(0.0) }
-        var x by remember { mutableStateOf<Double>(0.0) }
-        var y by remember { mutableStateOf<Double>(0.0) }
-        var mousePressed by remember { mutableStateOf(false) }
-        Div({
-
-            style {
-                position(Position.Relative)
-                left(left.px)
-                top(top.px)
-                height(30.px)
-                width(100.px)
-                border {
-                    style = LineStyle.Solid
-                    color = Color("black")
-                }
-                cursor(when{
-                    mousePressed ->"grabbing"
-                    else -> "grab"
-
-                })
-            }
-
-            onMouseDown {
-                mousePressed = true
-                x = it.pageX
-                y = it.pageY
-            }
-
-            onMouseMove {
-                if(mousePressed) {
-                    dX = it.pageX - x
-                    dY = it.pageY - y
-                    x = it.pageX
-                    y = it.pageY
-
-                    left += dX
-                    top += dY
-                }
-            }
-            onMouseLeave {
-                if(mousePressed) {
-                    dX = it.pageX - x
-                    dY = it.pageY - y
-                    x = it.pageX
-                    y = it.pageY
-
-                    left += dX
-                    top += dY
-                }
-            }
-            onMouseUp {
-                mousePressed = false
-            }
-        }) {
-            Text("custom")
-        }
-    }
-
-
-    Container {
+    ){
+        H1 { Text("Hello DragDropEnvironment") }
         Flex {
-            Div { Text("1") }
-            Div { Text("2") }
+            sourceAndTarget("area_1") {
+                H2 { Text("Area 1") }
+                sourceData.forEach {
+                    Draggable(name = it, "area_1") {
+                        Button({style { cursor("inherit") }}) { Text(it) }
+                    }
+                }
+            }
+            Div({
+                style { width(500.px) }}
+            ){}
+            sourceAndTarget("area_2") {
+                H2 { Text("Area 2") }
+                Div({
+                    id("dropzone")
+                    style {
+                        width(200.px)
+                        height(300.px)
+                        border {
+                            style(LineStyle.Solid)
+                            width(1.px)
+                        }
+                    }
+                }) {
+                    dropped.forEach {
+                        Draggable(name = it) {
+                            Button({style { cursor("inherit") }}) { Text(it) }
+                        }
+                    }
+                }
+            }
         }
     }
 }
-
-/*
-
- <!DOCTYPE HTML>
-<html>
-<head>
-<script>
-function allowDrop(ev) {
-  ev.preventDefault();
-}
-
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
-}
-</script>
-</head>
-<body>
-
-<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-<img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69">
-
-</body>
-</html>
-
- */

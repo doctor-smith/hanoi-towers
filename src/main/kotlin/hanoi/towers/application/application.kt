@@ -15,10 +15,9 @@ import org.jetbrains.compose.web.renderComposable
 @Suppress("FunctionName")
 fun Application() = renderComposable(rootElementId = "root") {
     Store({ Storage() }) {
-        if ( langLoaded() ) {
-            UI(this)
-        } else {
-            Loading()
+        when( langLoaded() ) {
+            true -> UI(this)
+            false -> Loading()
         }
     }
 }
