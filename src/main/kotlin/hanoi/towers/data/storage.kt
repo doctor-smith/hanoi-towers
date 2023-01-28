@@ -23,6 +23,8 @@ fun Storage(): Storage<AppData> {
     var numberOfSlices by remember{ mutableStateOf(0) }
     var moves by remember{ mutableStateOf( Moves() ) }
     var hanoi by remember { mutableStateOf(Hanoi()) }
+    var hanoiGame by remember { mutableStateOf(Hanoi()) }
+    var hanoiCheat by remember { mutableStateOf(Hanoi()) }
     var indexOfCurrentMove by remember { mutableStateOf(0) }
     var numberOfMoves by remember { mutableStateOf(0) }
     var isComputingMoves by remember { mutableStateOf(false) }
@@ -45,6 +47,8 @@ fun Storage(): Storage<AppData> {
                 numberOfSlices,
                 moves,
                 hanoi,
+                hanoiGame,
+                hanoiCheat,
                 indexOfCurrentMove,
                 numberOfMoves,
                 isComputingMoves,
@@ -62,6 +66,8 @@ fun Storage(): Storage<AppData> {
             numberOfSlices = data.numberOfSlices
             moves = data.moves
             hanoi = data.hanoi
+            hanoiGame = data.hanoiGame
+            hanoiCheat = data.hanoiCheat
             indexOfCurrentMove = data.indexOfCurrentMove
             numberOfMoves = data.numberOfMoves
             isComputingMoves = data.isComputingMoves
