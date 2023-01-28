@@ -7,6 +7,7 @@ import kotlinx.browser.document
 import lib.compose.Markup
 import lib.optics.storage.Storage
 import lib.optics.storage.add
+import lib.optics.storage.contains
 import lib.optics.storage.onEach
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
@@ -264,4 +265,14 @@ fun DragDropEnvironment.sourceAndTarget(
     }
 }
 
-
+fun DragDropEnvironment.resetCoordinatesOfDraggedElements() =
+    draggables.onEach {
+        when(it.name in dragged) {
+            true -> it.copy(
+                coordinates = Coordinates(
+                    0.0,0.0
+                )
+            )
+            false -> it
+        }
+    }

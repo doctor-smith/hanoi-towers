@@ -39,30 +39,12 @@ fun DragDropTestPage() {
         )},
         allowDrop = { dragged ,target -> target == "area_2"},
         onDropRejected = { source, target ->
-            draggables.onEach {
-                when(it.name in dragged) {
-                    true -> it.copy(
-                        coordinates = Coordinates(
-                            0.0,0.0
-                        )
-                    )
-                    false -> it
-                }
-            }
+            resetCoordinatesOfDraggedElements()
         },
         onDrop = {
             source, target ->
                 sourceData = sourceData.filter { it !in dragged.read() }
-                draggables.onEach {
-                    when(it.name in dragged) {
-                        true -> it.copy(
-                            coordinates = Coordinates(
-                                0.0,0.0
-                            )
-                        )
-                        false -> it
-                    }
-                }
+                resetCoordinatesOfDraggedElements()
                 dropped = with( arrayListOf(
                     *dropped.toTypedArray(),
                     *dragged.read().filter { it !in dropped }.toTypedArray()
@@ -77,7 +59,7 @@ fun DragDropTestPage() {
             sourceAndTarget("area_1") {
                 H2 { Text("Area 1") }
                 sourceData.forEach {
-                    Draggable(name = it) {
+                    Draggable(name = it, "area_1") {
                         Button({style { cursor("inherit") }}) { Text(it) }
                     }
                 }
