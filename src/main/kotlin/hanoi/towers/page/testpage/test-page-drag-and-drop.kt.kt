@@ -17,7 +17,7 @@ import org.w3c.dom.svg.SVGTitleElement
 @Suppress("FunctionName")
 fun DragDropTestPage() {
 
-    val sourceData: ArrayList<String> = arrayListOf(
+    var sourceData: List<String> by remember {  mutableStateOf( listOf(
         "drag_0",
         "drag_1",
         "drag_2",
@@ -28,8 +28,8 @@ fun DragDropTestPage() {
         "drag_7",
         "drag_8",
         "drag_9",
-    )
-    val dropped: ArrayList<String> = arrayListOf()
+    ))}
+    var dropped: List<String> by remember {  mutableStateOf( listOf() ) }
 
     val convert: String.( ) -> Int = {dropWhile { it != '_' }.substring(1).toInt() }
 
@@ -52,9 +52,7 @@ fun DragDropTestPage() {
         },
         onDrop = {
             source, target ->
-                sourceData.removeAll(dragged.read().toSet())
-                dropped.addAll(dragged.read().filter { it !in dropped })
-                dropped.sort()
+                sourceData = sourceData.filter { it !in dragged.read() }
                 draggables.onEach {
                     when(it.name in dragged) {
                         true -> it.copy(
@@ -65,7 +63,13 @@ fun DragDropTestPage() {
                         false -> it
                     }
                 }
-
+                dropped = with( arrayListOf(
+                    *dropped.toTypedArray(),
+                    *dragged.read().filter { it !in dropped }.toTypedArray()
+                )){
+                    sort()
+                    this
+                }
         }
     ){
         H1 { Text("Hello DragDropEnvironment") }

@@ -8,12 +8,8 @@ import lib.compose.Markup
 import lib.optics.storage.Storage
 import lib.optics.storage.add
 import lib.optics.storage.onEach
-import lib.optics.storage.remove
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Text
-import org.w3c.dom.HTMLElement
 
 @Markup
 @Composable
@@ -88,15 +84,13 @@ fun DragDropEnvironment(
            // dragging = true
         },
         onMouseDown = {
-            name, syntheticMouseEvent ->
+            name, src,  syntheticMouseEvent ->
                 draggedStorage.add(name)
-
+                source = src
                 dragging = true
         },
         onMouseUp = {
             name, syntheticMouseEvent ->
-               //draggedStorage.remove { it === name }
-               //draggedStorage.remove { it === name }
                 dragging = false
         },
         onDrag = onDrag,
@@ -150,11 +144,12 @@ fun DragDropEnvironment(
                             false -> it
                         }
                     }
-                    onDrop(null, hitTarget)
+                    onDrop(source, hitTarget)
                 }
-                false -> onDropRejected(null, hitTarget)
+                false -> onDropRejected(source, hitTarget)
             }
             dragging = false
+            source = null
             draggedStorage.write(emptyList())
             mouseVelocity.write(Velocity(0.0,0.0))
         }
@@ -201,7 +196,7 @@ fun DragDropEnvironment.Draggable(
         }
         onMouseDown {
             cursor = config.cursorDrag
-            onMouseDown(name, it)
+            onMouseDown(name, source, it)
             onDrag(name)
         }
         onMouseUp {

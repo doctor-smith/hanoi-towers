@@ -27,7 +27,7 @@ data class DragDropEnvironment(
     val mouseCoordinates: Storage<Coordinates>,
     val mouseVelocity: Storage<Velocity>,
     val onMouseMove: ( SyntheticMouseEvent ) -> Unit,
-    val onMouseDown: (name: String, SyntheticMouseEvent)->Unit,
+    val onMouseDown: (name: String, source: String?,  SyntheticMouseEvent)->Unit,
     val onMouseUp: (name: String, SyntheticMouseEvent)->Unit,
     val onDrag: DragDropEnvironment.(name: String)->Unit = {},
     val allowDrop: (dragged: List<String>, target: String?)->Boolean = {_,_->false},
