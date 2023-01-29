@@ -29,6 +29,8 @@ fun Storage(): Storage<AppData> {
     var hanoiCheat by remember { mutableStateOf(Hanoi()) }
     var indexOfCurrentMove by remember { mutableStateOf(0) }
     var numberOfMoves by remember { mutableStateOf(0) }
+    var numberOfMovesCheat by remember { mutableStateOf(0) }
+    var numberOfMovesGame by remember { mutableStateOf(0) }
     var isComputingMoves by remember { mutableStateOf(false) }
     var isPlaying by remember { mutableStateOf(false) }
     var movesPerSecond by remember { mutableStateOf(4) }
@@ -55,6 +57,8 @@ fun Storage(): Storage<AppData> {
                 hanoiCheat,
                 indexOfCurrentMove,
                 numberOfMoves,
+                numberOfMovesCheat,
+                numberOfMovesGame,
                 isComputingMoves,
                 isPlaying,
                 movesPerSecond,
@@ -76,6 +80,8 @@ fun Storage(): Storage<AppData> {
             hanoiCheat = data.hanoiCheat
             indexOfCurrentMove = data.indexOfCurrentMove
             numberOfMoves = data.numberOfMoves
+            numberOfMovesCheat = data.numberOfMovesCheat
+            numberOfMovesGame = data.numberOfMovesGame
             isComputingMoves = data.isComputingMoves
             isPlaying = data.isPlaying
             if (isCookieDisclaimerConfirmed != data.isCookieDisclaimerConfirmed) {

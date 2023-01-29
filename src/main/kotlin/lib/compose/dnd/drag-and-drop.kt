@@ -75,7 +75,13 @@ fun DragDropEnvironment(
         read = {dropAllowed},
         write = {dropAllowed = it}
     )
+
     var source: String? by remember{ mutableStateOf( null ) }
+    val sourceStorage: Storage<String?> = Storage(
+        read = {source},
+        write = {source = it}
+    )
+
     var hitTarget: String? by remember{ mutableStateOf( null ) }
     val hitTargetStorage: Storage<String?> = Storage(
         read = {hitTarget},
@@ -87,6 +93,7 @@ fun DragDropEnvironment(
         targets = targetsStorage,
         draggables = draggablesStorage,
         dragged = draggedStorage,
+        source = sourceStorage,
         hitTarget = hitTargetStorage,
         dropAllowed = dropAllowedStorage,
         mouseCoordinates = coordinatesStorage,

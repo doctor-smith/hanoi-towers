@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.component.hanoi.*
 import hanoi.towers.component.layout.Flex
 import hanoi.towers.data.*
+import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.maxNumberOfSlices
 import lib.compose.Markup
 import lib.language.Lang
@@ -24,8 +25,9 @@ fun CheatPage(storage: Storage<AppData>, texts: Lang.Block) {
     H1 { Text(texts["headline"]) }
 
     Form(
+        Mode.Cheat,
         storage * numberOfSlicesCheatLens,
-        storage * numberOfMovesLens,
+        storage * numberOfMovesCheatLens,
         storage * hanoiCheatLens,
         storage * movesLens,
         storage * isComputingMovesLens,
