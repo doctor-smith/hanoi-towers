@@ -28,6 +28,7 @@ data class DragDropEnvironment(
     val targets: Storage<List<String>>,
     val draggables: Storage<List<Draggable>>,
     val dragged: Storage<List<String>>,
+    val source: Storage<String?>,
     val hitTarget: Storage<String?>,
     val dropAllowed: Storage<Boolean>,
     val mouseCoordinates: Storage<Coordinates>,
@@ -56,7 +57,10 @@ data class TargetConfig(
         name: String,
         environment: DragDropEnvironment
     )->Unit = {
-        name, environment -> if(name == environment.hitTarget.read()) {
+        name, environment -> if(
+            name == environment.hitTarget.read() &&
+            name != environment.source.read()
+        ) {
             when ( environment.dropAllowed.read() ) {
                 true -> backgroundColor(dropExpectedColor)
                 false -> backgroundColor(dropRejectedColor)
