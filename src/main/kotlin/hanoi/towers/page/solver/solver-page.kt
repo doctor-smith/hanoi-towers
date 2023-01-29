@@ -8,6 +8,7 @@ import hanoi.towers.component.hanoi.ListOfMoves
 import hanoi.towers.component.hanoi.Statistics
 import hanoi.towers.component.layout.Flex
 import hanoi.towers.data.*
+import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.maxNumberOfSlices
 import lib.compose.Markup
 import lib.language.Block
@@ -25,6 +26,7 @@ fun SolverPage(storage: Storage<AppData>, texts: Block) {
     H1 { Text(texts["headline"]) }
 
     Form(
+        Mode.Automatic,
         storage * numberOfSlicesLens,
         storage * numberOfMovesLens,
         storage * hanoiLens,
