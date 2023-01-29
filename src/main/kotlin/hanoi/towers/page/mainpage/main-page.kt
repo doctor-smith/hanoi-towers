@@ -9,6 +9,8 @@ import lib.compose.routing.navigate
 import lib.language.Block
 import lib.language.get
 import lib.optics.storage.Storage
+import org.jetbrains.compose.web.css.pc
+import org.jetbrains.compose.web.css.width
 import org.jetbrains.compose.web.dom.*
 
 val loremIpsum = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, ..."
@@ -19,16 +21,17 @@ fun MainPage(storage: Storage<AppData>, texts: Block) {
 
     H1 { Text(texts["headline"]) }
 
-    Flex{
-        Card(){
-            Div({
-                onClick { navigate("solver") }
-            }) {
-                H3{Text("Solver")}
-                Text("Solver ... $loremIpsum")
-            }
-        }
+    Article({
+        style { width(80.pc) }
+    }) {
+        P{Text(loremIpsum)}
+        H2{Text("Regeln")}
+        P{Text(loremIpsum)}
+        P{Text(loremIpsum)}
+        H2{Text("Spielmodi")}
+    }
 
+    Flex{
         Card{
             Div({
                 onClick { navigate("game") }
@@ -44,6 +47,15 @@ fun MainPage(storage: Storage<AppData>, texts: Block) {
             }) {
                 H3{Text("Cheat")}
                 Text("Cheat ... $loremIpsum")
+            }
+        }
+
+        Card(){
+            Div({
+                onClick { navigate("solver") }
+            }) {
+                H3{Text("Solver")}
+                Text("Solver ... $loremIpsum")
             }
         }
     }
