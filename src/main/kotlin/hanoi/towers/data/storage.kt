@@ -21,6 +21,8 @@ import lib.optics.transform.times
 fun Storage(): Storage<AppData> {
 
     var numberOfSlices by remember{ mutableStateOf(0) }
+    var numberOfSlicesCheat by remember{ mutableStateOf(0) }
+    var numberOfSlicesGame by remember{ mutableStateOf(0) }
     var moves by remember{ mutableStateOf( Moves() ) }
     var hanoi by remember { mutableStateOf(Hanoi()) }
     var hanoiGame by remember { mutableStateOf(Hanoi()) }
@@ -45,6 +47,8 @@ fun Storage(): Storage<AppData> {
         read = {
             AppData(
                 numberOfSlices,
+                numberOfSlicesCheat,
+                numberOfSlicesGame,
                 moves,
                 hanoi,
                 hanoiGame,
@@ -64,6 +68,8 @@ fun Storage(): Storage<AppData> {
         },
         write = { data ->
             numberOfSlices = data.numberOfSlices
+            numberOfSlicesCheat = data.numberOfSlicesCheat
+            numberOfSlicesGame = data.numberOfSlicesGame
             moves = data.moves
             hanoi = data.hanoi
             hanoiGame = data.hanoiGame

@@ -24,7 +24,7 @@ fun GamePage(storage: Storage<AppData>, texts: Lang.Block) {
     H1 { Text(texts["headline"]) }
 
     Form(
-        storage * numberOfSlicesLens,
+        storage * numberOfSlicesGameLens,
         storage * numberOfMovesLens,
         storage * hanoiGameLens,
         storage * movesLens,
