@@ -2,20 +2,16 @@ package hanoi.towers.page.mainpage
 
 import androidx.compose.runtime.Composable
 import hanoi.towers.component.layout.Flex
-import hanoi.towers.component.hanoi.Form
-import hanoi.towers.component.hanoi.HanoiVisualization
-import hanoi.towers.component.hanoi.ListOfMoves
-import hanoi.towers.component.hanoi.Statistics
 import hanoi.towers.data.*
-import hanoi.towers.maxNumberOfSlices
 import lib.compose.Markup
+import lib.compose.card.Card
+import lib.compose.routing.navigate
 import lib.language.Block
 import lib.language.get
-import lib.language.of
 import lib.optics.storage.Storage
-import lib.optics.transform.times
 import org.jetbrains.compose.web.dom.*
 
+val loremIpsum = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, ..."
 @Markup
 @Composable
 @Suppress("FunctionName")
@@ -23,38 +19,32 @@ fun MainPage(storage: Storage<AppData>, texts: Block) {
 
     H1 { Text(texts["headline"]) }
 
-    Form(
-        storage * numberOfSlicesLens,
-        storage * numberOfMovesLens,
-        storage * hanoiLens,
-        storage * movesLens,
-        storage * isComputingMovesLens,
-        storage * indexOfCurrentMoveLens,
-        storage * errorLens,
-        "form" of texts,
-        maxNumberOfSlices
-    )
+    Flex{
+        Card(){
+            Div({
+                onClick { navigate("solver") }
+            }) {
+                H3{Text("Solver")}
+                Text("Solver ... $loremIpsum")
+            }
+        }
 
-    Statistics(
-        storage * numberOfSlicesLens,
-        storage * numberOfMovesLens,
-        "statistics" of texts
-    )
+        Card{
+            Div({
+                onClick { navigate("game") }
+            }) {
+                H3{Text("Game")}
+                Text("Game ... $loremIpsum")
+            }
+        }
 
-    Flex {
-        ListOfMoves(
-            storage * movesLens,
-            storage * isComputingMovesLens,
-            "listOfMoves" of texts
-        )
-        HanoiVisualization(
-            storage * movesLens,
-            storage * hanoiLens,
-            storage * numberOfMovesLens,
-            storage * indexOfCurrentMoveLens,
-            storage * movesPerSecondLens,
-            storage * isPlayingLens,
-            "visualization" of texts
-        )
+        Card{
+            Div({
+                onClick { navigate("cheat") }
+            }) {
+                H3{Text("Cheat")}
+                Text("Cheat ... $loremIpsum")
+            }
+        }
     }
 }
