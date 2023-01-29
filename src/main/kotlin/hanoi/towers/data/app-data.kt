@@ -14,6 +14,8 @@ import org.w3c.dom.HTMLElement
 
 data class AppData(
     val numberOfSlices: Int,
+    val numberOfSlicesCheat: Int,
+    val numberOfSlicesGame: Int,
     val moves: Moves,
     val hanoi: Hanoi,
     val hanoiGame: Hanoi,
@@ -31,9 +33,20 @@ data class AppData(
     val error: String?
 )
 
+
 val numberOfSlicesLens = Lens<AppData, Int>(
     {data -> data.numberOfSlices},
     {s: Int -> {data -> data.copy(numberOfSlices = s)}}
+)
+
+val numberOfSlicesCheatLens = Lens<AppData, Int>(
+    {data -> data.numberOfSlicesCheat},
+    {s: Int -> {data -> data.copy(numberOfSlicesCheat = s)}}
+)
+
+val numberOfSlicesGameLens = Lens<AppData, Int>(
+    {data -> data.numberOfSlicesGame},
+    {s: Int -> {data -> data.copy(numberOfSlicesGame = s)}}
 )
 
 val movesLens = Lens<AppData, Moves>(

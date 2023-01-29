@@ -24,7 +24,7 @@ fun CheatPage(storage: Storage<AppData>, texts: Lang.Block) {
     H1 { Text(texts["headline"]) }
 
     Form(
-        storage * numberOfSlicesLens,
+        storage * numberOfSlicesCheatLens,
         storage * numberOfMovesLens,
         storage * hanoiCheatLens,
         storage * movesLens,
