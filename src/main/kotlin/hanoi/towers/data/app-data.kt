@@ -22,6 +22,8 @@ data class AppData(
     val hanoiCheat: Hanoi,
     val indexOfCurrentMove: Int,
     val numberOfMoves: Int,
+    val numberOfMovesCheat: Int,
+    val numberOfMovesGame: Int,
     val isComputingMoves: Boolean,
     val isPlaying: Boolean,
     val movesPerSecond: Int,
@@ -92,6 +94,16 @@ val indexOfCurrentMoveLens = Lens<AppData,Int>(
 val numberOfMovesLens = Lens<AppData,Int>(
     {data -> data.numberOfMoves},
     {s: Int -> {data -> data.copy(numberOfMoves = s)}}
+)
+
+val numberOfMovesCheatLens = Lens<AppData,Int>(
+    {data -> data.numberOfMovesCheat},
+    {s: Int -> {data -> data.copy(numberOfMovesCheat = s)}}
+)
+
+val numberOfMovesGameLens = Lens<AppData,Int>(
+    {data -> data.numberOfMovesGame},
+    {s: Int -> {data -> data.copy(numberOfMovesGame = s)}}
 )
 
 val movesPerSecondLens = Lens<AppData,Int>(
