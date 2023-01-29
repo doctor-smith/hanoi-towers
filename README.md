@@ -14,6 +14,6 @@ Instead of manually compiling and executing a Kotlin/JS project every time you w
 ```
 
 
-## Kotlin compatibility
+## Useful links 
 
-[Kotlin Compat](https://github.com/JetBrains/compose-jb/blob/master/VERSIONING.md#kotlin-compatibility)
+[Kotlin Compatibility](https://github.com/JetBrains/compose-jb/blob/master/VERSIONING.md#kotlin-compatibility)

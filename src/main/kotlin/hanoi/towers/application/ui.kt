@@ -1,13 +1,14 @@
-package hanoi.towers.component
+package hanoi.towers.application
 
 import androidx.compose.runtime.Composable
 import hanoi.towers.component.cookie.CookieDisclaimer
 import hanoi.towers.component.layout.Container
+import hanoi.towers.component.navigation.NavBar
 import hanoi.towers.data.*
 import hanoi.towers.page.cheat.CheatPage
 import hanoi.towers.page.game.GamePage
 import hanoi.towers.page.mainpage.MainPage
-import hanoi.towers.page.solwer.SolverPage
+import hanoi.towers.page.solver.SolverPage
 import hanoi.towers.page.testpage.DragDropTestPage
 import hanoi.towers.page.testpage.LoadingSpinnerTestPage
 import hanoi.towers.page.testpage.TestStorageComponent
@@ -44,7 +45,8 @@ fun UI(storage: Storage<AppData>) {
             NavBar(
                 storage * localesLens,
                 storage * localeLens,
-                texts.component("hanoi.locales")
+                texts.component("hanoi.locales"),
+                texts.component("hanoi.navigation"),
             )
             Routing("/") {
                 component {
