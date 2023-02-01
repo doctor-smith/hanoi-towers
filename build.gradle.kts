@@ -11,6 +11,11 @@ repositories {
     google()
 }
 
+val kotlinxCoroutinesCore:String by project
+val composeCompiler:String by project
+val ktorClientCoreJs:String by project
+val ktorClientJs:String by project
+
 kotlin {
     js(IR) {
         browser()
@@ -22,9 +27,9 @@ kotlin {
             resources.srcDir("src/main/resources")
 
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation("io.ktor:ktor-client-core-js:1.6.8")
-                implementation("io.ktor:ktor-client-js:1.6.8")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCore") // 1.6.4
+                implementation("io.ktor:ktor-client-core-js:$ktorClientCoreJs")
+                implementation("io.ktor:ktor-client-js:$ktorClientJs")
 
                 implementation(compose.web.core)
                 implementation(compose.runtime)
@@ -35,7 +40,7 @@ kotlin {
             kotlin.srcDir("src/jsTest/kotlin")
 
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCore")
                 implementation(kotlin("test-js"))
                 implementation(compose.web.testUtils)
             }
@@ -43,7 +48,7 @@ kotlin {
     }
 }
 compose {
-    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:1.4.0-alpha02")
+    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:$composeCompiler")
 }
 // a temporary workaround for a bug in jsRun invocation - see https://youtrack.jetbrains.com/issue/KT-48273
 afterEvaluate {
