@@ -1,0 +1,8 @@
+name: Test
+on: issue
+  jobs: 
+    display-issue:
+      runs-on: ubuntu-latest
+      steps: 
+        - name: echo
+          run: echo "${{github.issue}}"
