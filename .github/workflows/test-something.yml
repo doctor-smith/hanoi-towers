@@ -1,8 +1,14 @@
 name: Test
-on: issue
+on: issues 
 jobs: 
   display-issue:
     runs-on: ubuntu-latest
     steps: 
-      - name: echo
-        run: echo "${{github.issue}}"
+      - name: Log Issue Event
+        run: |
+          echo "Issue event triggered!"
+          echo "Action: ${{ github.event.action }}"
+          echo "Issue Number: ${{ github.event.issue.number }}"
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue Body: ${{ github.event.issue.body }}"
+          echo "Event Type: ${{ github.event_name }}"
