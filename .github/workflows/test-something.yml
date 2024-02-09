@@ -5,10 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
       - name: Log Issue Event
-        run: |
-          echo "Issue event triggered!"
-          echo "Action: ${{ github.event.action }}"
-          echo "Issue Number: ${{ github.event.issue.number }}"
-          echo "Issue Title: ${{ github.event.issue.title }}"
-          echo "Issue Body: ${{ github.event.issue.body }}"
-          echo "Event Type: ${{ github.event_name }}"
+        run: echo ${{ toJSON( github.event ) }}"
