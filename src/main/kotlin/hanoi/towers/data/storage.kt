@@ -18,7 +18,7 @@ import lib.optics.transform.times
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Storage(): Storage<AppData> {
+fun Storage(): Storage<AppData_Old> {
 
     var numberOfSlices by remember{ mutableStateOf(0) }
     var numberOfSlicesCheat by remember{ mutableStateOf(0) }
@@ -45,9 +45,9 @@ fun Storage(): Storage<AppData> {
     ) }
     var modals by remember { mutableStateOf<Modals<Int>>( mapOf()) }
 
-    val storage = Storage<AppData>(
+    val storage = Storage<AppData_Old>(
         read = {
-            AppData(
+            AppData_Old(
                 numberOfSlices,
                 numberOfSlicesCheat,
                 numberOfSlicesGame,

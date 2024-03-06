@@ -21,7 +21,7 @@ import org.jetbrains.compose.web.dom.*
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun SolverPage(storage: Storage<AppData>, texts: Block) {
+fun SolverPage(storage: Storage<AppData_Old>, texts: Block) {
 
     H1 { Text(texts["headline"]) }
 

@@ -15,7 +15,7 @@ const val loremIpsum = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun MainPage(storage: Storage<AppData>, texts: Block) {
+fun MainPage(storage: Storage<AppData_Old>, texts: Block) {
 
 
 

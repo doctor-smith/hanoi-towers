@@ -23,13 +23,17 @@ import lib.optics.transform.times
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun UI(storage: Storage<AppData>) {
+fun UI(storage: Storage<AppData_Old>) {
 
     val texts = (storage * languageLens).read() as Block
     val mainPageTexts = texts.component("hanoi.mainPage")
 
     document.title = mainPageTexts["title"]
 
+    // The whole UI needs to be wrapped in a component
+    // which is able to handle the interactive controlflow of the application,
+    // namely: dialogs, cookie-disclaimers errors, etc
+    // Note: Routing is done in the main container just below the navigation section
     ModalLayer(
         1000,
         storage * modalsLens,
@@ -48,6 +52,8 @@ fun UI(storage: Storage<AppData>) {
                 texts.component("hanoi.locales"),
                 texts.component("hanoi.navigation"),
             )
+            // Routing section
+            // Here, routes are mapped to components / pages
             Routing("/") {
                 component {
                     MainPage(storage, mainPageTexts)

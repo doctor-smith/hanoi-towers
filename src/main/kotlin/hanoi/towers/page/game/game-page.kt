@@ -19,7 +19,7 @@ import org.jetbrains.compose.web.dom.Text
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun GamePage(storage: Storage<AppData>, texts: Lang.Block) {
+fun GamePage(storage: Storage<AppData_Old>, texts: Lang.Block) {
 
 
     H1 { Text(texts["headline"]) }

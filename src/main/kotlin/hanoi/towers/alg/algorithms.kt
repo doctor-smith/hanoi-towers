@@ -110,3 +110,14 @@ fun Move.inverse(): Move = Move(to,from)
  */
 @Maths
 fun Moves.inverse(): Moves = Moves( *reversed().map { it.inverse() }.toTypedArray() )
+
+
+fun hanoi(n: Int, from: String, to: String, using: String, result: List<Pair<String, String>> = listOf()): List<Pair<String, String>> {
+    tailrec fun hanoi(n: Int, from: String, to: String, using: String, result: List<Pair<String, String>>): List<Pair<String, String>> {
+        return if (n == 1) result + listOf(Pair(from, to))
+        else {
+            hanoi(n - 1, from, using, to, result) + listOf(Pair(from, to)) + hanoi(n - 1, using, to, from, result)
+        }
+    }
+    return hanoi(n, from, to, using, result)
+}
