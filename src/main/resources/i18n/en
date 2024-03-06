@@ -17,25 +17,26 @@ en{
         mainPage{
             title: "Towers of Hanoi"
             headline: "The Towers of Hanoi"
-            form {
-                towerHeight: "Tower height"
-                error {
-                    limitedNumberOfSlices: "The number of slices is limited to __MAX_NUMBER_OF_SLICES__."
-                    numberOfSlicesMustBeNonNegative: "The number of slices must be non-negative"
+            introduction: "The Hanoi Towers is a puzzle game played with three towers (pegs) and a number of disks of different sizes, which can slide onto any tower. The puzzle starts with the disks in a neat stack in ascending order of size on one tower, the smallest at the top, thus making a conical shape. The objective of the puzzle is to move the entire stack to another tower, obeying the following simple rules:"
+            rulesOfTheGame {
+                headline: "Rules of the Game"
+                rule1: "Only one disk can be moved at a time."
+                rule2: "Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty peg."
+                rule3: "No disk may be placed on top of a smaller disk."
+            }
+            gameModes {
+                headline: "Game Modes"
+                game {
+                    headline: "Play"
+                    description: "Enjoy playing the game  ... "
                 }
-            }
-            statistics{
-                numberOfNecessaryMoves: "Minimal number of necessary moves: 2^__NUMBER_OF_SLICES__ - 1 = __NUMBER_OF_MOVES__"
-            }
-            listOfMoves {
-                headline: "List of moves"
-                hint: "Chose a positive number of slices, please"
-                computingMovesMessage: "Computing moves..."
-            }
-            visualization {
-                headline: "Visualization"
-                ActionBar {
-
+                cheat{
+                    headline: "Cheat"
+                    description: "Cheat a little bit and learn what you have to do to solve the puzzle ... "
+                }
+                solver{
+                    headline: "Automatic"
+                    description: "Solve the puzzle automatically using the most performant algorithm. Watch an animated solution."
                 }
             }
         }
