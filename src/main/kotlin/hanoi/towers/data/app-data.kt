@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.Tower
+import hanoi.towers.data.i18n.I18N
+import hanoi.towers.data.navigation.NavBar
 import hanoi.towers.data.pages.game.HanoiGame
 import hanoi.towers.data.pages.main.Main
 import lib.language.Block
@@ -68,6 +70,17 @@ val hanoiLens = Lens<AppData_Old, Hanoi>(
 val main = Lens<AppData_Old, Main>(
     {whole -> Main((whole.language as Block).component("hanoi.mainPage"))},
     {_ -> { data -> data}} // read only
+)
+
+val navBar = Lens<AppData_Old, NavBar>(
+    {whole -> NavBar(
+        I18N(
+            whole.locale,
+            whole.locales,
+            whole.language
+        )
+    ) },
+    {part -> {whole -> whole.copy(locale = part.i18n.locale)}} // Rest is read only
 )
 
 val hanoiGame = Lens<AppData_Old, HanoiGame>(

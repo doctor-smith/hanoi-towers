@@ -39,6 +39,8 @@ fun UI(storage: Storage<AppData_Old>) {
         storage * modalsLens,
     true
     ) {
+        // The Cookie disclaimer pops up, whenever as user
+        // visits the page for the first time or cleared the cookies
         CookieDisclaimer(
             texts.component("hanoi.cookieDisclaimer"),
             storage * modalsLens,
@@ -46,33 +48,39 @@ fun UI(storage: Storage<AppData_Old>) {
         )
 
         Container {
-            NavBar(
-                storage * localesLens,
-                storage * localeLens,
-                texts.component("hanoi.locales"),
-                texts.component("hanoi.navigation"),
-            )
+            // Top navigation bar
+            NavBar( storage * navBar)
+
             // Routing section
             // Here, routes are mapped to components / pages
             Routing("/") {
+                // Route to the Hanoi Towers Main / Welcome Page
                 component {
                     MainPage(storage * main)
                 }
+                // Route to the Hanoi Towers Solver Page.
                 route("solver") {
                     component{
                         SolverPage(storage,texts.component("hanoi.solverPage"))
                     }
                 }
+                // Route to the Hanoi Towers Game Page.
+                // Here one can play the Game Hanoi Towers
                 route("game") {
                     component {
                         GamePage(storage, texts.component("hanoi.gamePage"))
                     }
                 }
+                // Route to the Hanoi Towers Cheat Page.
+                // This page might be used to illustrate
+                // strategies to solve the game
                 route("cheat") {
                     component {
                         CheatPage(storage, texts.component("hanoi.cheatPage"))
                     }
                 }
+                // routes for test-purposes
+                // TODO (These routes shall not be available in production)
                 route("test") {
                     route("loader") {
                         component {

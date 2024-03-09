@@ -1,11 +1,18 @@
 package hanoi.towers.component.navigation
 
 import androidx.compose.runtime.Composable
+import hanoi.towers.data.i18n.language
+import hanoi.towers.data.i18n.locale
+import hanoi.towers.data.i18n.locales
+import hanoi.towers.data.navigation.NavBar
+import hanoi.towers.data.navigation.i18n
 import lib.compose.Markup
 import lib.compose.routing.navigate
 import lib.language.Block
+import lib.language.component
 import lib.language.get
 import lib.optics.storage.Storage
+import lib.optics.transform.times
 import org.jetbrains.compose.web.attributes.selected
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
@@ -14,17 +21,18 @@ import org.jetbrains.compose.web.dom.*
 @Composable
 @Suppress("FunctionName")
 fun NavBar(
-    locales: Storage<List<String>>,
-    locale: Storage<String>,
-    localeTexts: Block,
-    navTexts: Block
-    ) = Div({
+    navBar: Storage<NavBar>
+) = Div({
     style {
         paddingTop(10.px)
         display(DisplayStyle.Flex)
         justifyContent(JustifyContent.FlexEnd)
     }
 }) {
+
+    val i18n = navBar * i18n
+    val currentLocale = (i18n * locale).read()
+
     Button({onClick {
         navigate("/")
     }}) { Text("Home") }
@@ -39,19 +47,18 @@ fun NavBar(
     }}) { Text("Solver") }
     Div({style { width(50.px) }}) {  }
 
-    val currentLocale = locale.read()
     Div({classes("select")}) {
         Select {
-            locales.read().forEach { s ->
+            (i18n * locales).read().forEach { s ->
                 Option(s, {
                     if (s == currentLocale) {
                         selected()
                     }
                     onClick {
-                        locale.write(s)
+                        (i18n * locale).write(s)
                     }
                 }) {
-                    Text(localeTexts[s])
+                    Text(((i18n * language).read() as Block).component("hanoi.locales")[s])
                 }
             }
         }
