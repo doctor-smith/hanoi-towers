@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.Tower
+import hanoi.towers.data.pages.HanoiGame
 import lib.language.Lang
 import lib.optics.lens.Lens
 import lib.optics.storage.Storage
@@ -64,6 +65,13 @@ val hanoiLens = Lens<AppData_Old, Hanoi>(
 val hanoiGameLens = Lens<AppData_Old, Hanoi>(
     {data -> data.hanoiGame},
     {s: Hanoi -> { data -> data.copy(hanoiGame = s)}}
+)
+
+val hanoiGame = Lens<AppData_Old, HanoiGame>(
+    {data -> HanoiGame(
+        data.hanoiGame, data.language, 10
+    )},
+    {s: HanoiGame -> { data -> data.copy(hanoiGame = s.hanoi)}} // other two values are read only
 )
 
 val hanoiCheatLens = Lens<AppData_Old, Hanoi>(

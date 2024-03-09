@@ -1,10 +1,11 @@
 package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.Composable
-import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Mode
-import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.Tower.*
+import hanoi.towers.data.pages.HanoiGame
+import hanoi.towers.data.pages.hanoi
+import hanoi.towers.data.pages.maxNumberOfSlices
 import hanoi.towers.data.towerLens
 import lib.compose.Markup
 import lib.language.Lang
@@ -20,10 +21,8 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 @Suppress("FunctionName")
 fun HanoiGame(
-    moves: Storage<Moves>,
-    hanoi: Storage<Hanoi>,
+    hanoiGame: Storage<HanoiGame>,
     texts: Lang.Block,
-    maxNumberOfSlices: Int = 10
 ) = Div({
     style {
         flex(1)
@@ -34,11 +33,10 @@ fun HanoiGame(
     H3 { Text(texts["headline"]) }
 
     Hanoi(
-        //moves.read(),
-        hanoi * towerLens(One),
-        hanoi * towerLens(Two),
-        hanoi * towerLens(Three),
-        capacity = maxNumberOfSlices,
+        hanoiGame * hanoi * towerLens(One),
+        hanoiGame * hanoi * towerLens(Two),
+        hanoiGame * hanoi * towerLens(Three),
+        capacity = (hanoiGame * maxNumberOfSlices).read(),
         mode = Mode.Play
     )
 }

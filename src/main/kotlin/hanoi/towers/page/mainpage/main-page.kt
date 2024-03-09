@@ -17,8 +17,6 @@ const val loremIpsum = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
 @Suppress("FunctionName")
 fun MainPage(storage: Storage<AppData_Old>, texts: Block) {
 
-
-
     Article({
         // style { width(80.pc) }
     }) {

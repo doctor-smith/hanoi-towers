@@ -14,4 +14,3 @@ data class Moves(val moves: ArrayList<Move>): List<Move> by moves {
 
     override fun toString(): String = joinToString("\n") { "$it" }
 }
-
