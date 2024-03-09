@@ -5,7 +5,7 @@ import hanoi.towers.component.hanoi.*
 import hanoi.towers.component.layout.Flex
 import hanoi.towers.data.*
 import hanoi.towers.data.hanoi.Mode
-import hanoi.towers.data.pages.hanoi
+import hanoi.towers.data.pages.game.hanoi
 import hanoi.towers.maxNumberOfSlices
 import lib.compose.Markup
 import lib.language.Lang

@@ -3,19 +3,25 @@ package hanoi.towers.page.mainpage
 import androidx.compose.runtime.Composable
 import hanoi.towers.component.layout.Flex
 import hanoi.towers.data.*
+import hanoi.towers.data.pages.main.Main
+import hanoi.towers.data.pages.main.texts
 import lib.compose.Markup
 import lib.compose.card.Card
 import lib.compose.routing.navigate
-import lib.language.Block
+import lib.language.Lang
 import lib.language.get
 import lib.optics.storage.Storage
+import lib.optics.transform.times
 import org.jetbrains.compose.web.dom.*
 
 const val loremIpsum = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, ..."
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun MainPage(storage: Storage<AppData_Old>, texts: Block) {
+fun MainPage(storage: Storage<Main>) {
+
+    val texts: Lang = (storage * texts).read()
+
 
     Article({
         // style { width(80.pc) }

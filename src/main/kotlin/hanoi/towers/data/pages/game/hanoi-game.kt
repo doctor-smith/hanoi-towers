@@ -1,4 +1,4 @@
-package hanoi.towers.data.pages
+package hanoi.towers.data.pages.game
 
 import hanoi.towers.data.hanoi.Hanoi
 import lib.language.Lang

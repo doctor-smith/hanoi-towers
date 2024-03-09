@@ -1,4 +1,4 @@
-package hanoi.towers.data.pages
+package hanoi.towers.data.pages.solver
 
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves

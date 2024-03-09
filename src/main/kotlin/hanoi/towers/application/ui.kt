@@ -56,7 +56,7 @@ fun UI(storage: Storage<AppData_Old>) {
             // Here, routes are mapped to components / pages
             Routing("/") {
                 component {
-                    MainPage(storage, mainPageTexts)
+                    MainPage(storage * main)
                 }
                 route("solver") {
                     component{
