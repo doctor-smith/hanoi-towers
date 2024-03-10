@@ -25,7 +25,7 @@ import lib.optics.transform.times
 @Suppress("FunctionName")
 fun UI(storage: Storage<AppData_Old>) {
 
-    val texts = (storage * languageLens).read() as Block
+    val texts = (storage * language).read() as Block
     val mainPageTexts = texts.component("hanoi.mainPage")
 
     document.title = mainPageTexts["title"]
@@ -36,15 +36,15 @@ fun UI(storage: Storage<AppData_Old>) {
     // Note: Routing is done in the main container just below the navigation section
     ModalLayer(
         1000,
-        storage * modalsLens,
+        storage * modals,
     true
     ) {
         // The Cookie disclaimer pops up, whenever as user
         // visits the page for the first time or cleared the cookies
         CookieDisclaimer(
             texts.component("hanoi.cookieDisclaimer"),
-            storage * modalsLens,
-            storage * isCookieDisclaimerConfirmedLens
+            storage * modals,
+            storage * isCookieDisclaimerConfirmed
         )
 
         Container {

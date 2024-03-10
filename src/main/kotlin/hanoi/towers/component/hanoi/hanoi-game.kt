@@ -6,7 +6,7 @@ import hanoi.towers.data.hanoi.Tower.*
 import hanoi.towers.data.pages.game.component.HanoiGame
 import hanoi.towers.data.pages.game.component.hanoi
 import hanoi.towers.data.pages.game.component.maxNumberOfSlices
-import hanoi.towers.data.towerLens
+import hanoi.towers.data.tower
 import lib.compose.Markup
 import lib.language.Lang
 import lib.language.get
@@ -33,9 +33,9 @@ fun HanoiGame(
     H3 { Text(texts["headline"]) }
 
     Hanoi(
-        hanoiGame * hanoi * towerLens(One),
-        hanoiGame * hanoi * towerLens(Two),
-        hanoiGame * hanoi * towerLens(Three),
+        hanoiGame * hanoi * tower(One),
+        hanoiGame * hanoi * tower(Two),
+        hanoiGame * hanoi * tower(Three),
         capacity = (hanoiGame * maxNumberOfSlices).read(),
         mode = Mode.Play
     )

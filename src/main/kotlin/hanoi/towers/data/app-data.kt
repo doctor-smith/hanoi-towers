@@ -137,7 +137,7 @@ val hanoiSolverPage = Lens<AppData_Old, HanoiSolverPage>(
     )}} // other values are read only
 )
 
-val towerLens: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
+val tower: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
     Tower.One -> Lens(
         {data -> data.one},
         {s: List<Int> -> {data -> data.copy(one = s)}}
@@ -153,36 +153,36 @@ val towerLens: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
 }}
 
 
-val isCookieDisclaimerConfirmedLens = Lens<AppData_Old,Boolean>(
+val isCookieDisclaimerConfirmed = Lens<AppData_Old,Boolean>(
     {data -> data.isCookieDisclaimerConfirmed},
     {s: Boolean -> {data -> data.copy(isCookieDisclaimerConfirmed = s)}}
 )
 
-val localeLens = Lens<AppData_Old,String>(
+val locale = Lens<AppData_Old,String>(
     {data -> data.locale},
     {s: String -> {data -> data.copy(locale = s)}}
 )
 
-val localesLens = Lens<AppData_Old, List<String>>(
+val locales = Lens<AppData_Old, List<String>>(
     {data -> data.locales},
     {s: List<String> ->  {data -> data.copy(locales = s)}}//TODO("Locales is to be Readonly")} //-> {data -> data.copy(locale = s)}}
 )
 
-val languageLens = Lens<AppData_Old,Lang>(
+val language = Lens<AppData_Old,Lang>(
     {data -> data.language},
     {s: Lang -> {data -> data.copy(language = s)}}
     //TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
 )
 fun Storage<AppData_Old>.langLoaded (): Boolean  {
 
-    val languageStorage = (this * languageLens)
-    val localesStorage = (this * localesLens)
+    val languageStorage = (this * language)
+    val localesStorage = (this * locales)
 
     return (languageStorage.read() as Lang.Block).value.isNotEmpty() &&
             localesStorage.read().isNotEmpty()
 }
 
-val modalsLens = Lens<AppData_Old, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (
+val modals = Lens<AppData_Old, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (
     {whole -> whole.modals},
     {part -> {whole -> whole.copy(modals = part)}}
 )

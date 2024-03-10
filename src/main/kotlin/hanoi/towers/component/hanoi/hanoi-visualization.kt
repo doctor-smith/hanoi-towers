@@ -4,10 +4,8 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.hanoi.Moves
-import hanoi.towers.data.hanoi.Tower.One
-import hanoi.towers.data.hanoi.Tower.Two
-import hanoi.towers.data.hanoi.Tower.Three
-import hanoi.towers.data.towerLens
+import hanoi.towers.data.hanoi.Tower.*
+import hanoi.towers.data.tower
 import lib.compose.Markup
 import lib.language.Lang.Block
 import lib.language.get
@@ -41,9 +39,9 @@ fun HanoiVisualization(
 
     Hanoi(
         moves.read(),
-        hanoi * towerLens(One),
-        hanoi * towerLens(Two),
-        hanoi * towerLens(Three),
+        hanoi * tower(One),
+        hanoi * tower(Two),
+        hanoi * tower(Three),
         capacity = maxNumberOfSlices,
         mode = Mode.Automatic
     )

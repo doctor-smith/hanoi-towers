@@ -15,9 +15,11 @@ import lib.language.LanguageP
 import lib.optics.storage.Storage
 import lib.optics.transform.times
 
+import hanoi.towers.data.language as languageLens
+import hanoi.towers.data.locale as localeLens
+import hanoi.towers.data.locales as localesLens
 @Markup
 @Composable
-@Suppress("FunctionName")
 fun Storage(): Storage<AppData_Old> {
 
     var numberOfSlices by remember{ mutableStateOf(0) }
