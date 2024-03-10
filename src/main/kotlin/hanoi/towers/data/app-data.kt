@@ -11,6 +11,8 @@ import hanoi.towers.data.pages.cheat.component.HanoiCheat
 import hanoi.towers.data.pages.game.HanoiGamePage
 import hanoi.towers.data.pages.game.component.HanoiGame
 import hanoi.towers.data.pages.main.Main
+import hanoi.towers.data.pages.solver.HanoiSolverPage
+import hanoi.towers.data.pages.solver.component.HanoiSolver
 import lib.language.Block
 import lib.language.Lang
 import lib.language.component
@@ -42,22 +44,6 @@ data class AppData_Old(
     val language: Lang,
     val modals: Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>,
     val error: String?
-)
-
-
-val numberOfSlicesLens = Lens<AppData_Old, Int>(
-    {data -> data.numberOfSlices},
-    {s: Int -> {data -> data.copy(numberOfSlices = s)}}
-)
-
-val movesLens = Lens<AppData_Old, Moves>(
-    {data -> data.moves},
-    {s: Moves -> { data -> data.copy(moves = s)}}
-)
-
-val hanoiLens = Lens<AppData_Old, Hanoi>(
-    {data -> data.hanoi},
-    {s: Hanoi -> { data -> data.copy(hanoi = s)}}
 )
 
 val main = Lens<AppData_Old, Main>(
@@ -123,6 +109,34 @@ val hanoiCheatPage = Lens<AppData_Old, HanoiCheatPage>(
     )}} // other two values are read only
 )
 
+val hanoiSolverPage = Lens<AppData_Old, HanoiSolverPage>(
+    {whole -> HanoiSolverPage(
+        whole.language as Lang.Block,
+        HanoiSolver(
+            whole.hanoi,
+            whole.language
+        ) ,
+        whole.numberOfSlices,
+        whole.moves,
+        whole.indexOfCurrentMove,
+        whole.numberOfMoves,
+        whole.isComputingMoves,
+        whole.isPlaying,
+        whole.movesPerSecond,
+        whole.error,
+    ) },
+    {part: HanoiSolverPage -> { whole -> whole.copy(
+        hanoi = part.solver.hanoi,
+        numberOfSlices = part.numberOfSlices,
+        moves = part.moves,
+        indexOfCurrentMove = part.indexOfCurrentMove,
+        numberOfMoves = part.numberOfMoves,
+        isComputingMoves = part.isComputingMoves,
+        isPlaying = part.isPlaying,
+        error = part.error
+    )}} // other values are read only
+)
+
 val towerLens: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
     Tower.One -> Lens(
         {data -> data.one},
@@ -138,30 +152,6 @@ val towerLens: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
     )
 }}
 
-val indexOfCurrentMoveLens = Lens<AppData_Old,Int>(
-    {data -> data.indexOfCurrentMove},
-    {s: Int -> {data -> data.copy(indexOfCurrentMove = s)}}
-)
-
-val numberOfMovesLens = Lens<AppData_Old,Int>(
-    {data -> data.numberOfMoves},
-    {s: Int -> {data -> data.copy(numberOfMoves = s)}}
-)
-
-val movesPerSecondLens = Lens<AppData_Old,Int>(
-    {data -> data.movesPerSecond},
-    {s: Int -> {data -> data.copy(movesPerSecond = s)}}
-)
-
-val isComputingMovesLens = Lens<AppData_Old,Boolean>(
-    {data -> data.isComputingMoves},
-    {s: Boolean -> {data -> data.copy(isComputingMoves = s)}}
-)
-
-val isPlayingLens = Lens<AppData_Old,Boolean>(
-    {data -> data.isPlaying},
-    {s: Boolean -> {data -> data.copy(isPlaying = s)}}
-)
 
 val isCookieDisclaimerConfirmedLens = Lens<AppData_Old,Boolean>(
     {data -> data.isCookieDisclaimerConfirmed},
@@ -183,8 +173,6 @@ val languageLens = Lens<AppData_Old,Lang>(
     {s: Lang -> {data -> data.copy(language = s)}}
     //TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
 )
-
-
 fun Storage<AppData_Old>.langLoaded (): Boolean  {
 
     val languageStorage = (this * languageLens)
@@ -197,9 +185,4 @@ fun Storage<AppData_Old>.langLoaded (): Boolean  {
 val modalsLens = Lens<AppData_Old, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (
     {whole -> whole.modals},
     {part -> {whole -> whole.copy(modals = part)}}
-)
-
-val errorLens = Lens<AppData_Old,String?>(
-    {whole -> whole.error},
-    {part: String? -> {whole -> whole.copy(error = part)}}
 )

@@ -61,7 +61,7 @@ fun UI(storage: Storage<AppData_Old>) {
                 // Route to the Hanoi Towers Solver Page.
                 route("solver") {
                     component{
-                        SolverPage(storage,texts.component("hanoi.solverPage"))
+                        SolverPage(storage * hanoiSolverPage)
                     }
                 }
                 // Route to the Hanoi Towers Game Page.
