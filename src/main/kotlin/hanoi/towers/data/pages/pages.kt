@@ -1,6 +1,6 @@
 package hanoi.towers.data.pages
 
-import hanoi.towers.data.pages.cheat.HanoiCheat
+import hanoi.towers.data.pages.cheat.component.HanoiCheat
 import hanoi.towers.data.pages.game.component.HanoiGame
 import hanoi.towers.data.pages.solver.HanoiSolver
 import lib.language.Lang

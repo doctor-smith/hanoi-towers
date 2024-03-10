@@ -76,7 +76,7 @@ fun UI(storage: Storage<AppData_Old>) {
                 // strategies to solve the game
                 route("cheat") {
                     component {
-                        CheatPage(storage, texts.component("hanoi.cheatPage"))
+                        CheatPage(storage * hanoiCheatPage)
                     }
                 }
                 // routes for test-purposes

@@ -6,6 +6,8 @@ import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.Tower
 import hanoi.towers.data.i18n.I18N
 import hanoi.towers.data.navigation.NavBar
+import hanoi.towers.data.pages.cheat.HanoiCheatPage
+import hanoi.towers.data.pages.cheat.component.HanoiCheat
 import hanoi.towers.data.pages.game.HanoiGamePage
 import hanoi.towers.data.pages.game.component.HanoiGame
 import hanoi.towers.data.pages.main.Main
@@ -46,11 +48,6 @@ data class AppData_Old(
 val numberOfSlicesLens = Lens<AppData_Old, Int>(
     {data -> data.numberOfSlices},
     {s: Int -> {data -> data.copy(numberOfSlices = s)}}
-)
-
-val numberOfSlicesCheatLens = Lens<AppData_Old, Int>(
-    {data -> data.numberOfSlicesCheat},
-    {s: Int -> {data -> data.copy(numberOfSlicesCheat = s)}}
 )
 
 val movesLens = Lens<AppData_Old, Moves>(
@@ -102,9 +99,28 @@ val hanoiGamePage = Lens<AppData_Old, HanoiGamePage>(
     )}} // other two values are read only
 )
 
-val hanoiCheatLens = Lens<AppData_Old, Hanoi>(
-    {data -> data.hanoiCheat},
-    {s: Hanoi -> { data -> data.copy(hanoiCheat = s)}}
+
+val hanoiCheatPage = Lens<AppData_Old, HanoiCheatPage>(
+    {whole -> HanoiCheatPage(
+        whole.language as Lang.Block,
+        HanoiCheat(
+            whole.hanoiCheat,
+            whole.language,
+            10
+        ) ,
+        whole.numberOfSlicesCheat,
+        whole.numberOfMovesCheat,
+        whole.moves,
+        whole.isComputingMoves,
+        whole.indexOfCurrentMove,
+        whole.error,
+    ) },
+    {part: HanoiCheatPage -> { whole -> whole.copy(
+        numberOfSlicesCheat = part.numberOfSlices,
+        numberOfMovesCheat = part.numberOfMoves,
+        hanoiCheat = part.cheat.hanoi,
+        error = part.error
+    )}} // other two values are read only
 )
 
 val towerLens: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
@@ -130,11 +146,6 @@ val indexOfCurrentMoveLens = Lens<AppData_Old,Int>(
 val numberOfMovesLens = Lens<AppData_Old,Int>(
     {data -> data.numberOfMoves},
     {s: Int -> {data -> data.copy(numberOfMoves = s)}}
-)
-
-val numberOfMovesCheatLens = Lens<AppData_Old,Int>(
-    {data -> data.numberOfMovesCheat},
-    {s: Int -> {data -> data.copy(numberOfMovesCheat = s)}}
 )
 
 val movesPerSecondLens = Lens<AppData_Old,Int>(
