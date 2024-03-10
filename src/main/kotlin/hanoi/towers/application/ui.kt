@@ -68,7 +68,7 @@ fun UI(storage: Storage<AppData_Old>) {
                 // Here one can play the Game Hanoi Towers
                 route("game") {
                     component {
-                        GamePage(storage, texts.component("hanoi.gamePage"))
+                        GamePage(storage * hanoiGamePage)
                     }
                 }
                 // Route to the Hanoi Towers Cheat Page.

@@ -3,9 +3,9 @@ package hanoi.towers.component.hanoi
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.hanoi.Tower.*
-import hanoi.towers.data.pages.game.HanoiGame
-import hanoi.towers.data.pages.game.hanoi
-import hanoi.towers.data.pages.game.maxNumberOfSlices
+import hanoi.towers.data.pages.game.component.HanoiGame
+import hanoi.towers.data.pages.game.component.hanoi
+import hanoi.towers.data.pages.game.component.maxNumberOfSlices
 import hanoi.towers.data.towerLens
 import lib.compose.Markup
 import lib.language.Lang
