@@ -23,7 +23,7 @@ import org.jetbrains.compose.web.dom.ElementScope
 import org.w3c.dom.HTMLElement
 
 
-data class AppData_Old(
+data class AppData(
     val numberOfSlices: Int,
     val numberOfSlicesCheat: Int,
     val numberOfSlicesGame: Int,
@@ -46,12 +46,12 @@ data class AppData_Old(
     val error: String?
 )
 
-val main = Lens<AppData_Old, Main>(
+val main = Lens<AppData, Main>(
     {whole -> Main((whole.language as Block).component("hanoi.mainPage"))},
     {_ -> { data -> data}} // read only
 )
 
-val navBar = Lens<AppData_Old, NavBar>(
+val navBar = Lens<AppData, NavBar>(
     {whole -> NavBar(
         I18N(
             whole.locale,
@@ -62,7 +62,7 @@ val navBar = Lens<AppData_Old, NavBar>(
     {part -> {whole -> whole.copy(locale = part.i18n.locale)}} // Rest is read only
 )
 
-val hanoiGamePage = Lens<AppData_Old, HanoiGamePage>(
+val hanoiGamePage = Lens<AppData, HanoiGamePage>(
     {whole -> HanoiGamePage(
         whole.language as Lang.Block,
         HanoiGame(
@@ -86,7 +86,7 @@ val hanoiGamePage = Lens<AppData_Old, HanoiGamePage>(
 )
 
 
-val hanoiCheatPage = Lens<AppData_Old, HanoiCheatPage>(
+val hanoiCheatPage = Lens<AppData, HanoiCheatPage>(
     {whole -> HanoiCheatPage(
         whole.language as Lang.Block,
         HanoiCheat(
@@ -109,7 +109,7 @@ val hanoiCheatPage = Lens<AppData_Old, HanoiCheatPage>(
     )}} // other two values are read only
 )
 
-val hanoiSolverPage = Lens<AppData_Old, HanoiSolverPage>(
+val hanoiSolverPage = Lens<AppData, HanoiSolverPage>(
     {whole -> HanoiSolverPage(
         whole.language as Lang.Block,
         HanoiSolver(
@@ -153,27 +153,27 @@ val tower: (tower: Tower)->Lens<Hanoi, List<Int>> = {when(it){
 }}
 
 
-val isCookieDisclaimerConfirmed = Lens<AppData_Old,Boolean>(
+val isCookieDisclaimerConfirmed = Lens<AppData,Boolean>(
     {data -> data.isCookieDisclaimerConfirmed},
     {s: Boolean -> {data -> data.copy(isCookieDisclaimerConfirmed = s)}}
 )
 
-val locale = Lens<AppData_Old,String>(
+val locale = Lens<AppData,String>(
     {data -> data.locale},
     {s: String -> {data -> data.copy(locale = s)}}
 )
 
-val locales = Lens<AppData_Old, List<String>>(
+val locales = Lens<AppData, List<String>>(
     {data -> data.locales},
     {s: List<String> ->  {data -> data.copy(locales = s)}}//TODO("Locales is to be Readonly")} //-> {data -> data.copy(locale = s)}}
 )
 
-val language = Lens<AppData_Old,Lang>(
+val language = Lens<AppData,Lang>(
     {data -> data.language},
     {s: Lang -> {data -> data.copy(language = s)}}
     //TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
 )
-fun Storage<AppData_Old>.langLoaded (): Boolean  {
+fun Storage<AppData>.langLoaded (): Boolean  {
 
     val languageStorage = (this * language)
     val localesStorage = (this * locales)
@@ -182,7 +182,7 @@ fun Storage<AppData_Old>.langLoaded (): Boolean  {
             localesStorage.read().isNotEmpty()
 }
 
-val modals = Lens<AppData_Old, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (
+val modals = Lens<AppData, Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>> (
     {whole -> whole.modals},
     {part -> {whole -> whole.copy(modals = part)}}
 )

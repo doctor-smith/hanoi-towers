@@ -20,7 +20,7 @@ import hanoi.towers.data.locale as localeLens
 import hanoi.towers.data.locales as localesLens
 @Markup
 @Composable
-fun Storage(): Storage<AppData_Old> {
+fun Storage(): Storage<AppData> {
 
     var numberOfSlices by remember{ mutableStateOf(0) }
     var numberOfSlicesCheat by remember{ mutableStateOf(0) }
@@ -47,9 +47,9 @@ fun Storage(): Storage<AppData_Old> {
     ) }
     var modals by remember { mutableStateOf<Modals<Int>>( mapOf()) }
 
-    val storage = Storage<AppData_Old>(
+    val storage = Storage<AppData>(
         read = {
-            AppData_Old(
+            AppData(
                 numberOfSlices,
                 numberOfSlicesCheat,
                 numberOfSlicesGame,

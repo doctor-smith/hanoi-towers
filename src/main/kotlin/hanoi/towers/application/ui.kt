@@ -23,7 +23,7 @@ import lib.optics.transform.times
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun UI(storage: Storage<AppData_Old>) {
+fun UI(storage: Storage<AppData>) {
 
     val texts = (storage * language).read() as Block
     val mainPageTexts = texts.component("hanoi.mainPage")
