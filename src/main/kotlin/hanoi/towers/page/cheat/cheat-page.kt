@@ -42,8 +42,7 @@ fun CheatPage(storage: Storage<HanoiCheatPage>) {
 
     Flex {
         HanoiCheat(
-            storage * moves,
-            storage * cheat * hanoi,
+            storage * cheat,
             "visualization" of texts
         )
     }
