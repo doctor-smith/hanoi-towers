@@ -25,48 +25,62 @@ import lib.optics.transform.times
 @Suppress("FunctionName")
 fun UI(storage: Storage<AppData>) {
 
-    val texts = (storage * languageLens).read() as Block
+    val texts = (storage * language).read() as Block
     val mainPageTexts = texts.component("hanoi.mainPage")
 
     document.title = mainPageTexts["title"]
 
+    // The whole UI needs to be wrapped in a component
+    // which is able to handle the interactive controlflow of the application,
+    // namely: dialogs, cookie-disclaimers errors, etc
+    // Note: Routing is done in the main container just below the navigation section
     ModalLayer(
         1000,
-        storage * modalsLens,
+        storage * modals,
     true
     ) {
+        // The Cookie disclaimer pops up, whenever as user
+        // visits the page for the first time or cleared the cookies
         CookieDisclaimer(
             texts.component("hanoi.cookieDisclaimer"),
-            storage * modalsLens,
-            storage * isCookieDisclaimerConfirmedLens
+            storage * modals,
+            storage * isCookieDisclaimerConfirmed
         )
 
         Container {
-            NavBar(
-                storage * localesLens,
-                storage * localeLens,
-                texts.component("hanoi.locales"),
-                texts.component("hanoi.navigation"),
-            )
+            // Top navigation bar
+            NavBar( storage * navBar)
+
+            // Routing section
+            // Here, routes are mapped to components / pages
             Routing("/") {
+                // Route to the Hanoi Towers Main / Welcome Page
                 component {
-                    MainPage(storage, mainPageTexts)
+                    MainPage(storage * main)
                 }
+                // Route to the Hanoi Towers Solver Page.
                 route("solver") {
                     component{
-                        SolverPage(storage,texts.component("hanoi.solverPage"))
+                        SolverPage(storage * hanoiSolverPage)
                     }
                 }
+                // Route to the Hanoi Towers Game Page.
+                // Here one can play the Game Hanoi Towers
                 route("game") {
                     component {
-                        GamePage(storage, texts.component("hanoi.gamePage"))
+                        GamePage(storage * hanoiGamePage)
                     }
                 }
+                // Route to the Hanoi Towers Cheat Page.
+                // This page might be used to illustrate
+                // strategies to solve the game
                 route("cheat") {
                     component {
-                        CheatPage(storage, texts.component("hanoi.cheatPage"))
+                        CheatPage(storage * hanoiCheatPage)
                     }
                 }
+                // routes for test-purposes
+                // TODO (These routes shall not be available in production)
                 route("test") {
                     route("loader") {
                         component {
