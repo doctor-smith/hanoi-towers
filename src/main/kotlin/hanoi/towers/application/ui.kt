@@ -37,7 +37,7 @@ fun UI(storage: Storage<AppData>) {
     ModalLayer(
         1000,
         storage * modals,
-    true
+        true
     ) {
         // The Cookie disclaimer pops up, whenever as user
         // visits the page for the first time or cleared the cookies
