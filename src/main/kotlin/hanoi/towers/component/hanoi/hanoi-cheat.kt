@@ -3,9 +3,8 @@ package hanoi.towers.component.hanoi
 import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Mode
-import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.Tower.*
-import hanoi.towers.data.towerLens
+import hanoi.towers.data.tower
 import lib.compose.Markup
 import lib.language.Lang
 import lib.language.get
@@ -20,7 +19,6 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 @Suppress("FunctionName")
 fun HanoiCheat(
-    moves: Storage<Moves>,
     hanoi: Storage<Hanoi>,
     texts: Lang.Block,
     maxNumberOfSlices: Int = 10
@@ -34,10 +32,9 @@ fun HanoiCheat(
     H3 { Text(texts["headline"]) }
 
     Hanoi(
-        //moves.read(),
-        hanoi * towerLens(One),
-        hanoi * towerLens(Two),
-        hanoi * towerLens(Three),
+        hanoi * tower(One),
+        hanoi * tower(Two),
+        hanoi * tower(Three),
         capacity = maxNumberOfSlices,
         mode = Mode.Cheat
     )

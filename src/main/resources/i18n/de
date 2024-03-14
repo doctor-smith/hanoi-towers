@@ -17,25 +17,26 @@ de{
         mainPage{
             title: "Türme von Hanoi"
             headline: "Die Türme von Hanoi"
-            form {
-                towerHeight: "Turmhöhe"
-                error {
-                    limitedNumberOfSlices: "Mehr als __MAX_NUMBER_OF_SLICES__ Scheiben sind nicht erlaubt."
-                    numberOfSlicesMustBeNonNegative: "Die Turmhöhe muss nicht-negativ sein."
+            introduction: "Die Türme von Hanoi ist ein Puzzle-Spiel, bei dem man mit drei Türmen (Stiften) und einer Anzahl von Scheiben unterschiedlicher Größe spielt, die auf jeden Turm gleiten können. Das Puzzle beginnt mit den Scheiben in einem ordentlichen Stapel in aufsteigender Größe auf einem Turm, dem kleinsten oben, wodurch eine kegelförmige Form entsteht. Das Ziel des Puzzles ist es, den gesamten Stapel auf einen anderen Turm zu bewegen und dabei die folgenden einfachen Regeln zu befolgen:"
+            rulesOfTheGame {
+                headline: "Spielregeln"
+                rule1: "Es darf immer nur eine Scheibe gleichzeitig bewegt werden."
+                rule2: "Ein Spielzug besteht darin, die oberste Scheibe von einem der Türme zu nehmen und auf einen anderen Turm oder eine leere Fläche zu legen."
+                rule3: "Keine Scheibe darf auf einer kleineren Scheibe platziert werden."
+            }
+            gameModes {
+                headline: "Spiel Modi"
+                game {
+                    headline: "Spielen"
+                    description: "Spielen ... "
                 }
-            }
-            statistics{
-                numberOfNecessaryMoves: "Anzahl der nötigen Züge: 2^__NUMBER_OF_SLICES__ - 1 = __NUMBER_OF_MOVES__"
-            }
-            listOfMoves {
-                headline: "Spielzüge"
-                hint: "Bitte wähle eine Turmhöhe > 0"
-                computingMovesMessage: "Spielzüge werden berechnet..."
-            }
-            visualization {
-                headline: "Visualisierung"
-                ActionBar {
-
+                cheat{
+                    headline: "Schummeln"
+                    description: "Lerne wie es geht mit flexibleren Regeln ... "
+                }
+                solver{
+                    headline: "Automatisch"
+                    description: "Löse das Puzzle automatisch und sehe den besten Lösungsalgorithmus am Werk. "
                 }
             }
         }

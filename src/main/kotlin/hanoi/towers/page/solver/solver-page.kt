@@ -9,9 +9,11 @@ import hanoi.towers.component.hanoi.Statistics
 import hanoi.towers.component.layout.Flex
 import hanoi.towers.data.*
 import hanoi.towers.data.hanoi.Mode
+import hanoi.towers.data.pages.solver.*
+import hanoi.towers.data.pages.solver.component.hanoi
 import hanoi.towers.maxNumberOfSlices
 import lib.compose.Markup
-import lib.language.Block
+import lib.language.component
 import lib.language.get
 import lib.language.of
 import lib.optics.storage.Storage
@@ -21,42 +23,44 @@ import org.jetbrains.compose.web.dom.*
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun SolverPage(storage: Storage<AppData>, texts: Block) {
+fun SolverPage(storage: Storage<HanoiSolverPage>) {
+
+    val texts = (storage * texts).read().component("hanoi.solverPage")
 
     H1 { Text(texts["headline"]) }
 
     Form(
         Mode.Automatic,
-        storage * numberOfSlicesLens,
-        storage * numberOfMovesLens,
-        storage * hanoiLens,
-        storage * movesLens,
-        storage * isComputingMovesLens,
-        storage * indexOfCurrentMoveLens,
-        storage * errorLens,
+        storage * numberOfSlices,
+        storage * numberOfMoves,
+        storage * solver * hanoi,
+        storage * moves,
+        storage * isComputingMoves,
+        storage * indexOfCurrentMove,
+        storage * error,
         "form" of texts,
         maxNumberOfSlices
     )
 
     Statistics(
-        storage * numberOfSlicesLens,
-        storage * numberOfMovesLens,
+        storage * numberOfSlices,
+        storage * numberOfMoves,
         "statistics" of texts
     )
 
     Flex {
         ListOfMoves(
-            storage * movesLens,
-            storage * isComputingMovesLens,
+            storage * moves,
+            storage * isComputingMoves,
             "listOfMoves" of texts
         )
         HanoiVisualization(
-            storage * movesLens,
-            storage * hanoiLens,
-            storage * numberOfMovesLens,
-            storage * indexOfCurrentMoveLens,
-            storage * movesPerSecondLens,
-            storage * isPlayingLens,
+            storage * moves,
+            storage * solver * hanoi,
+            storage * numberOfMoves,
+            storage * indexOfCurrentMove,
+            storage * movesPerSecond,
+            storage * isPlaying,
             "visualization" of texts
         )
     }
