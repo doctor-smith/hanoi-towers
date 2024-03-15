@@ -3,8 +3,8 @@ version: '3'
 services:
   web_app:
     build:
-      context: .
-      dockerfile: ./docker/Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     ports:
       - "80:80"
     volumes:

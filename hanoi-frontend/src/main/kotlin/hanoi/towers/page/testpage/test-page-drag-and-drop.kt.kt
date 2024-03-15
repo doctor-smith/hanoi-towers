@@ -1,16 +1,12 @@
 package hanoi.towers.page.testpage
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
 import hanoi.towers.component.layout.Flex
 import lib.compose.Markup
 import lib.compose.dnd.*
 import lib.optics.storage.add
-import lib.optics.storage.contains
-import lib.optics.storage.onEach
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
-import org.w3c.dom.svg.SVGTitleElement
 
 @Markup
 @Composable
