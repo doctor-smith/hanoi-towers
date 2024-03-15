@@ -1,5 +1,9 @@
 rootProject.name = "hanoi-towers"
 
+include(":hanoi-frontend")
+include(":hanoi-backend")
+include(":hanoi-database")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()

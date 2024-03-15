@@ -1,8 +1,8 @@
 package hanoi.towers.component.hanoi
 
+import androidx.compose.runtime.Composable
 import hanoi.towers.alg.apply
 import hanoi.towers.alg.inverse
-import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.reset
