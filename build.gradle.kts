@@ -31,7 +31,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core-js:$ktorClientCoreJs")
                 implementation("io.ktor:ktor-client-js:$ktorClientJs")
 
-                implementation(compose.web.core)
+                implementation(compose.html.core)
                 implementation(compose.runtime)
             }
         }
@@ -42,13 +42,13 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCore")
                 implementation(kotlin("test-js"))
-                implementation(compose.web.testUtils)
+                implementation(compose.html.testUtils)
             }
         }
     }
 }
 compose {
-    kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:$composeCompiler")
+    // kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:$composeCompiler")
 }
 // a temporary workaround for a bug in jsRun invocation - see https://youtrack.jetbrains.com/issue/KT-48273
 afterEvaluate {
