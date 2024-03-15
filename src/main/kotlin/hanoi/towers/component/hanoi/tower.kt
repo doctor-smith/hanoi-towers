@@ -80,7 +80,7 @@ fun Tower(
         && mouse.read().target != id.toString().toInt()
         && (sizeOfMinimalSlice == -1 || sizeOfMinimalSlice > mouse.read().slice)
     ) {
-        (mouse * targetLens).write(id.toString().toInt())
+        (mouse * target).write(id.toString().toInt())
     }
 
     Div({
@@ -92,7 +92,7 @@ fun Tower(
                 sizeOfMinimalSlice -> Slice(
                     it,
                     mode = mode,
-                    setMouseCoordinates = (mouse * coordinatesLens).write,
+                    setMouseCoordinates = (mouse * coordinates).write,
                     onDrop = {mouse.read().drop(it)}
                 )
                 else -> Slice(it)
