@@ -175,6 +175,12 @@ val language = Lens<AppData,Lang>(
     {s: Lang -> {data -> data.copy(language = s)}}
     //TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
 )
+
+val env = Lens<AppData,Environment>(
+    {data -> data.environment},
+    {{it}}
+    //TODO("Language is to be Readonly")} //{data -> data.copy(language = s)}}
+)
 fun Storage<AppData>.langLoaded (): Boolean  {
 
     val languageStorage = (this * language)
