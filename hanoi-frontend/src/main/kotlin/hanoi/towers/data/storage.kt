@@ -139,7 +139,7 @@ fun Storage(): Storage<AppData> {
         }
 
         if (!langLoaded()) {
-            CoroutineScope(Job()).launch {
+            LaunchedEffect(Unit) {
                 with(LanguageP().run(i18n(localeStorage.read())).result) {
                     if (this != null) {
                         language = this

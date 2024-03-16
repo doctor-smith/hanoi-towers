@@ -1,11 +1,13 @@
 package hanoi.towers.component.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import hanoi.towers.data.i18n.language
 import hanoi.towers.data.i18n.locale
 import hanoi.towers.data.i18n.locales
 import hanoi.towers.data.navigation.NavBar
 import hanoi.towers.data.navigation.i18n
+import kotlinx.coroutines.launch
 import lib.compose.Markup
 import lib.compose.routing.navigate
 import lib.language.Block
@@ -32,6 +34,7 @@ fun NavBar(
 
     val i18n = navBar * i18n
     val currentLocale = (i18n * locale).read()
+    val scope = rememberCoroutineScope()
 
     Button({onClick {
         navigate("/")
@@ -55,7 +58,9 @@ fun NavBar(
                         selected()
                     }
                     onClick {
-                        (i18n * locale).write(s)
+                        scope.launch {
+                            (i18n * locale).write(s)
+                        }
                     }
                 }) {
                     Text(((i18n * language).read() as Block).component("hanoi.locales")[s])
