@@ -1,5 +1,9 @@
 rootProject.name = "hanoi-towers"
 
+include(":hanoi-frontend")
+include(":hanoi-backend")
+include(":hanoi-database")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -7,7 +11,7 @@ pluginManagement {
     }
 
     plugins {
-        kotlin("multiplatform").version(extra["kotlin.version"] as String)
-        id("org.jetbrains.compose").version(extra["compose.version"] as String)
+        kotlin("multiplatform").version(extra["kotlin.version"] as String) apply false
+        id("org.jetbrains.compose").version(extra["compose.version"] as String) apply false
     }
 }
