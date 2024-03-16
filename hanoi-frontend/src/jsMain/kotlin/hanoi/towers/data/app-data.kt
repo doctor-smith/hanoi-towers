@@ -1,6 +1,7 @@
 package hanoi.towers.data
 
 import androidx.compose.runtime.Composable
+import hanoi.towers.data.environment.*
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
 import hanoi.towers.data.hanoi.Tower
@@ -43,7 +44,8 @@ data class AppData(
     val locales: List<String>,
     val language: Lang,
     val modals: Map<Int, @Composable ElementScope<HTMLElement>.() -> Unit>,
-    val error: String?
+    val error: String?,
+    val environment: Environment = getEnv()
 )
 
 val main = Lens<AppData, Main>(

@@ -10,7 +10,6 @@ repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     google()
-    maven ("https://jitpack.io")
 }
 
 val kotlinxCoroutinesCore:String by project
@@ -25,7 +24,7 @@ kotlin {
     }
     sourceSets {
         val jsMain by getting {
-            kotlin.srcDir("src/main/kotlin")
+            kotlin.srcDir("src/jsMain/kotlin")
             resources.srcDir("src/main/resources")
 
             dependencies {
@@ -35,6 +34,9 @@ kotlin {
 
                 // Serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+                // dotenv
+                implementation(npm("dotenv", "16.0.1"))
 
                 // compose
                 implementation(compose.html.core)
