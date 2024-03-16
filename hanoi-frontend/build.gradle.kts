@@ -3,12 +3,14 @@ import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 plugins {
     kotlin("multiplatform")// version "1.7.20"
     id("org.jetbrains.compose")// version "1.2.2"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     google()
+    maven ("https://jitpack.io")
 }
 
 val kotlinxCoroutinesCore:String by project
@@ -28,9 +30,13 @@ kotlin {
 
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCore") // 1.6.4
-                implementation("io.ktor:ktor-client-core-js:$ktorClientCoreJs")
+                implementation("io.ktor:ktor-client-core:$ktorClientCoreJs")
                 implementation("io.ktor:ktor-client-js:$ktorClientJs")
 
+                // Serialization
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+                // compose
                 implementation(compose.html.core)
                 implementation(compose.runtime)
             }
