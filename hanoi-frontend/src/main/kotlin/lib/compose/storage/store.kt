@@ -24,7 +24,7 @@ fun <D> Store(
 }
 @Markup
 @Composable
-fun initialize(block: ()->Unit) {
+fun initialize(block:@Composable  ()->Unit) {
     block()
 }
 
