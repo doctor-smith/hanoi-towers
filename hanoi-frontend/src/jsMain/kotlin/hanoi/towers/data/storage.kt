@@ -2,6 +2,7 @@ package hanoi.towers.data
 
 import androidx.compose.runtime.*
 import hanoi.towers.api.*
+import hanoi.towers.data.environment.getEnv
 import hanoi.towers.data.hanoi.Hanoi
 import hanoi.towers.data.hanoi.Moves
 import kotlinx.coroutines.CoroutineScope
@@ -21,6 +22,7 @@ import hanoi.towers.data.locales as localesLens
 @Markup
 @Composable
 fun Storage(): Storage<AppData> {
+    val environment = getEnv()
 
     // Data of Hanoi Solver
     var numberOfSlices by remember{ mutableStateOf(0) }
@@ -80,7 +82,8 @@ fun Storage(): Storage<AppData> {
                 locales,
                 language,
                 modals,
-                error
+                error,
+                environment
             )
         },
         write = { data ->
@@ -112,7 +115,7 @@ fun Storage(): Storage<AppData> {
             if (data.locale != locale) {
                 CoroutineScope(Job()).launch {
                     try {
-                        with(LanguageP().run(i18n(data.locale)).result) {
+                        with(LanguageP().run(environment.i18n(data.locale)).result) {
                             if (this != null) {
                                 locale = data.locale
                                 writeLang(data.locale)
@@ -140,12 +143,12 @@ fun Storage(): Storage<AppData> {
 
         if (!langLoaded()) {
             LaunchedEffect(Unit) {
-                with(LanguageP().run(i18n(localeStorage.read())).result) {
+                with(LanguageP().run(environment.i18n(localeStorage.read())).result) {
                     if (this != null) {
                         language = this
                     }
                 }
-                with(LanguageP().run(i18n("locales")).result) {
+                with(LanguageP().run(environment.i18n("locales")).result) {
                     if (this != null) {
                         locales = (this as Lang.Block).value.map { it.key }
                     }
