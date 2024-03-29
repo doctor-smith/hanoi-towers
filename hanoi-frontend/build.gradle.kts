@@ -1,17 +1,21 @@
 import org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension
 
 plugins {
-    kotlin("multiplatform")// version "1.7.20"
-    id("org.jetbrains.compose")// version "1.2.2"
-    kotlin("plugin.serialization") version "1.9.22"
+    kotlin("multiplatform")
+    id("org.jetbrains.compose")
+    kotlin("plugin.serialization")
+
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     google()
 }
 
+group = project.extra["hanoi.group"] as String
+version = project.extra["hanoi.version"] as String
 val kotlinxCoroutinesCore:String by project
 val composeCompiler:String by project
 val ktorClientCoreJs:String by project
@@ -28,7 +32,10 @@ kotlin {
             resources.srcDir("src/main/resources")
 
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCore") // 1.6.4
+                // kotlin coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesCore")
+
+                // ktor client
                 implementation("io.ktor:ktor-client-core:$ktorClientCoreJs")
                 implementation("io.ktor:ktor-client-js:$ktorClientJs")
 
@@ -72,7 +79,7 @@ kotlin {
 
 }
 compose {
-    // kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:$composeCompiler")
+     //kotlinCompilerPlugin.set("androidx.compose.compiler:compiler:$composeCompiler")
 }
 // a temporary workaround for a bug in jsRun invocation - see https://youtrack.jetbrains.com/issue/KT-48273
 afterEvaluate {
@@ -82,6 +89,3 @@ afterEvaluate {
         versions.webpackCli.version = "4.10.0"
     }
 }
-
-
-
