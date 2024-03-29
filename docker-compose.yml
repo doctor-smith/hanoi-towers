@@ -1,0 +1,48 @@
+version: '3'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+
+services:
+  hanoi_frontend:
+    build:
+      context: .
+      dockerfile: hanoi-frontend/docker/Dockerfile
+    ports:
+      - "80:80"
+    env_file:
+      - hanoi-frontend/.env
+    #volumes:
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/:/usr/local/apache2/htdocs/
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/hanoi-frontend.js:/usr/local/apache2/htdocs/hanoi-frontend.js
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/hanoi-frontend.js.map:/usr/local/apache2/htdocs/hanoi-frontend.js.map
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/index.html:/usr/local/apache2/htdocs/index.html
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/css/:/usr/local/apache2/htdocs/css/
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/js/:/usr/local/apache2/htdocs/js/
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/img/:/usr/local/apache2/htdocs/img/
+    networks:
+      - frontend
+      - backend
+  #hanoi_backend:
+  #  build:
+  #    context: .
+  #    dockerfile: hanoi-backend/docker/Dockerfile
+  #  ports:
+  #    - "8081:8080"
+  #  env_file:
+  #    - hanoi-backend/.env
+  #  networks:
+  #    - backend
+
+ # hanoi_database:
+ #   build:
+ #     context: .
+ #     dockerfile: hanoi-database/docker/Dockerfile
+ #   env_file:
+ #     - hanoi-database/.env
+ #   volumes:
+ #     - ./hanoi-database/sql/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+ #   networks:
+ #     - backend
