@@ -1,18 +1,17 @@
+plugins {
+    application
+    kotlin("jvm")
+    id("io.ktor.plugin") version "2.1.3"
+    kotlin("plugin.serialization")
+}
+
+group = project.extra["hanoi.group"] as String
+version = project.extra["hanoi.version"] as String
 val ktorVersion: String by project
 val kotlinVersion: String by project
 val logbackVersion: String by project
 val exposedVersion: String by project
 val hanoiMainClassName: String = project.extra["hanoiBackend.mainClassName"] as String
-
-plugins {
-    application
-    kotlin("jvm") version "1.7.10"
-    id("io.ktor.plugin") version "2.1.3"
-    kotlin("plugin.serialization") version "1.9.22"
-}
-
-group = "com.example"
-version = "0.0.1"
 
 application {
     mainClass.set(hanoiMainClassName)
@@ -39,14 +38,10 @@ dependencies {
     // serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
-
-    // exposed
+//    // exposed
 //    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
 //    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
 //    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
 //    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-
-
-
 }
 
