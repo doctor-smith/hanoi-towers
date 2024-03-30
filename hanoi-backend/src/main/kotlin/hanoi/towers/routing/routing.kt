@@ -9,6 +9,5 @@ fun Application.setupRouting() {
         get("/hello") {
             call.respondText("selber hello")
         }
-
     }
 }
