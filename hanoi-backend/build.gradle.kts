@@ -1,3 +1,5 @@
+import org.evoleq.exposedx.migration.migrations
+
 plugins {
     application
     kotlin("jvm")
@@ -38,10 +40,16 @@ dependencies {
     // serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
-//    // exposed
-//    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
-//    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
-//    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
-//    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    // exposed
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
 }
+
+migrations(
+    "hanoi.towers",
+    "db",
+    "migrations"
+)
 
