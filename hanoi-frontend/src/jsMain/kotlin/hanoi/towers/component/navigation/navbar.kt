@@ -2,10 +2,12 @@ package hanoi.towers.component.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import hanoi.towers.component.dev.onDev
 import hanoi.towers.data.i18n.language
 import hanoi.towers.data.i18n.locale
 import hanoi.towers.data.i18n.locales
 import hanoi.towers.data.navigation.NavBar
+import hanoi.towers.data.navigation.environment
 import hanoi.towers.data.navigation.i18n
 import kotlinx.coroutines.launch
 import lib.compose.Markup
@@ -35,6 +37,14 @@ fun NavBar(
     val i18n = navBar * i18n
     val currentLocale = (i18n * locale).read()
     val scope = rememberCoroutineScope()
+
+    onDev(navBar * environment) {
+        Button({
+            onClick {
+                navigate("/test/backend")
+            }
+        }) { Text("Backend") }
+    }
 
     Button({onClick {
         navigate("/")
