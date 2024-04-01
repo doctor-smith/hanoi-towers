@@ -15,9 +15,13 @@ services:
     container_name: hanoi_frontend
     env_file:
       - hanoi-frontend/.env.docker
-    #volumes:
-      #- ./hanoi-frontend/build/dist/js/productionExecutable/:/usr/local/apache2/htdocs/hanoi
-      #- ./hanoi-frontend/docker/httpd/:/usr/local/apache2/conf
+
+    depends_on:
+      - hanoi_backend
+    volumes:
+      - hanoi_frontend_app:/usr/local/apache2/htdocs/hanoi/tmp
+      #- ./hanoi-frontend/build/dist/js/productionExecutable:/usr/local/apache2/htdocs/hanoi
+      # - ./hanoi-frontend/docker/httpd:/usr/local/apache2/conf
       #- ./hanoi-frontend/build/dist/js/productionExecutable/hanoi-frontend.js:/usr/local/apache2/htdocs/hanoi-frontend.js
       #- ./hanoi-frontend/build/dist/js/productionExecutable/hanoi-frontend.js.map:/usr/local/apache2/htdocs/hanoi-frontend.js.map
       #- ./hanoi-frontend/build/dist/js/productionExecutable/index.html:/usr/local/apache2/htdocs/index.html
@@ -36,18 +40,27 @@ services:
     container_name: hanoi_backend
     env_file:
       - hanoi-backend/.env
+    depends_on:
+      - hanoi_database
     networks:
        - backend
-       - frontend
 
- # hanoi_database:
- #   build:
- #     context: .
- #     dockerfile: hanoi-database/docker/Dockerfile
-#    container_name: hanoi_database
- #   env_file:
- #     - hanoi-database/.env
- #   volumes:
- #     - ./hanoi-database/sql/setup.sql:/docker-entrypoint-initdb.d/setup.sql
- #   networks:
- #     - backend
+  hanoi_database:
+    build:
+      context: .
+      dockerfile: hanoi-database/docker/Dockerfile
+    container_name: hanoi_database
+    env_file:
+      - hanoi-database/.env
+    #volumes:
+    #  - ./hanoi-database/sql:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+volumes:
+  hanoi_frontend_app:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./hanoi-frontend/build/dist/js/productionExecutable
