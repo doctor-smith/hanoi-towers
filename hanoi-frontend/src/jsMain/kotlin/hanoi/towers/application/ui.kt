@@ -2,6 +2,7 @@ package hanoi.towers.application
 
 import androidx.compose.runtime.Composable
 import hanoi.towers.component.cookie.CookieDisclaimer
+import hanoi.towers.component.dev.onDev
 import hanoi.towers.component.layout.Container
 import hanoi.towers.component.navigation.NavBar
 import hanoi.towers.data.*
@@ -11,6 +12,7 @@ import hanoi.towers.page.mainpage.MainPage
 import hanoi.towers.page.solver.SolverPage
 import hanoi.towers.page.testpage.DragDropTestPage
 import hanoi.towers.page.testpage.LoadingSpinnerTestPage
+import hanoi.towers.page.testpage.TestBackend
 import hanoi.towers.page.testpage.TestStorageComponent
 import kotlinx.browser.document
 import lib.compose.Markup
@@ -18,6 +20,7 @@ import lib.compose.modal.ModalLayer
 import lib.compose.routing.Routing
 import lib.language.*
 import lib.optics.storage.Storage
+import lib.optics.storage.read
 import lib.optics.transform.times
 
 @Markup
@@ -27,7 +30,7 @@ fun UI(storage: Storage<AppData>) {
 
     val texts = (storage * language).read() as Block
     val mainPageTexts = texts.component("hanoi.mainPage")
-
+    //val environment = (storage * env).read()
     document.title = mainPageTexts["title"]
 
     // The whole UI needs to be wrapped in a component
@@ -81,20 +84,28 @@ fun UI(storage: Storage<AppData>) {
                 }
                 // routes for test-purposes
                 // TODO (These routes shall not be available in production)
-                route("test") {
-                    route("loader") {
-                        component {
-                            LoadingSpinnerTestPage()
+                //onDev(storage * env) {
+                if((storage * env).read().environment == "DEV"){
+                    route("test") {
+                        route("loader") {
+                            component {
+                                LoadingSpinnerTestPage()
+                            }
                         }
-                    }
-                    route("storage") {
-                        component{
-                            TestStorageComponent()
+                        route("storage") {
+                            component {
+                                TestStorageComponent()
+                            }
                         }
-                    }
-                    route("drag-and-drop") {
-                        component{
-                            DragDropTestPage()
+                        route("drag-and-drop") {
+                            component {
+                                DragDropTestPage()
+                            }
+                        }
+                        route("backend") {
+                            component{
+                                TestBackend()
+                            }
                         }
                     }
                 }

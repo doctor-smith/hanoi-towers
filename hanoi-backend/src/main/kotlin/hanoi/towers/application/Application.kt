@@ -10,7 +10,7 @@ import io.ktor.server.plugins.cors.routing.*
 
 
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+
 fun Application.hanoi() {
 
     install(CORS) {

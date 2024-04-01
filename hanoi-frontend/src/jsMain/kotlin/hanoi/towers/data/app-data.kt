@@ -59,7 +59,8 @@ val navBar = Lens<AppData, NavBar>(
             whole.locale,
             whole.locales,
             whole.language
-        )
+        ),
+        whole.environment
     ) },
     {part -> {whole -> whole.copy(locale = part.i18n.locale)}} // Rest is read only
 )

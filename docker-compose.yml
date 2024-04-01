@@ -1,0 +1,66 @@
+version: '3.8'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+
+services:
+  hanoi_frontend:
+    build:
+      context: .
+      dockerfile: hanoi-frontend/docker/Dockerfile
+    ports:
+      - "8080:80"
+    container_name: hanoi_frontend
+    env_file:
+      - hanoi-frontend/.env.docker
+
+    depends_on:
+      - hanoi_backend
+    volumes:
+      - hanoi_frontend_app:/usr/local/apache2/htdocs/hanoi/tmp
+      #- ./hanoi-frontend/build/dist/js/productionExecutable:/usr/local/apache2/htdocs/hanoi
+      # - ./hanoi-frontend/docker/httpd:/usr/local/apache2/conf
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/hanoi-frontend.js:/usr/local/apache2/htdocs/hanoi-frontend.js
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/hanoi-frontend.js.map:/usr/local/apache2/htdocs/hanoi-frontend.js.map
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/index.html:/usr/local/apache2/htdocs/index.html
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/css/:/usr/local/apache2/htdocs/css/
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/js/:/usr/local/apache2/htdocs/js/
+      #- ./hanoi-frontend/build/dist/js/productionExecutable/img/:/usr/local/apache2/htdocs/img/
+    networks:
+      - frontend
+      - backend
+  hanoi_backend:
+    build:
+      context: .
+      dockerfile: hanoi-backend/docker/Dockerfile
+    ports:
+      - "8081:8081"
+    container_name: hanoi_backend
+    env_file:
+      - hanoi-backend/.env
+    depends_on:
+      - hanoi_database
+    networks:
+       - backend
+
+  hanoi_database:
+    build:
+      context: .
+      dockerfile: hanoi-database/docker/Dockerfile
+    container_name: hanoi_database
+    env_file:
+      - hanoi-database/.env
+    #volumes:
+    #  - ./hanoi-database/sql:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+volumes:
+  hanoi_frontend_app:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./hanoi-frontend/build/dist/js/productionExecutable
