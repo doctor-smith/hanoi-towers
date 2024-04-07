@@ -1,7 +1,10 @@
 package hanoi.towers.module.db.migrations
 
+import hanoi.towers.module.db.schema.User
+import hanoi.towers.module.db.schema.Users
 import org.evoleq.exposedx.migrations.Migration
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Transaction
 
 /**
@@ -27,7 +30,17 @@ class Migration1712001749830(
      * Upwards migration
      */
     override suspend fun Transaction.up() {
-        TODO("Not yet implemented")
+
+        SchemaUtils.create(Users)
+
+        val smith = User.new {
+            username = "schmidt@alpha-structure.com"
+            password = "pass1234"
+        }
+        val sulz = User.new {
+            username = "florian.schmidt@sulzer.de"
+            password = "pass1234"
+        }
     }
 
     /**

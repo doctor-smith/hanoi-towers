@@ -45,6 +45,15 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-crypt:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+
+    // mysql connector
+    implementation("mysql", "mysql-connector-java","8.0.19")
+
+    // h2
+    implementation("com.h2database:h2:1.4.200")
+
+    // slf4j
+    implementation ("org.slf4j:slf4j-nop:2.0.7")
 }
 
 migrations(
