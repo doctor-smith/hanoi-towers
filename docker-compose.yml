@@ -13,13 +13,14 @@ services:
     ports:
       - "8080:80"
     container_name: hanoi_frontend
+    hostname: hanoi_frontend
     env_file:
       - hanoi-frontend/.env.docker
 
     depends_on:
       - hanoi_backend
-    volumes:
-      - hanoi_frontend_app:/usr/local/apache2/htdocs/hanoi/tmp
+    #volumes:
+      #- hanoi_frontend_app:/usr/local/apache2/htdocs/hanoi/tmp
       #- ./hanoi-frontend/build/dist/js/productionExecutable:/usr/local/apache2/htdocs/hanoi
       # - ./hanoi-frontend/docker/httpd:/usr/local/apache2/conf
       #- ./hanoi-frontend/build/dist/js/productionExecutable/hanoi-frontend.js:/usr/local/apache2/htdocs/hanoi-frontend.js
@@ -38,6 +39,7 @@ services:
     ports:
       - "8081:8081"
     container_name: hanoi_backend
+    hostname: hanoi_backend
     env_file:
       - hanoi-backend/.env
     depends_on:
@@ -50,11 +52,25 @@ services:
       context: .
       dockerfile: hanoi-database/docker/Dockerfile
     container_name: hanoi_database
+    hostname: hanoi_database
+    ports:
+      - "3306:3306"
     env_file:
       - hanoi-database/.env
     #volumes:
     #  - ./hanoi-database/sql:/docker-entrypoint-initdb.d
     networks:
+      - backend
+
+
+  adminer:
+    image: adminer
+    hostname: adminer
+#    restart: always
+    ports:
+    - "8082:8080"
+    networks:
+      - frontend
       - backend
 
 volumes:

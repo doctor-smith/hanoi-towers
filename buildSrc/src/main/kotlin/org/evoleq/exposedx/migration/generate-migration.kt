@@ -121,7 +121,7 @@ fun Project.migrations(packageName: String) {
                     )
                 }
             }.finalizedBy(
-                "licenseFormat"
+                //"licenseFormat"
             )
             
         }
@@ -177,7 +177,7 @@ fun Project.migrations(domain: String, module: String, migrations: String) {
                 }
                 //println(file.parentFile.buildMigrationList())
             }.finalizedBy(
-                "licenseFormat"
+                //"licenseFormat"
             )
         }
     /*
