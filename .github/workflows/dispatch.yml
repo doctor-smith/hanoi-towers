@@ -1,0 +1,12 @@
+name: workflow_dispatch on branch different from Main
+on:
+  workflow_dispatch:
+    branches:
+        - master
+        - workflow-test
+jobs:
+  one:
+    name: first job
+    runs-on: ubuntu-latest
+      steps:
+        - run: "hello"
