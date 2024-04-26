@@ -1,11 +1,62 @@
-version: '3'
+version: '3.8'
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
 
 services:
-  web_app:
+  hanoi_frontend:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: hanoi-frontend/docker/Dockerfile
     ports:
-      - "80:80"
-    volumes:
-      - ./build/distributions/:/usr/local/apache2/htdocs/
+      - "8080:80"
+    container_name: hanoi_frontend
+    hostname: hanoi_frontend
+    env_file:
+      - hanoi-frontend/.env
+
+    depends_on:
+      - hanoi_backend
+    networks:
+      - frontend
+      - backend
+  hanoi_backend:
+    build:
+      context: .
+      dockerfile: hanoi-backend/docker/Dockerfile
+    ports:
+      - "8081:8081"
+    container_name: hanoi_backend
+    hostname: hanoi_backend
+    env_file:
+      - hanoi-backend/.env
+    depends_on:
+      - hanoi_database
+    networks:
+       - backend
+
+  hanoi_database:
+    build:
+      context: .
+      dockerfile: hanoi-database/docker/Dockerfile
+    container_name: hanoi_database
+    hostname: hanoi_database
+    ports:
+      - "3306:3306"
+    env_file:
+      - hanoi-database/.env
+    networks:
+      - backend
+
+
+  adminer:
+    image: adminer
+    hostname: adminer
+#    restart: always
+    ports:
+    - "8082:8080"
+    networks:
+      - frontend
+      - backend
