@@ -8,5 +8,5 @@ jobs:
   one:
     name: first job
     runs-on: ubuntu-latest
-      steps:
-        - run: "hello"
+    steps:
+      - run: "hello"
