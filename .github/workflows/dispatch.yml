@@ -9,4 +9,4 @@ jobs:
     name: first job
     runs-on: ubuntu-latest
     steps:
-      - run: "hello"
+      - run: "hello kitty"
