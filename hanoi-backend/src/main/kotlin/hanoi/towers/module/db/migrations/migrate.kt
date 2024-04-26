@@ -32,12 +32,15 @@ object Config {
         override val password: String = "pass123"
     }
 }
-fun main(args: Array<String>): Unit = runBlocking {
-    val dbConf: DbConf = when(args[0]) {
-        "H2" -> Config.H2
-        "DB" -> Config.DB
-        "Local" -> Config.Local
-        else -> Config.Local
+fun main(args: Array<String>?): Unit = runBlocking {
+    val dbConf: DbConf = when {
+        args.isNullOrEmpty() -> Config.Local
+        else -> when (args[0]) {
+            "H2" -> Config.H2
+            "DB" -> Config.DB
+            "Local" -> Config.Local
+            else -> Config.Local
+        }
     }
     migrate(dbConf)
 }
