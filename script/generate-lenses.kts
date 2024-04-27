@@ -2,10 +2,11 @@
  * Generate Lenses from a given data class. Copy the output printed to the console and use it in your class - file.
  */
 
-val input = "@Lensify data class HanoiCheat(\n" +
-        "    @ReadWrite val hanoi: Hanoi,\n" +
-        "    @ReadOnly val texts: Lang,\n" +
-        "    @ReadOnly val maxNumberOfSlices: Int = 10\n" +
+val input = "@Lensify data class DragEvent(\n" +
+        "    @ReadWrite val coordinates: Coordinates,\n" +
+        "    @ReadWrite val slice: Int,\n" +
+        "    @ReadWrite val target: Int? = null,\n" +
+        "    @Ignore val drop: (slice: Int)->Unit = { _ -> Unit}\n" +
         ")"
 
 /*

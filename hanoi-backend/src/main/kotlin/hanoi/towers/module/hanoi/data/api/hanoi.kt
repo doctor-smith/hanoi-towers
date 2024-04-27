@@ -1,4 +1,4 @@
-package hanoi.towers.module.hanoi.data
+package hanoi.towers.module.hanoi.data.api
 
 import kotlinx.serialization.Serializable
 import org.evoleq.serializationx.UUIDSerializer
