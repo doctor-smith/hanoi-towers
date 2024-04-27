@@ -4,7 +4,6 @@ import hanoi.towers.data.environment.Environment
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import lib.ktor.JsClient
 import lib.maths.state.KlState
