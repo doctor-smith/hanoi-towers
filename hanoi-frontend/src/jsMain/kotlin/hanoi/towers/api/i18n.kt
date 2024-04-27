@@ -1,7 +1,6 @@
 package hanoi.towers.api
 
 import hanoi.towers.data.environment.Environment
-import hanoi.towers.data.environment.getEnv
 import io.ktor.client.*
 import io.ktor.client.engine.js.*
 import io.ktor.client.request.*
