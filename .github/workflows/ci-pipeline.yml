@@ -95,7 +95,7 @@ jobs:
           # send report to developer when something has failed and complete job 
           AUTHOR_EMAIL=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
               "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" \
-              | jq -r '.user.login')
+              | jq -r '.user.email')
           echo "author_email::$AUTHOR_EMAIL >> $GITHUB_OUTPUT"
           echo $AUTHOR_EMAIL
          # echo "Hello! Your pull request has been received." | mail -s "Pull Request Checked" $TO_EMAIL
