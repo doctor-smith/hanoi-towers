@@ -1,0 +1,29 @@
+name: Hello World Job Dependencies
+on:
+  push:
+  # pull_request:
+    branches:
+      - setup/HANOI-TOWERS-T-36/basic-structure
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello world!"
+  do_something:
+    needs: say_hello
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello world!"
+  do_something_parallel:
+    needs: say_hello
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello world!"
+  say_goodbye:
+    needs:
+      - do_something:
+      - do_something_parallel:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Bye bye!"
