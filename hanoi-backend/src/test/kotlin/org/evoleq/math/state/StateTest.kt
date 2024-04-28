@@ -26,6 +26,10 @@ class StateTest {
 
         val stateS = State<Int,Int>(5)
 
-        state.applyTo(stateS)
+        val result = state.applyTo(stateS) runOn 1
+
+        assertEquals("5" x 1, result)
+
+        assertEquals(true, false)
     }
 }
