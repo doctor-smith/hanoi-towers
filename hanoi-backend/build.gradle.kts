@@ -15,6 +15,12 @@ val logbackVersion: String by project
 val exposedVersion: String by project
 val hanoiMainClassName: String = project.extra["hanoiBackend.mainClassName"] as String
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
 application {
     mainClass.set(hanoiMainClassName)
 
