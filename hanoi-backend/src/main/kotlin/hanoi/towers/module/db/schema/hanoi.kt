@@ -15,7 +15,7 @@ object Hanois : UUIDTable() {
     val towerThreeId = reference("tower_three_id", Towers)
 }
 
-class Hanoi(id: EntityID<UUID>): UUIDEntity(id) {
+class Hanoi(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<Hanoi>(Hanois)
 
     var towerHeight by Hanois.towerHeight
@@ -30,19 +30,18 @@ object Towers : UUIDTable() {
     val hanoiId = reference("hanoi_id", Hanois)
 }
 
-
-class Tower(id: EntityID<UUID>): UUIDEntity(id) {
+class Tower(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<Tower>(Towers)
 
     val slices by Slice referrersOn Slices.towerId
 }
 
-object Slices : UUIDTable()  {
+object Slices : UUIDTable() {
     val towerId = reference("tower_id", Towers)
     val size = integer("size")
 }
 
-class Slice(id: EntityID<UUID>): UUIDEntity(id) {
+class Slice(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<Slice>(Slices)
 
     var tower by Tower referencedOn Slices.towerId

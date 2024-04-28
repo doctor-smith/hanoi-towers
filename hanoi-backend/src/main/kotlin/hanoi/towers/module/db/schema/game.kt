@@ -7,14 +7,11 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.Column
 import java.util.*
 
-
-object Games: UUIDTable() {
+object Games : UUIDTable() {
     val type: Column<EntityID<UUID>> = reference("game_type_id", GameTypes)
-
 }
 
-
-class Game(id: EntityID<UUID>): UUIDEntity(id) {
+class Game(id: EntityID<UUID>) : UUIDEntity(id) {
     companion object : UUIDEntityClass<Game>(Games)
 
     var type by Games.type

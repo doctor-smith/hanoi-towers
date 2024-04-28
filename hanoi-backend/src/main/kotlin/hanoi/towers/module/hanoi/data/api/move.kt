@@ -1,7 +1,5 @@
 package hanoi.towers.module.hanoi.data.api
 
-
-import hanoi.towers.module.db.schema.Hanoi
 import kotlinx.serialization.Serializable
 import org.evoleq.serializationx.UUIDSerializer
 import java.util.UUID

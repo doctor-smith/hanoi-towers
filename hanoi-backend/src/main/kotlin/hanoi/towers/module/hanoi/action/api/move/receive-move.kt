@@ -7,5 +7,6 @@ import org.evoleq.util.Action
 import org.evoleq.util.ApiAction
 
 val ReceiveMove: Action<Move> = ApiAction {
-    call -> call.receive<Move>() x call
+    call ->
+    call.receive<Move>() x call
 }

@@ -11,7 +11,6 @@ import org.evoleq.util.Base
 @KtorDsl
 fun Routing.hanoi(environment: Environment) {
     post("hanoi/create") {
-
     }
     patch("hanoi/move") {
         moveSlice() runOn Base(call, environment)

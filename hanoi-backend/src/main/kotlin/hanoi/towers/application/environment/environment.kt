@@ -2,8 +2,7 @@ package hanoi.towers.application.environment
 
 import io.ktor.server.application.*
 
-
-fun Application.setupEnvironment(): Environment = with(environment.config){
+fun Application.setupEnvironment(): Environment = with(environment.config) {
     val database = Database(
         url = property("database.url").toString(),
         driver = property("database.driver").toString(),
@@ -36,7 +35,7 @@ data class Environment(
     val jwt: JWT
 )
 data class JWT(
-    val domain:String,
+    val domain: String,
     val audience: String,
     val realm: String,
     val secret: String

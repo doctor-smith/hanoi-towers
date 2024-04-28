@@ -11,7 +11,7 @@ interface DbConf {
     val password: String
 }
 object Config {
-    object H2 : DbConf{
+    object H2 : DbConf {
         override val url: String = "jdbc:h2:mem:test"
         override val driver: String = "org.h2.Driver"
         override val user: String = "root"

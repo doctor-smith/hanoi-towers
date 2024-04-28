@@ -1,20 +1,18 @@
 package hanoi.towers.module.db.schema
 
-
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-
 class UserTest {
     @Test
-    fun readAndWriteUser() = runSimpleH2Test(Users){
+    fun readAndWriteUser() = runSimpleH2Test(Users) {
         User.new {
             username = "name"
             password = "pw"
         }
 
-        val  user = User.find {
+        val user = User.find {
             Users.username eq "name"
         }.firstOrNull()
 
@@ -26,13 +24,10 @@ class UserTest {
             it.username = newUsername
         }
 
-        val  user1 = User.find {
+        val user1 = User.find {
             Users.id eq user.id
         }.first()
 
         assertEquals(newUsername, user1.username)
-
-
     }
-
 }

@@ -4,9 +4,8 @@ import hanoi.towers.module.hanoi.data.api.Hanoi
 import hanoi.towers.module.hanoi.data.api.Slice
 import hanoi.towers.module.hanoi.data.api.Tower
 import hanoi.towers.module.db.schema.Hanoi as HanoiEntity
-import hanoi.towers.module.db.schema.Tower as TowerEntity
 import hanoi.towers.module.db.schema.Slice as SliceEntity
-
+import hanoi.towers.module.db.schema.Tower as TowerEntity
 
 fun SliceEntity.toApiType() = Slice(
     id = id.value,

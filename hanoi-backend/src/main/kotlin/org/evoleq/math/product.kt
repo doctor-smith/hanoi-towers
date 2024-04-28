@@ -1,6 +1,5 @@
 package org.evoleq.math
 
-
 @MathDsl
 infix fun <F, S> F.x(s: S): Pair<F, S> = Pair(this, s)
 

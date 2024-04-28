@@ -6,6 +6,8 @@ import org.evoleq.math.x
 import org.evoleq.util.ApiAction
 import org.evoleq.util.KlAction
 
-val Respond: KlAction<Hanoi, Unit> = { hanoi: Hanoi -> ApiAction { call ->
-    call.respond(hanoi) x call
-} }
+val Respond: KlAction<Hanoi, Unit> = { hanoi: Hanoi ->
+    ApiAction { call ->
+        call.respond(hanoi) x call
+    }
+}
