@@ -1,0 +1,9 @@
+name: Hello World Action
+description: Displays helle world on the console
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: "hello"
+    - shell: bash
+      run: "world"

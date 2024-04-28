@@ -1,7 +1,7 @@
 name: Hello World Job Dependencies
 on:
-  push:
-  # pull_request:
+  #push:
+  pull_request:
     branches:
       - setup/HANOI-TOWERS-T-36/basic-structure
 
