@@ -8,11 +8,11 @@ fun Routes.find(segment: RouteSegment): Routes? = children.find { it.segment == 
 fun Routes.find(string: String): Routes? = children.find { it.segment.value == string }
 
 fun Routes.merge(route: Route): Routes =
-    if(route.segments.isNotEmpty()) {
+    if (route.segments.isNotEmpty()) {
         val rest = route.segments.drop(1)
 
-        when(val segment = route.segments.first()) {
-            is RouteSegment.Root -> if(this.segment is RouteSegment.Root){
+        when (val segment = route.segments.first()) {
+            is RouteSegment.Root -> if (this.segment is RouteSegment.Root) {
                 merge(Route(rest, listOf()))
             } else {
                 throw Exception("Cannot merge Roots into other")
@@ -20,13 +20,13 @@ fun Routes.merge(route: Route): Routes =
             else -> {
                 val found = find(segment)
                 val newRoutes =
-                    found?.merge(Route(rest, listOf())) ?:
-                    Routes(segment, listOf()).merge(Route(rest, listOf()))
+                    found?.merge(Route(rest, listOf()))
+                        ?: Routes(segment, listOf()).merge(Route(rest, listOf()))
 
-                if(segment is RouteSegment.Static) {
+                if (segment is RouteSegment.Static) {
                     this@merge.prepend(newRoutes)
                 }
-                if(segment is RouteSegment.Variable) {
+                if (segment is RouteSegment.Variable) {
                     this@merge.append(newRoutes)
                 }
                 this@merge
@@ -36,7 +36,6 @@ fun Routes.merge(route: Route): Routes =
         this
     }
 
-
 fun Routes.append(routes: Routes): Routes = Routes(
     segment,
     listOf(
@@ -44,7 +43,6 @@ fun Routes.append(routes: Routes): Routes = Routes(
         routes
     )
 )
-
 
 fun Routes.prepend(routes: Routes): Routes = Routes(
     segment,
@@ -80,24 +78,24 @@ fun ComposableRoute.append(segment: RouteSegment) = ComposableRoute(
 )
 
 fun Routes.match(path: String): ComposableRoute? = with(
-    path.dropWhile { it == '/' }.dropLastWhile { it == '/' }.split("/").map{it.trim()}.filter { it != "" }
+    path.dropWhile { it == '/' }.dropLastWhile { it == '/' }.split("/").map { it.trim() }.filter { it != "" }
 ) {
-    if(component != null) {
-        if(size == 0) {
+    if (component != null) {
+        if (size == 0) {
             ComposableRoute(listOf(), listOf(), component)
         } else {
             this@match.match(ComposableRoute(listOf(), listOf(), component) x this).first
         }
     } else {
-        this@match.match(ComposableRoute(listOf(), listOf()){} x this).first
+        this@match.match(ComposableRoute(listOf(), listOf()) {} x this).first
     }
 }
 
-tailrec fun Routes.match(pair: Pair<ComposableRoute,List<String>>): Pair<ComposableRoute?, List<String>> {
+tailrec fun Routes.match(pair: Pair<ComposableRoute, List<String>>): Pair<ComposableRoute?, List<String>> {
     val (route, list) = pair
 
-    if(list.isEmpty()) {
-        return when(component != null) {
+    if (list.isEmpty()) {
+        return when (component != null) {
             true -> pair.copy(first = pair.first.copy(component = component))
             false -> null x list
         }
@@ -107,12 +105,12 @@ tailrec fun Routes.match(pair: Pair<ComposableRoute,List<String>>): Pair<Composa
 
     val found = find(head) ?: children.find { it.segment is RouteSegment.Variable }
     // return found?.match(route.append(head) x tail) ?: (null x list) -> not tailrec
-    return if(found == null) {
+    return if (found == null) {
         null x list
     } else {
         found.match(
             route.append(
-                when(val s = found.segment){
+                when (val s = found.segment) {
                     is RouteSegment.Static -> s
                     is RouteSegment.Variable -> s.copy(value = head)
                     else -> s
@@ -126,8 +124,8 @@ fun ComposableRoute.parameter(name: String): String? = segments.filterIsInstance
 
 @RoutingDsl
 @Composable
-fun Routes.compose(path: String): Boolean = with(match(path) ) {
-    if(this != null) {
+fun Routes.compose(path: String): Boolean = with(match(path)) {
+    if (this != null) {
         val route = this
         route.component()
         true

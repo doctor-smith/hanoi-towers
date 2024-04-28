@@ -5,11 +5,10 @@ import hanoi.towers.api.*
 import lib.compose.Markup
 import lib.optics.storage.Storage
 
-
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun <D> Store(buildStorage: @Composable ()->Storage<D>,content: @Composable Storage<D>.()->Unit) {
+fun <D> Store(buildStorage: @Composable () -> Storage<D>, content: @Composable Storage<D>.() -> Unit) {
     buildStorage().content()
 }
 @Markup
@@ -17,14 +16,14 @@ fun <D> Store(buildStorage: @Composable ()->Storage<D>,content: @Composable Stor
 @Suppress("FunctionName")
 fun <D> Store(
     initialData: D,
-    buildStorage: @Composable (D)->Storage<D>,
-    content: @Composable Storage<D>.()->Unit
+    buildStorage: @Composable (D) -> Storage<D>,
+    content: @Composable Storage<D>.() -> Unit
 ) {
     buildStorage(initialData).content()
 }
 @Markup
 @Composable
-fun initialize(block:@Composable  ()->Unit) {
+fun initialize(block: @Composable () -> Unit) {
     block()
 }
 

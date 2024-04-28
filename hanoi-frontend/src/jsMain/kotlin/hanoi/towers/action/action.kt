@@ -13,22 +13,23 @@ import lib.maths.x
 typealias Action<T> = State<Base, T>
 typealias KlAction<S, T> = KlState<Base, S, T>
 data class Base(
-    val environment:  Environment,
+    val environment: Environment,
     val client: HttpClient = JsClient()
 )
 
 @Suppress("FunctionName")
 suspend inline fun <reified T> Get(
     url: String,
-    crossinline block: HttpRequestBuilder.(Environment)->Unit = {port  = it.hanoiBackendPort}
-): Action<T> = State{
-    base -> base.client.get<T>(url) {
-         this.block(base.environment)
+    crossinline block: HttpRequestBuilder.(Environment) -> Unit = { port = it.hanoiBackendPort }
+): Action<T> = State {
+    base ->
+    base.client.get<T>(url) {
+        this.block(base.environment)
     } x base
 }
 
 @Suppress("FunctionName")
 suspend inline fun <reified T> DecodeTo(): KlAction<String, T> = KlState<Base, String, T> {
-    input -> State{ base -> Json.decodeFromString<T>(input) x base }
+    input ->
+    State { base -> Json.decodeFromString<T>(input) x base }
 }
-

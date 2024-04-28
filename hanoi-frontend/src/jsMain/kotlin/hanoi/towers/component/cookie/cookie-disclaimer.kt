@@ -46,7 +46,7 @@ fun CookieDisclaimerModal(
     texts: Block,
     modals: Storage<Modals<Int>>,
     isCookieDisclaimerConfirmed: Storage<Boolean>
-): @Composable ElementScope<HTMLElement>.()->Unit = Modal(
+): @Composable ElementScope<HTMLElement>.() -> Unit = Modal(
     id,
     modals,
     onOk = {

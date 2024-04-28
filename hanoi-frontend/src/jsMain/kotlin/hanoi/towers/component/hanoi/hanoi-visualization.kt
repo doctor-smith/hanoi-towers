@@ -34,8 +34,8 @@ fun HanoiVisualization(
         width(75.percent)
         paddingLeft(10.px)
     }
-}){
-    H3{ Text(texts["headline"]) }
+}) {
+    H3 { Text(texts["headline"]) }
 
     Hanoi(
         moves.read(),

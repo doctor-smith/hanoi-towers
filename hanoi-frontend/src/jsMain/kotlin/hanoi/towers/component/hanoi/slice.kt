@@ -22,20 +22,22 @@ fun DragDropEnvironment.Slice(
     maxWidth: Int = 100,
     mode: Mode = Mode.Automatic,
     source: Tower
-) = when(mode) {
+) = when (mode) {
     Mode.Automatic ->
-        Div({style {
-            display(DisplayStyle("flex"))
-            height(20.px)
-            maxWidth(maxWidth.px)
-        }
+        Div({
+            style {
+                display(DisplayStyle("flex"))
+                height(20.px)
+                maxWidth(maxWidth.px)
+            }
         }) {
             Space(size)
             Box(size)
             Space(size)
         }
-    Mode.Play, Mode.Cheat -> when(size){
-        0-> Div({style {
+    Mode.Play, Mode.Cheat -> when (size) {
+        0 -> Div({
+            style {
                 display(DisplayStyle("flex"))
                 height(20.px)
                 maxWidth(maxWidth.px)
@@ -66,7 +68,6 @@ fun DragDropEnvironment.Slice(
     }
 }
 
-
 @Markup
 @Composable
 @Suppress("FunctionName")
@@ -74,15 +75,16 @@ fun Slice(
     size: Int,
     maxWidth: Int = 100,
     mode: Mode = Mode.Automatic,
-    setMouseCoordinates: (Coordinates)->Unit = {},
-    onDrop: ()->Unit = {}
-) = when(mode) {
+    setMouseCoordinates: (Coordinates) -> Unit = {},
+    onDrop: () -> Unit = {}
+) = when (mode) {
     Mode.Automatic ->
-        Div({style {
-            display(DisplayStyle("flex"))
-            height(20.px)
-            maxWidth(maxWidth.px)
-        }
+        Div({
+            style {
+                display(DisplayStyle("flex"))
+                height(20.px)
+                maxWidth(maxWidth.px)
+            }
         }) {
             Space(size)
             Box(size)
@@ -92,37 +94,36 @@ fun Slice(
         setMouseCoordinates,
         onDrop
     ) {
-        Div({style {
-            display(DisplayStyle("flex"))
-            height(20.px)
-            maxWidth(maxWidth.px)
-        }
+        Div({
+            style {
+                display(DisplayStyle("flex"))
+                height(20.px)
+                maxWidth(maxWidth.px)
+            }
         }) {
             Space(size)
             Box(size)
             Space(size)
         }
     }
-
 }
 
-
 @Markup
 @Composable
 @Suppress("FunctionName")
-private fun Space(size: Int) =  Div({
+private fun Space(size: Int) = Div({
     style {
-        width(((10-size)*5).pc)
+        width(((10 - size) * 5).pc)
     }
-}) {  }
+}) { }
 
 @Markup
 @Composable
 @Suppress("FunctionName")
-private fun Box(size:Int) = Div({
-    if(size > 0) {
+private fun Box(size: Int) = Div({
+    if (size > 0) {
         style {
-            width((size*10).pc)
+            width((size * 10).pc)
             border {
                 style = LineStyle.Solid
                 color = black
@@ -140,11 +141,10 @@ private fun Box(size:Int) = Div({
     }
 }) {}
 
-
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Draggable(notify: (Coordinates)->Unit, onDrop: ()->Unit, content: @Composable ElementScope<HTMLElement>.()->Unit) {
+fun Draggable(notify: (Coordinates) -> Unit, onDrop: () -> Unit, content: @Composable ElementScope<HTMLElement>.() -> Unit) {
     var left by remember { mutableStateOf<Double>(0.0) }
     var top by remember { mutableStateOf<Double>(0.0) }
     var x by remember { mutableStateOf<Double>(0.0) }
@@ -154,13 +154,13 @@ fun Draggable(notify: (Coordinates)->Unit, onDrop: ()->Unit, content: @Composabl
 
     var mousePressed by remember { mutableStateOf(false) }
 
-    fun reset(){
+    fun reset() {
         mousePressed = false
         x = 0.0
         y = 0.0
         dX = 0.0
         dY = 0.0
-        notify(Coordinates(-1.0,-1.0))
+        notify(Coordinates(-1.0, -1.0))
     }
 
     Div({
@@ -183,10 +183,12 @@ fun Draggable(notify: (Coordinates)->Unit, onDrop: ()->Unit, content: @Composabl
         }
 
         onMouseMove {
-            notify(Coordinates(
-                it.pageX,
-                it.pageY
-            ))
+            notify(
+                Coordinates(
+                    it.pageX,
+                    it.pageY
+                )
+            )
             if (mousePressed) {
                 dX = it.pageX - x
                 dY = it.pageY - y
@@ -217,7 +219,6 @@ fun Draggable(notify: (Coordinates)->Unit, onDrop: ()->Unit, content: @Composabl
         onMouseLeave {
             reset()
         }
-
     }) {
         content()
     }

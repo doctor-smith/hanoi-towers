@@ -10,13 +10,13 @@ import org.jetbrains.compose.web.dom.Text
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun OnError(message: String?, onHide: ()->Unit) {
-    if(message != null) {
+fun OnError(message: String?, onHide: () -> Unit) {
+    if (message != null) {
         Div(attrs = {
             style {
                 height(30.px)
                 borderRadius(3.px)
-                border{
+                border {
                     color = Color.red
                     width = 1.px
                     style = LineStyle("solid")
@@ -25,23 +25,21 @@ fun OnError(message: String?, onHide: ()->Unit) {
             onClick { onHide() }
         }) {
             Text(message)
-
         }
     }
 }
-
 
 @Markup
 @Composable
 @Suppress("FunctionName")
 fun OnError(error: Storage<String?>) {
     val message = error.read()
-    if(message != null) {
+    if (message != null) {
         Div(attrs = {
             style {
                 height(30.px)
                 borderRadius(3.px)
-                border{
+                border {
                     color = Color.red
                     width = 1.px
                     style = LineStyle("solid")
@@ -50,7 +48,6 @@ fun OnError(error: Storage<String?>) {
             onClick { error.write(null) }
         }) {
             Text(message)
-
         }
     }
 }

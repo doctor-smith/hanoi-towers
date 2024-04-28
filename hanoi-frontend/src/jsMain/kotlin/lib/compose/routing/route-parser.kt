@@ -5,7 +5,7 @@ import lib.parser.*
 
 @Suppress("FunctionName")
 fun Param(): Parser<Parameter> = SplitAtFirst('=') map {
-    Parameter(it.first,it.second)
+    Parameter(it.first, it.second)
 }
 
 @Suppress("FunctionName")
@@ -15,15 +15,15 @@ fun Params(): Parser<List<Parameter>> = Split(';') map {
 
 @Suppress("FunctionName")
 fun Segment(): Parser<RouteSegment> =
-    (FirstMatches(':') * { Parser{ s -> Result(RouteSegment.Variable(s) as RouteSegment, "") }}) OR
-            Parser { s ->  Result(RouteSegment.Static(s) as RouteSegment,"")}
+    (FirstMatches(':') * { Parser { s -> Result(RouteSegment.Variable(s) as RouteSegment, "") } }) OR
+        Parser { s -> Result(RouteSegment.Static(s) as RouteSegment, "") }
 
 @Suppress("FunctionName")
 fun Segments(): Parser<List<RouteSegment>> = Split('/') map { list -> list.map { Segment().run(it).result!! } }
 
 @Suppress("FunctionName")
 fun RouteParser(): Parser<Route> = SplitAtFirst('?') map {
-        pair ->
+    pair ->
     val (path, params) = pair
     Segments().run(path) x Params().run(params)
 } map {
@@ -32,4 +32,3 @@ fun RouteParser(): Parser<Route> = SplitAtFirst('?') map {
         it.second.result!!
     )
 }
-

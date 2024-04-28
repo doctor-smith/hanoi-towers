@@ -15,7 +15,6 @@ import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.Color.black
 import org.jetbrains.compose.web.dom.Div
 
-
 @Markup
 @Composable
 @Suppress("FunctionName")
@@ -27,7 +26,7 @@ fun Hanoi(
     capacity: Int,
     mode: Mode
 ) {
-    val source: (Int)->Int? = {
+    val source: (Int) -> Int? = {
         when (it) {
             in one.read() -> 1
             in two.read() -> 2
@@ -36,19 +35,19 @@ fun Hanoi(
         }
     }
 
-    val move: (slice: Int, source: Int, target: Int)->Unit = {
-            slice, source, target ->
+    val move: (slice: Int, source: Int, target: Int) -> Unit = {
+        slice, source, target ->
         val s = when (source) {
             1 -> one
             2 -> two
             else -> three
         }
-        val t = when(target) {
+        val t = when (target) {
             1 -> one
             2 -> two
             else -> three
         }
-        if(t.read().isEmpty() || t.read().min() > slice) {
+        if (t.read().isEmpty() || t.read().min() > slice) {
             s.write(s.read().filter { it != slice })
             t.write(
                 listOf(
@@ -58,24 +57,27 @@ fun Hanoi(
         }
     }
 
-    Div({ style {
-        display(DisplayStyle("flex"))
-        paddingLeft(10.px)
-    }}) {
-        var mouseCoordinates by remember { mutableStateOf( Coordinates(-1.0,-1.0) ) }
+    Div({
+        style {
+            display(DisplayStyle("flex"))
+            paddingLeft(10.px)
+        } 
+    }) {
+        var mouseCoordinates by remember { mutableStateOf(Coordinates(-1.0, -1.0)) }
         var slice by remember { mutableStateOf(-1) }
         var target by remember { mutableStateOf<Int?>(null) }
 
-        val drop: (slice: Int)->Unit = {
-                slice: Int-> when(target){
-            null -> Unit
-            else -> move(slice, source(slice)!!, target!!)
-        }
+        val drop: (slice: Int) -> Unit = {
+            slice: Int ->
+            when (target) {
+                null -> Unit
+                else -> move(slice, source(slice)!!, target!!)
+            }
         }
 
         val mouseDragEventStorage = Storage(
-            read = {DragEvent(mouseCoordinates, slice, target, drop = drop) },
-            write = {event ->
+            read = { DragEvent(mouseCoordinates, slice, target, drop = drop) },
+            write = { event ->
                 mouseCoordinates = event.coordinates
                 target = event.target
                 slice = event.slice
@@ -95,9 +97,8 @@ fun Hanoi(
             backgroundColor(black)
             maxWidth(320.px)
         }
-    }){}
+    }) {}
 }
-
 
 @Markup
 @Composable
@@ -110,7 +111,7 @@ fun Hanoi(
     mode: Mode
 ) {
     // Extract id / size from the name of the slice
-    val convert: String.( ) -> Int = {dropWhile { it != '_' }.substring(1).toInt() }
+    val convert: String.() -> Int = { dropWhile { it != '_' }.substring(1).toInt() }
 
     // compute source tower from integer
     val source: (Int) -> Int? = {
@@ -123,12 +124,14 @@ fun Hanoi(
     }
 
     // compute the data-representation (tower) from integer
-    val tower: (Int)->Storage<List<Int>> = { when(it){
-        1 -> one
-        2 -> two
-        3 -> three
-        else -> throw Exception("No Tower_ $it")
-    } }
+    val tower: (Int) -> Storage<List<Int>> = {
+        when (it) {
+            1 -> one
+            2 -> two
+            3 -> three
+            else -> throw Exception("No Tower_ $it")
+        }
+    }
 
     // move slices from one tower to the other
     val move: (slices: List<Int>, source: Int, target: Int) -> Unit = { slices, src, target ->
@@ -152,35 +155,39 @@ fun Hanoi(
     }
 
     DragDropEnvironment(
-        onDrag = { name -> when(mode) {
-            Mode.Cheat -> with(name.convert()){
-                val l = tower(source(this)!!).read()
-                    .filter { it < this }
-                    .map{"slice_$it"}
-                dragged.add( l )
-            }
-            else -> Unit
-        } },
-        allowDrag = { name, src -> when(mode) {
-            Mode.Play -> with(name.convert()){
-                this > 0 &&
-                tower(src!!.convert()).read().filter { it != 0 }.min() >= this
-            }
-            else -> name.convert() > 0
-        } },
-        allowDrop = { dragged ,target ->
-            target != null && (
-                with(tower(target.convert()).read()){
-                    isEmpty() ||
-                    dragged.map { it.convert() }.max() < filter { it > 0 }.min()
+        onDrag = { name ->
+            when (mode) {
+                Mode.Cheat -> with(name.convert()) {
+                    val l = tower(source(this)!!).read()
+                        .filter { it < this }
+                        .map { "slice_$it" }
+                    dragged.add(l)
                 }
-            )
+                else -> Unit
+            }
+        },
+        allowDrag = { name, src ->
+            when (mode) {
+                Mode.Play -> with(name.convert()) {
+                    this > 0 &&
+                        tower(src!!.convert()).read().filter { it != 0 }.min() >= this
+                }
+                else -> name.convert() > 0
+            }
+        },
+        allowDrop = { dragged, target ->
+            target != null && (
+                with(tower(target.convert()).read()) {
+                    isEmpty() ||
+                        dragged.map { it.convert() }.max() < filter { it > 0 }.min()
+                }
+                )
         },
         onDropRejected = { _, _ ->
             resetCoordinatesOfDraggedElements()
         },
-        onDrop = {src, target ->
-            if(src != null && target != null) {
+        onDrop = { src, target ->
+            if (src != null && target != null) {
                 move(
                     dragged.read().map { it.convert() },
                     src.convert(),
@@ -217,7 +224,3 @@ fun Hanoi(
         }
     }) {}
 }
-
-
-
-

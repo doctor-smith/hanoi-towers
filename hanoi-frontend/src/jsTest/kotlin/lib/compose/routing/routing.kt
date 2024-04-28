@@ -19,54 +19,56 @@ class RoutingTest {
         val result = RouteParser().run(routeString)
 
         assertEquals(
-            Result(Route(
-                listOf(
-                    RouteSegment.Static("aaa"),
-                    RouteSegment.Static("bbb"),
-                    RouteSegment.Static("123"),
-                    RouteSegment.Variable("id")
+            Result(
+                Route(
+                    listOf(
+                        RouteSegment.Static("aaa"),
+                        RouteSegment.Static("bbb"),
+                        RouteSegment.Static("123"),
+                        RouteSegment.Variable("id")
+                    ),
+                    listOf(
+                        Parameter("x", "y"),
+                        Parameter("a", "b")
+                    )
                 ),
-                listOf(
-                    Parameter("x", "y"),
-                    Parameter("a","b")
-                )
-            ), ""),
+                ""
+            ),
             result
         )
     }
 
-     @Test
+    @Test
     fun routesConfiguration() {
         val routes = routing {
             route("x/y/z") {
                 route(":id") {
-                    route("a"){
+                    route("a") {
                         component { Div { Text("Hello") } }
                     }
-                    route("b"){}
-                    route("c"){}
+                    route("b") {}
+                    route("c") {}
                 }
-                route("h/i/j/k"){}
+                route("h/i/j/k") {}
             }
-            route("alfred/E/neumann"){}
+            route("alfred/E/neumann") {}
         }
     }
 
     @Test
     fun matchRoute() {
         val routes = routing {
-            component{
+            component {
                 Div { Text("Root") }
             }
-            route("x"){
-                route(":id"){
-                    component{
+            route("x") {
+                route(":id") {
+                    component {
                         Text("Hello")
                     }
                 }
-                route("y"){
-                    component{
-
+                route("y") {
+                    component {
                     }
                 }
             }
@@ -90,7 +92,7 @@ class RoutingTest {
     }
 
     @Test
-    fun compose() = runTest{
+    fun compose() = runTest {
         val routes = routing {
             route("x") {
                 component {
@@ -104,13 +106,13 @@ class RoutingTest {
             }
         }
 
-        composition{
+        composition {
             routes.compose("/x")
         }
 
         assertEquals("<div>Hello</div>", root.innerHTML)
 
-        composition{
+        composition {
             routes.compose("x/1")
         }
 
@@ -121,13 +123,13 @@ class RoutingTest {
     fun routing() = runTest {
 
         composition {
-            Routing("/"){
-                component { Div{ Text("ROOT") } }
-                route("/x"){
-                    component { Div{ Text("x")} }
+            Routing("/") {
+                component { Div { Text("ROOT") } }
+                route("/x") {
+                    component { Div { Text("x") } }
                 }
-                route("/y"){
-                    component { Div{ Text("y")} }
+                route("/y") {
+                    component { Div { Text("y") } }
                 }
             }
         }
@@ -147,4 +149,3 @@ class RoutingTest {
         assertEquals("<div>ROOT</div>", root.innerHTML)
     }
 }
-

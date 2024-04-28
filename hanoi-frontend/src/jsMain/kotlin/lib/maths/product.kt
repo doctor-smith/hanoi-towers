@@ -1,6 +1,5 @@
 package lib.maths
 
-
 @Maths
 infix fun <F, S> F.x(s: S): Pair<F, S> = Pair(this, s)
 

@@ -17,13 +17,15 @@ fun TestStorageComponent() {
     Store({
         var x = remember { mutableStateOf<Int>(0) }
         Storage<Int>(
-            read = {x.value},
-            write = {newX -> x.value = newX}
+            read = { x.value },
+            write = { newX -> x.value = newX }
         )
     }) {
-        Div{Text(
-            "${read()}"
-        )}
+        Div {
+            Text(
+                "${read()}"
+            )
+        }
         Button(
             attrs = {
                 onClick {
@@ -43,7 +45,4 @@ fun TestStorageComponent() {
             Text("-")
         }
     }
-
-
 }
-

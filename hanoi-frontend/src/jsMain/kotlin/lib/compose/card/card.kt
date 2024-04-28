@@ -10,8 +10,8 @@ import org.w3c.dom.HTMLElement
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Card(content: @Composable ElementScope<HTMLElement>.()->Unit) = Div({
-    style{
+fun Card(content: @Composable ElementScope<HTMLElement>.() -> Unit) = Div({
+    style {
         border {
             style(LineStyle.Solid)
             width(1.px)

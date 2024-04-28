@@ -35,9 +35,8 @@ fun Form(
     maxNumberOfSlices: Int
 ) {
 
-
     Div {
-        Label(texts["towerHeight"], id="tower-height")
+        Label(texts["towerHeight"], id = "tower-height")
         NumberInput(
             value = numberOfSlices.read(),
             min = 0,
@@ -45,8 +44,8 @@ fun Form(
         ) {
             id("tower-height")
             onInput { event ->
-                CoroutineScope(Job()).launch{
-                    when(mode) {
+                CoroutineScope(Job()).launch {
+                    when (mode) {
                         is Mode.Automatic -> handleEventOnSolver(
                             event,
                             numberOfSlices,
@@ -122,9 +121,11 @@ suspend fun handleEventOnSolver(
     }.then {
         numberOfMoves.write((2 toThe numberOfSlices.read()) - 1)
     }.then {
-        hanoi.write(Hanoi(
-            (1..numberOfSlices.read()).map { it }
-        ))
+        hanoi.write(
+            Hanoi(
+                (1..numberOfSlices.read()).map { it }
+            )
+        )
     }.then {
         isComputingMoves.write(true)
     }.then {
@@ -177,9 +178,11 @@ suspend fun handleEventWhenPlaying(
     }.then {
         numberOfMoves.write((2 toThe numberOfSlices.read()) - 1)
     }.then {
-        hanoi.write(Hanoi(
-            (1..numberOfSlices.read()).map { it }
-        ))
+        hanoi.write(
+            Hanoi(
+                (1..numberOfSlices.read()).map { it }
+            )
+        )
     }
 }
 
@@ -217,12 +220,10 @@ suspend fun handleEventWhenCheat(
     }.then {
         numberOfMoves.write((2 toThe numberOfSlices.read()) - 1)
     }.then {
-        hanoi.write(Hanoi(
-            (1..numberOfSlices.read()).map { it }
-        ))
+        hanoi.write(
+            Hanoi(
+                (1..numberOfSlices.read()).map { it }
+            )
+        )
     }
 }
-
-
-
-

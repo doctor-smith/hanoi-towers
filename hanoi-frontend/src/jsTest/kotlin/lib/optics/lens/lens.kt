@@ -5,18 +5,17 @@ import lib.optics.W
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-
 class LensTest {
     @Test
     fun lensComposition() {
 
         val lens = Lens(
-            {w: W -> w.p},
-            {p: P -> { w : W -> w.copy(p = p)}}
+            { w: W -> w.p },
+            { p: P -> { w: W -> w.copy(p = p) } }
         )
         val lens2 = Lens(
-            {p: P ->p.name},
-            {name: String -> {p: P -> p.copy(name = name) }}
+            { p: P -> p.name },
+            { name: String -> { p: P -> p.copy(name = name) } }
         )
 
         val data = W(

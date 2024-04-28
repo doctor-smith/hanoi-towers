@@ -21,7 +21,6 @@ class ParserTest {
         assertEquals(expected, parsed.result)
     }
 
-
     @Test
     fun simpleBlock() {
         val name = "name"
@@ -38,23 +37,22 @@ class ParserTest {
         """.trimMargin()
 
         val result = Block().run(arg)
-      //  println(result)
+        //  println(result)
 
-      //  println(LanguageP().run(arg))
-        assertTrue{true}
-        //val value3 = result.result!!["name.block.key3"]
-       // println(value3)
-        //assertNotNull(value3 is Var)
-      //  assertEquals("value3", value3)//.value)
+        //  println(LanguageP().run(arg))
+        assertTrue { true }
+        // val value3 = result.result!!["name.block.key3"]
+        // println(value3)
+        // assertNotNull(value3 is Var)
+        //  assertEquals("value3", value3)//.value)
     }
-
 
     @Test fun path() {
         val p = "x.y.z"
 
         val result = Path().run(p)
 
-        assertEquals(listOf("x","y","z"), result.result)
+        assertEquals(listOf("x", "y", "z"), result.result)
     }
 
     @Test fun get() {
@@ -70,7 +68,7 @@ class ParserTest {
 
         val v1 = lang["k1"]
 
-        assertEquals("v1",v1)
+        assertEquals("v1", v1)
 
         val b = lang["z.a"]
         assertEquals("b", b)

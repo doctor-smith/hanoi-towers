@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.hanoi.Tower.*
 import hanoi.towers.data.pages.cheat.component.HanoiCheat
-
 import hanoi.towers.data.pages.cheat.component.hanoi
 import hanoi.towers.data.tower
 import lib.compose.Markup
@@ -35,7 +34,7 @@ fun HanoiCheat(
 
     Hanoi(
         hanoiCheat * hanoi * tower(One),
-        hanoiCheat * hanoi *tower(Two),
+        hanoiCheat * hanoi * tower(Two),
         hanoiCheat * hanoi * tower(Three),
         capacity = maxNumberOfSlices,
         mode = Mode.Cheat

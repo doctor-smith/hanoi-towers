@@ -22,13 +22,13 @@ fun ActionBar(
     numberOfMoves: Storage<Int>,
     isPlaying: Storage<Boolean>,
     movesPerSecond: Storage<Int>
-    ) {
+) {
     Button(
         attrs = {
             onClick {
-                if(indexOfCurrentMove.read() > 0) {
-                    indexOfCurrentMove.write( indexOfCurrentMove.read() - 1 )
-                    hanoi.write( hanoi.read().apply(moves.read()[indexOfCurrentMove.read()].inverse()))
+                if (indexOfCurrentMove.read() > 0) {
+                    indexOfCurrentMove.write(indexOfCurrentMove.read() - 1)
+                    hanoi.write(hanoi.read().apply(moves.read()[indexOfCurrentMove.read()].inverse()))
                 }
             }
         }
@@ -38,9 +38,9 @@ fun ActionBar(
     Button(
         attrs = {
             onClick {
-                if(indexOfCurrentMove.read() < numberOfMoves.read()) {
-                    hanoi.write( hanoi.read().apply(moves.read()[indexOfCurrentMove.read()]) )
-                    indexOfCurrentMove.write( indexOfCurrentMove.read() + 1 )
+                if (indexOfCurrentMove.read() < numberOfMoves.read()) {
+                    hanoi.write(hanoi.read().apply(moves.read()[indexOfCurrentMove.read()]))
+                    indexOfCurrentMove.write(indexOfCurrentMove.read() + 1)
                 }
             }
         }
@@ -50,21 +50,21 @@ fun ActionBar(
     Button(
         attrs = {
             onClick {
-                isPlaying.write( !isPlaying.read() )
-                CoroutineScope(Job()).launch{
-                    while(isPlaying.read() && indexOfCurrentMove.read() < numberOfMoves.read()) {
+                isPlaying.write(!isPlaying.read())
+                CoroutineScope(Job()).launch {
+                    while (isPlaying.read() && indexOfCurrentMove.read() < numberOfMoves.read()) {
                         promise {
                             delay((1_000.floorDiv(movesPerSecond.read())).toLong())
-                            hanoi.write( hanoi.read().apply(moves.read()[indexOfCurrentMove.read()]) )
-                            indexOfCurrentMove.write( indexOfCurrentMove.read() + 1 )
+                            hanoi.write(hanoi.read().apply(moves.read()[indexOfCurrentMove.read()]))
+                            indexOfCurrentMove.write(indexOfCurrentMove.read() + 1)
                         }.await()
                     }
-                    isPlaying.write( false )
+                    isPlaying.write(false)
                 }
             }
         }
     ) {
-        Text(if(isPlaying.read()){"Pause"}else{"Play >"})
+        Text(if (isPlaying.read()) { "Pause" } else { "Play >" })
     }
 
     // Coole Aufgabe?

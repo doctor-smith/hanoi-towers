@@ -2,7 +2,6 @@ package hanoi.towers.application
 
 import androidx.compose.runtime.Composable
 import hanoi.towers.component.cookie.CookieDisclaimer
-import hanoi.towers.component.dev.onDev
 import hanoi.towers.component.layout.Container
 import hanoi.towers.component.navigation.NavBar
 import hanoi.towers.data.*
@@ -30,7 +29,7 @@ fun UI(storage: Storage<AppData>) {
 
     val texts = (storage * language).read() as Block
     val mainPageTexts = texts.component("hanoi.mainPage")
-    //val environment = (storage * env).read()
+    // val environment = (storage * env).read()
     document.title = mainPageTexts["title"]
 
     // The whole UI needs to be wrapped in a component
@@ -52,7 +51,7 @@ fun UI(storage: Storage<AppData>) {
 
         Container {
             // Top navigation bar
-            NavBar( storage * navBar)
+            NavBar(storage * navBar)
 
             // Routing section
             // Here, routes are mapped to components / pages
@@ -63,7 +62,7 @@ fun UI(storage: Storage<AppData>) {
                 }
                 // Route to the Hanoi Towers Solver Page.
                 route("solver") {
-                    component{
+                    component {
                         SolverPage(storage * hanoiSolverPage)
                     }
                 }
@@ -84,8 +83,8 @@ fun UI(storage: Storage<AppData>) {
                 }
                 // routes for test-purposes
                 // TODO (These routes shall not be available in production)
-                //onDev(storage * env) {
-                if((storage * env).read().environment == "DEV"){
+                // onDev(storage * env) {
+                if ((storage * env).read().environment == "DEV") {
                     route("test") {
                         route("loader") {
                             component {
@@ -103,7 +102,7 @@ fun UI(storage: Storage<AppData>) {
                             }
                         }
                         route("backend") {
-                            component{
+                            component {
                                 TestBackend()
                             }
                         }
