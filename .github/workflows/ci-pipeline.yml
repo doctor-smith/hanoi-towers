@@ -41,10 +41,10 @@ jobs:
       - name: Setup Gradle Project
         run: echo "Setting up Gradle Project..."
       - name: Lint
-          id: lint
-          run: |
-            echo "Linting kotlin modules"
-            echo "result=success" >> "$GITHUB_OUTPUT"
+        id: lint
+        run: |
+          echo "Linting kotlin modules"
+          echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Build Project
         id: build
         run: |
