@@ -18,12 +18,6 @@ tailrec fun Int.toThe(exponent: Int, store: Int): Int = when(exponent) {
 @Maths
 infix fun <A, B, C> ((B)->C).o(after: (A)->B) : (A)->C= { a:A  -> this(after(a))}
 
-/**
- * Bilde Produkte
- */
-@Maths
-infix fun <F, S> F.x(other: S): Pair<F, S> = Pair(this, other)
-
 @Maths
 infix fun <A, B, C, D> ((A)->B).x(other: (C)->D): (Pair<A,C>)->Pair<B, D> = {
     aXc -> this(aXc.first) x other(aXc.second)

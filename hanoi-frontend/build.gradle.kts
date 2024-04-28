@@ -20,6 +20,7 @@ val kotlinxCoroutinesCore:String by project
 val composeCompiler:String by project
 val ktorClientCoreJs:String by project
 val ktorClientJs:String by project
+val ktorVersion: String by project
 
 kotlin {
     js(IR) {
@@ -41,6 +42,7 @@ kotlin {
 
                 // Serialization
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+                // implementation("io.ktor:ktor-client-serialization:$ktorVersion")
 
                 // dotenv
                 implementation(npm("dotenv", "16.0.1"))

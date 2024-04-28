@@ -46,4 +46,5 @@ class Slice(id: EntityID<UUID>): UUIDEntity(id) {
     companion object : UUIDEntityClass<Slice>(Slices)
 
     var tower by Tower referencedOn Slices.towerId
+    var size by Slices.size
 }
