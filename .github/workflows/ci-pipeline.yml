@@ -28,6 +28,10 @@ jobs:
 
   build-and-test-frontend:
     runs-on: ubuntu-latest # there might be a better option
+    outputs:
+      lint: ${{ steps.lint.outputs.result }}
+      build: ${{ steps.build.outputs.result }}
+      test: ${{ steps.test.outputs.result }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -37,6 +41,33 @@ jobs:
       - name: Setup Gradle Project
         run: echo "Setting up Gradle Project..."
       - name: Lint
-        run: echo "Linting kotlin modules"
+          id: lint
+          run: |
+            echo "Linting kotlin modules"
+            echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Build Project
+        id: build
+        run: |
+          echo "Linting kotlin modules"
+          echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Run Tests
-        run: echo "Running Tests"
+        id: test
+        run: |
+          echo "Running Tests"
+          echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Output Results
+        run:
+  report:
+    needs:
+      - build-and-test-frontend
+      - build-and-test-backend
+    runs-on: ubuntu-latest # there might be a better option
+    steps:
+      - env:
+          FE_LINT: ${{ needs.build-and-test-frontend.outputs.lint }}
+          FE_BUILD: ${{ needs.build-and-test-frontend.outputs.build }}
+          FE_TEST: ${{ needs.build-and-test-frontend.outputs.test }}
+        run: |
+          echo "fe.lint.result = $FE_LINT"
+          echo "fe.build.result = $FE_BUILD"
+          echo "fe.test.result = $FE_TEST"
