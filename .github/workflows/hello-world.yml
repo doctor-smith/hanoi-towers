@@ -1,0 +1,11 @@
+name: Hello World
+on:
+  push:
+    branches:
+      - setup/HANOI-TOWERS-T-36/basic-structure
+
+jobs:
+  say_hello:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello world!"
