@@ -1,0 +1,42 @@
+name: CI Pipeline Hanoi Towers
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - workflow-test
+    types:
+      - opened # whenever a pr is created
+      - synchronize # whenever something is pushed to an open pr
+      #-  closed
+
+jobs:
+  build-and-test-backend:
+    runs-on: ubuntu-latest # there might be a better option
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Rest shall only run if there are changes in the backend-module
+      - name: Setup JDK
+        run: echo "Setting up JDK..."
+      - name: Setup Gradle Project
+        run: echo "Setting up Gradle Project..."
+      - name: Lint
+        run: echo "Linting kotlin modules"
+      - name: Run Tests
+        run: echo "Running Tests"
+
+  build-and-test-frontend:
+    runs-on: ubuntu-latest # there might be a better option
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Rest shall only run if there are changes in the frontend-module
+      - name: Setup JDK
+        run: echo "Setting up JDK..."
+      - name: Setup Gradle Project
+        run: echo "Setting up Gradle Project..."
+      - name: Lint
+        run: echo "Linting kotlin modules"
+      - name: Run Tests
+        run: echo "Running Tests"
