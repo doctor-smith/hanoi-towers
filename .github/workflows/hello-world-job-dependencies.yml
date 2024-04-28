@@ -22,8 +22,8 @@ jobs:
       - run: echo "Hello world!"
   say_goodbye:
     needs:
-      - do_something:
-      - do_something_parallel:
+      - do_something
+      - do_something_parallel
     runs-on: ubuntu-latest
     steps:
       - run: echo "Bye bye!"
