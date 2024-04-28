@@ -4,6 +4,6 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: "hello"
+      run: echo "hello"
     - shell: bash
-      run: "world"
+      run: echo "world"
