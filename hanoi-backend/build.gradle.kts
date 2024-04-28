@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm")
     id("io.ktor.plugin") version "2.1.3"
     kotlin("plugin.serialization")
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 group = project.extra["hanoi.group"] as String
