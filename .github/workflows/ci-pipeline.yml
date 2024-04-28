@@ -12,6 +12,10 @@ on:
 
 jobs:
   build-and-test-backend:
+    outputs:
+      lint: ${{ steps.lint.outputs.result }}
+      build: ${{ steps.build.outputs.result }}
+      test: ${{ steps.test.outputs.result }}
     runs-on: ubuntu-latest # there might be a better option
     steps:
       - name: Checkout code
@@ -22,10 +26,20 @@ jobs:
       - name: Setup Gradle Project
         run: echo "Setting up Gradle Project..."
       - name: Lint
-        run: echo "Linting kotlin modules"
+        id: lint
+        run: |
+          echo "Linting kotlin modules"
+          echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Build Project
+        id: build
+        run: |
+          echo "Linting kotlin modules"
+          echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Run Tests
-        run: echo "Running Tests"
-
+        id: test
+        run: |
+          echo "Running Tests"
+          echo "result=success" >> "$GITHUB_OUTPUT"
   build-and-test-frontend:
     runs-on: ubuntu-latest # there might be a better option
     outputs:
@@ -65,7 +79,14 @@ jobs:
           FE_LINT: ${{ needs.build-and-test-frontend.outputs.lint }}
           FE_BUILD: ${{ needs.build-and-test-frontend.outputs.build }}
           FE_TEST: ${{ needs.build-and-test-frontend.outputs.test }}
+          BE_LINT: ${{ needs.build-and-test-backend.outputs.lint }}
+          BE_BUILD: ${{ needs.build-and-test-backend.outputs.build }}
+          BE_TEST: ${{ needs.build-and-test-backend.outputs.test }}
         run: |
           echo "fe.lint.result = $FE_LINT"
           echo "fe.build.result = $FE_BUILD"
           echo "fe.test.result = $FE_TEST"
+          
+          echo "be.lint.result = $BE_LINT"
+          echo "be.build.result = $BE_BUILD"
+          echo "be.test.result = $BE_TEST"
