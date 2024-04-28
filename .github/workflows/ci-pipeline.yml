@@ -55,8 +55,6 @@ jobs:
         run: |
           echo "Running Tests"
           echo "result=success" >> "$GITHUB_OUTPUT"
-      - name: Output Results
-        run:
   report:
     needs:
       - build-and-test-frontend
