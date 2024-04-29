@@ -94,11 +94,13 @@ jobs:
                
           results=($FE_LINT, $FE_BUILD, $FE_TEST, $BE_LINT, $BE_BUILD, $BE_TEST, 'failure')     
           result=true
-          for item in "${array[@]}"; do
+          for item in "${results[@]}"; do
             result=$result && ($item == "success")
           done
 
           # send report to developer when something has failed and complete job
-          if !$result; then
+          if $result; then
+            exit 0
+          else
             exit 1
           fi
