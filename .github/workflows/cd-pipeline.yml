@@ -1,0 +1,14 @@
+name: CD Pipeline Hanoi Towers
+on:
+  pull_request_target:
+    branches:
+      - master
+      - develop
+      - workflow-test # todo remove
+    types:
+      - closed
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Run :-)"

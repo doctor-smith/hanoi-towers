@@ -4,11 +4,11 @@ on:
     branches:
       - master
       - develop
-      - workflow-test
+      - workflow-test # todo remove
     types:
       - opened # whenever a pr is created
       - synchronize # whenever something is pushed to an open pr
-      #- closed
+      #- closed # whenever a pr is closed
 
 jobs:
   build-and-test-backend:
