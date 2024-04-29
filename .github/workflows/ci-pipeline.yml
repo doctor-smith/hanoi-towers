@@ -92,5 +92,45 @@ jobs:
           echo "be.build.result = $BE_BUILD"
           echo "be.test.result = $BE_TEST"
           
-          # send report to developer when something has failed and complete job 
-          exit 1
+          # Define the map function
+          array_map() {
+            local -n array="$1"
+            local -n callback="$2"
+            local result=()
+            
+            for item in "${array[@]}"; do
+            result+=("$(callback "$item")")
+            done
+            
+            echo "${result[@]}"
+          }
+          # Define the reduce function
+          array_reduce() {
+            local -n array="$1"
+            local accumulator="$2"
+            local -n callback="$3"
+            
+            for item in "${array[@]}"; do
+            accumulator="$(callback "$accumulator" "$item")"
+            done
+            
+            echo "$accumulator"
+          }
+          compare() {
+               local item="$1"
+               echo "$((item == 'success'))"
+          } 
+          and() {
+              local acc="$1"
+              local item="$2"
+              echo "$((acc && item))"
+          }
+               
+          results=($FE_LINT, $FE_BUILD, $FE_TEST, $BE_LINT, $BE_BUILD, $BE_TEST, 'failure')     
+          booleans=$(array_map results compare)
+          result=$(array_reduce booleans true and)     
+
+          # send report to developer when something has failed and complete job
+          if [!result]; then
+            exit 1
+          fi
