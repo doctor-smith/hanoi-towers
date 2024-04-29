@@ -8,7 +8,53 @@ on:
     types:
       - closed
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Run :-)"
+      - uses: actions/checkout@v4
+      - name: Build Prod Packages (FE, BE)
+        run: echo "build"
+      - name: Upload Artifacts
+        run: echo "Uploading artifacts"
+  unit-tests:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: get artifacts
+        run: "get artifacts"
+      - name: setup/deploy to Test Env
+        run: echo "Deploy to test env"
+      - name: Run Tests
+        run: echo "Run Tests"
+  integration-test:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: get artifacts
+        run: "get artifacts"
+      - name: setup/deploy to Test Env
+        run: echo "Deploy to test env"
+      - name: Run Tests
+        run: echo "Run Tests"
+  e2e-tests:
+    needs: integration-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: get artifacts
+        run: "get artifacts"
+      - name: setup/deploy to Test Env
+        run: "Deploy to test env"
+      - name: Run Tests
+        run: echo "Run Tests"
+  deploy:
+    needs: e2e-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: echo "Deploy"
+  report:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report
+        run: echo "Report"
