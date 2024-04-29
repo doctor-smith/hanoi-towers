@@ -91,7 +91,8 @@ jobs:
           echo "be.lint.result = $BE_LINT"
           echo "be.build.result = $BE_BUILD"
           echo "be.test.result = $BE_TEST"
-               
+            
+          # Compute the overall result     
           results=("$FE_LINT" "$FE_BUILD" "$FE_TEST" "$BE_LINT" "$BE_BUILD" "$BE_TEST")     
           result=true
           for item in "${results[@]}"; do
@@ -101,7 +102,7 @@ jobs:
             fi
           done
 
-          # send report to developer when something has failed and complete job
+          # TODO send report to developer when something has failed and complete job
           if $result; then
             exit 0
           else
