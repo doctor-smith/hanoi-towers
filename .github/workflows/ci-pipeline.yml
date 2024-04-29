@@ -95,7 +95,9 @@ jobs:
           results=("$FE_LINT" "$FE_BUILD" "$FE_TEST" "$BE_LINT" "$BE_BUILD" "$BE_TEST" "failure")     
           result=true
           for item in "${results[@]}"; do
-            result=$result && ($item == "success")
+            echo result
+            echo $item=="success"
+            result=$result && ($item=="success")
           done
 
           # send report to developer when something has failed and complete job
