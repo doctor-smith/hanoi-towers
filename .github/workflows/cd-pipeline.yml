@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get artifacts
-        run: "get artifacts"
+        run: echo "get artifacts"
       - name: setup/deploy to Test Env
         run: echo "Deploy to test env"
       - name: Run Tests
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get artifacts
-        run: "get artifacts"
+        run: echo "get artifacts"
       - name: setup/deploy to Test Env
         run: echo "Deploy to test env"
       - name: Run Tests
@@ -41,9 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: get artifacts
-        run: "get artifacts"
+        run: echo "get artifacts"
       - name: setup/deploy to Test Env
-        run: "Deploy to test env"
+        run: echo "Deploy to test env"
       - name: Run Tests
         run: echo "Run Tests"
   deploy:
