@@ -1,0 +1,7 @@
+name: Studi Action
+description: ""
+runs:
+  using: composite
+  steps:
+    - name: Step 1
+      run: echo " hello "

@@ -75,6 +75,9 @@ jobs:
       - build-and-test-backend
     runs-on: ubuntu-latest # there might be a better option
     steps:
+      - uses: actions/checkoutq@v4
+      - uses: ./.github/actions/studi-action
+
       - env:
           FE_LINT: ${{ needs.build-and-test-frontend.outputs.lint }}
           FE_BUILD: ${{ needs.build-and-test-frontend.outputs.build }}
