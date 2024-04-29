@@ -1,0 +1,75 @@
+name: Studi Action
+description: ""
+inputs:
+  fe_lint:
+    description: ""
+    required: false
+    default: "failure"
+  fe_build:
+    description: ""
+    required: false
+    default: "failure"
+  fe_test:
+    description: ""
+    required: false
+    default: "failure"
+  be_lint:
+    description: ""
+    required: false
+    default: "failure"
+  be_build:
+    description: ""
+    required: false
+    default: "failure"
+  be_test:
+    description: ""
+    required: false
+    default: "failure"
+runs:
+  using: composite
+  steps:
+      # Only for testing purpose
+    - name: Print results
+      shell: bash
+      run: |
+        echo "fe.lint.result = $FE_LINT"
+        echo "fe.build.result = $FE_BUILD"
+        echo "fe.test.result = $FE_TEST"
+        echo "be.lint.result = $BE_LINT"
+        echo "be.build.result = $BE_BUILD"
+        echo "be.test.result = $BE_TEST"
+      env:
+        FE_LINT: ${{ inputs.lint }}
+        FE_BUILD: ${{ inputs.build }}
+        FE_TEST: ${{ inputs.test }}
+        BE_LINT: ${{ inputs.lint }}
+        BE_BUILD: ${{ inputs.build }}
+        BE_TEST: ${{ inputs.test }}
+
+    - name: Report Action
+      shell: bash
+      run: |        
+        # Compute the overall result     
+        results=("$FE_LINT" "$FE_BUILD" "$FE_TEST" "$BE_LINT" "$BE_BUILD" "$BE_TEST")     
+        result=true
+        for item in "${results[@]}"; do
+          if [ $item != "success" ]
+          then
+            result=false
+          fi
+        done
+        
+        # TODO send report to developer when something has failed and complete job
+        if $result; then
+          exit 0
+        else
+          exit 1
+        fi
+
+      env:
+        FE_LINT: ${{ inputs.lint }}
+        FE_BUILD: ${{ inputs.build }}
+        FE_TEST: ${{ inputs.test }}
+        BE_LINT: ${{ inputs.lint }}
+        BE_BUILD: ${{ inputs.build }}
+        BE_TEST: ${{ inputs.test }}

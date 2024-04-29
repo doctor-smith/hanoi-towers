@@ -8,7 +8,6 @@ on:
     types:
       - opened # whenever a pr is created
       - synchronize # whenever something is pushed to an open pr
-      #- closed # whenever a pr is closed
 
 jobs:
   build-and-test-backend:
@@ -75,36 +74,12 @@ jobs:
       - build-and-test-backend
     runs-on: ubuntu-latest # there might be a better option
     steps:
-      - env:
-          FE_LINT: ${{ needs.build-and-test-frontend.outputs.lint }}
-          FE_BUILD: ${{ needs.build-and-test-frontend.outputs.build }}
-          FE_TEST: ${{ needs.build-and-test-frontend.outputs.test }}
-          BE_LINT: ${{ needs.build-and-test-backend.outputs.lint }}
-          BE_BUILD: ${{ needs.build-and-test-backend.outputs.build }}
-          BE_TEST: ${{ needs.build-and-test-backend.outputs.test }}
-        run: |
-          # Only for testing purpose
-          echo "fe.lint.result = $FE_LINT"
-          echo "fe.build.result = $FE_BUILD"
-          echo "fe.test.result = $FE_TEST"
-          
-          echo "be.lint.result = $BE_LINT"
-          echo "be.build.result = $BE_BUILD"
-          echo "be.test.result = $BE_TEST"
-            
-          # Compute the overall result     
-          results=("$FE_LINT" "$FE_BUILD" "$FE_TEST" "$BE_LINT" "$BE_BUILD" "$BE_TEST")     
-          result=true
-          for item in "${results[@]}"; do
-            if [ $item != "success" ]
-            then
-              result=false
-            fi
-          done
-
-          # TODO send report to developer when something has failed and complete job
-          if $result; then
-            exit 0
-          else
-            exit 1
-          fi
+      - uses: actions/checkout@v4 # needed to access the following action
+      - uses: ./.github/actions/studi-action
+        with:
+          fe_lint: ${{ needs.build-and-test-frontend.outputs.lint }}
+          fe_build: ${{ needs.build-and-test-frontend.outputs.build }}
+          fe_test: ${{ needs.build-and-test-frontend.outputs.test }}
+          be_lint: ${{ needs.build-and-test-backend.outputs.lint }}
+          be_build: ${{ needs.build-and-test-backend.outputs.build }}
+          be_test: ${{ needs.build-and-test-backend.outputs.test }}
