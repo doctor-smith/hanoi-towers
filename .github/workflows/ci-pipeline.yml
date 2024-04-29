@@ -93,7 +93,7 @@ jobs:
           echo "be.test.result = $BE_TEST"
             
           # Compute the overall result     
-          results=("$FE_LINT" "$FE_BUILD" "$FE_TEST" "$BE_LINT" "$BE_BUILD" "$BE_TEST" "failure")     
+          results=("$FE_LINT" "$FE_BUILD" "$FE_TEST" "$BE_LINT" "$BE_BUILD" "$BE_TEST")     
           result=true
           for item in "${results[@]}"; do
             if [ $item != "success" ]
