@@ -12,16 +12,17 @@ data class Lens<W, P> (
 
 @Maths
 operator fun <W, P, D> Lens<W, P>.times(other: Lens<P, D>): Lens<W, D> = Lens(
-    other.get o get) {
+    other.get o get
+) {
     with(other.set(it)) {
-        {w:W ->   (set o this o get) (w) (w) }
+        { w: W -> (set o this o get) (w) (w) }
     }
 }
-
 
 @Maths
 fun <V, W, P, Q> Lens<V, P>.x(other: Lens<W, Q>): Lens<Pair<V, W>, Pair<P, Q>> = Lens(
     get X other.get
 ) {
-    pXq -> set(pXq.first) X other.set(pXq.second)
+    pXq ->
+    set(pXq.first) X other.set(pXq.second)
 }

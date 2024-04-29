@@ -12,7 +12,7 @@ object Config {
     }
 }
 
-fun runSimpleH2Test(vararg tables: Table, block: Transaction.()->Unit) {
+fun runSimpleH2Test(vararg tables: Table, block: Transaction.() -> Unit) {
     Database.connect(
         url = Config.H2.url,
         driver = Config.H2.driver,

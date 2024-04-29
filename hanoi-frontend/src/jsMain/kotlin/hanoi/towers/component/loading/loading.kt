@@ -9,6 +9,6 @@ import org.jetbrains.compose.web.dom.Div
 @Composable
 @Suppress("FunctionName")
 
-fun Loading() = Div ({
+fun Loading() = Div({
     classes("loading-page")
 })

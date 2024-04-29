@@ -22,7 +22,6 @@ fun MainPage(storage: Storage<Main>) {
 
     val texts: Lang = (storage * texts).read()
 
-
     Article({
         // style { width(80.pc) }
     }) {

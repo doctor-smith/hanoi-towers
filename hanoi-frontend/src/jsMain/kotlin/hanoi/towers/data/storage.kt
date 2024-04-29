@@ -15,7 +15,6 @@ import lib.language.Lang
 import lib.language.LanguageP
 import lib.optics.storage.Storage
 import lib.optics.transform.times
-
 import hanoi.towers.data.language as languageLens
 import hanoi.towers.data.locale as localeLens
 import hanoi.towers.data.locales as localesLens
@@ -25,8 +24,8 @@ fun Storage(): Storage<AppData> {
     val environment = getEnv()
 
     // Data of Hanoi Solver
-    var numberOfSlices by remember{ mutableStateOf(0) }
-    var moves by remember{ mutableStateOf( Moves() ) }
+    var numberOfSlices by remember { mutableStateOf(0) }
+    var moves by remember { mutableStateOf(Moves()) }
     var hanoi by remember { mutableStateOf(Hanoi()) }
     var indexOfCurrentMove by remember { mutableStateOf(0) }
     var numberOfMoves by remember { mutableStateOf(0) }
@@ -35,30 +34,32 @@ fun Storage(): Storage<AppData> {
     var movesPerSecond by remember { mutableStateOf(4) }
 
     // Data of Hanoi Cheat
-    var numberOfSlicesCheat by remember{ mutableStateOf(0) }
+    var numberOfSlicesCheat by remember { mutableStateOf(0) }
     var hanoiCheat by remember { mutableStateOf(Hanoi()) }
     var numberOfMovesCheat by remember { mutableStateOf(0) }
 
     // Data of Hanoi Game
-    var numberOfSlicesGame by remember{ mutableStateOf(0) }
+    var numberOfSlicesGame by remember { mutableStateOf(0) }
     var hanoiGame by remember { mutableStateOf(Hanoi()) }
     var numberOfMovesGame by remember { mutableStateOf(0) }
 
     // I18N
-    var locale by remember { mutableStateOf(readLang() ?:"de") }
+    var locale by remember { mutableStateOf(readLang() ?: "de") }
     var locales by remember { mutableStateOf(listOf<String>()) }
     var language by remember { mutableStateOf<Lang>(Lang.Block("de", listOf())) }
 
     // Cookie Disclaimer
-    var isCookieDisclaimerConfirmed by remember { mutableStateOf(
-        with(readCookie()) {
-            this != null
-        }
-    ) }
+    var isCookieDisclaimerConfirmed by remember {
+        mutableStateOf(
+            with(readCookie()) {
+                this != null
+            }
+        )
+    }
 
     // Errors and Modals
     var error by remember { mutableStateOf<String?>(null) }
-    var modals by remember { mutableStateOf<Modals<Int>>( mapOf()) }
+    var modals by remember { mutableStateOf<Modals<Int>>(mapOf()) }
 
     val storage = Storage<AppData>(
         read = {
@@ -138,7 +139,7 @@ fun Storage(): Storage<AppData> {
 
         val langLoaded: () -> Boolean = {
             (languageStorage.read() as Lang.Block).value.isNotEmpty() &&
-                    localesStorage.read().isNotEmpty()
+                localesStorage.read().isNotEmpty()
         }
 
         if (!langLoaded()) {

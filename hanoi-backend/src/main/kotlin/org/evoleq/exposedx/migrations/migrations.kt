@@ -1,7 +1,5 @@
 package org.evoleq.exposedx.migrations
 
-
-
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.dao.IntEntity
@@ -25,7 +23,7 @@ interface Migration {
         val upToDate = MigrationEntry.find {
             (MigrationTable.migrationId eq this@Migration.id)
         }.firstOrNull().isNotNull()
-        if(!upToDate) {
+        if (!upToDate) {
             println(
                 "Running migration ${this@Migration.id}"
             )
@@ -40,7 +38,6 @@ interface Migration {
             )
             false
         }
-
     }
 
     suspend fun Database.down(): Unit
@@ -58,8 +55,7 @@ class MigrationEntry(id: EntityID<Int>) : IntEntity(id) {
     var migrationId by MigrationTable.migrationId
 }
 
-
-suspend fun <S, T> List<S>.mapSuspended(f: suspend (S)->T): List<T> {
+suspend fun <S, T> List<S>.mapSuspended(f: suspend (S) -> T): List<T> {
     val list = arrayListOf<T>()
     forEach {
         list.add(f(it))
@@ -77,4 +73,3 @@ suspend fun ArrayList<Database.()-> Migration>.runOn(database: Database): List<B
             database.up().await()
         }
     }
-

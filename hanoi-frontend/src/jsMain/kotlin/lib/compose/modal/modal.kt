@@ -19,9 +19,9 @@ fun <Id> ModalLayer(
     zIndex: Int = 1000,
     modals: Storage<Modals<Id>>,
     bottomUp: Boolean = false,
-    content: @Composable ElementScope<HTMLElement>.()->Unit
+    content: @Composable ElementScope<HTMLElement>.() -> Unit
 ) {
-    if(modals.read().keys.isNotEmpty()) {
+    if (modals.read().keys.isNotEmpty()) {
         Div({
             style {
                 property("z-index", zIndex)
@@ -33,11 +33,11 @@ fun <Id> ModalLayer(
                 height(100.vh)
                 backgroundColor(Color.black)
                 opacity(0.5)
-                if(bottomUp) {
+                if (bottomUp) {
                     justifyContent(JustifyContent.FlexEnd)
                 }
             }
-        }){
+        }) {
             modals.read().values.forEach {
                 it()
             }
@@ -53,13 +53,13 @@ fun <Id> ModalLayer(
 fun <Id> Modal(
     id: Id,
     modals: Storage<Modals<Id>>,
-    onOk: ()->Unit,
-    onCancel: (()->Unit)?,
+    onOk: () -> Unit,
+    onCancel: (() -> Unit)?,
     texts: Block,
-    content: @Composable ElementScope<HTMLElement>.()->Unit
-):  @Composable ElementScope<HTMLElement>.()->Unit = {
+    content: @Composable ElementScope<HTMLElement>.() -> Unit
+): @Composable ElementScope<HTMLElement>.() -> Unit = {
 
-    val close: Id.()-> Unit = { modals.remove( this )}
+    val close: Id.() -> Unit = { modals.remove(this) }
 
     Div({
         style {
@@ -78,7 +78,7 @@ fun <Id> Modal(
         //
         // Header
         //
-        if(onCancel != null) {
+        if (onCancel != null) {
             Div({
                 style {
                     display(DisplayStyle.Flex)
@@ -86,7 +86,7 @@ fun <Id> Modal(
                 }
             }) {
                 Button({
-                        classes("button")
+                    classes("button")
                     onClick { id.close() }
                 }) {
                     I({
@@ -100,7 +100,7 @@ fun <Id> Modal(
             style {
                 marginLeft(10.px)
             }
-        }){
+        }) {
             Text(texts["title"])
         }
 
@@ -128,7 +128,7 @@ fun <Id> Modal(
                 justifyContent(JustifyContent.FlexEnd)
             }
         }) {
-            if(onCancel != null) {
+            if (onCancel != null) {
                 Button({
                     onClick {
                         onCancel()

@@ -46,21 +46,29 @@ fun NavBar(
         }) { Text("Backend") }
     }
 
-    Button({onClick {
-        navigate("/")
-    }}) { Text("Home") }
-    Button({onClick {
-        navigate("game")
-    }}) { Text("Game") }
-    Button({onClick {
-        navigate("cheat")
-    }}) { Text("Cheat") }
-    Button({onClick {
-        navigate("solver")
-    }}) { Text("Solver") }
-    Div({style { width(50.px) }}) {  }
+    Button({
+        onClick {
+            navigate("/")
+        } 
+    }) { Text("Home") }
+    Button({
+        onClick {
+            navigate("game")
+        } 
+    }) { Text("Game") }
+    Button({
+        onClick {
+            navigate("cheat")
+        } 
+    }) { Text("Cheat") }
+    Button({
+        onClick {
+            navigate("solver")
+        } 
+    }) { Text("Solver") }
+    Div({ style { width(50.px) } }) { }
 
-    Div({classes("select")}) {
+    Div({ classes("select") }) {
         Select {
             (i18n * locales).read().forEach { s ->
                 Option(s, {

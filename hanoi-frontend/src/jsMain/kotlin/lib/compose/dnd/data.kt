@@ -33,14 +33,14 @@ data class DragDropEnvironment(
     val dropAllowed: Storage<Boolean>,
     val mouseCoordinates: Storage<Coordinates>,
     val mouseVelocity: Storage<Velocity>,
-    val onMouseMove: ( SyntheticMouseEvent ) -> Unit,
-    val onMouseDown: (name: String, source: String?,  SyntheticMouseEvent)->Unit,
-    val onMouseUp: (name: String, SyntheticMouseEvent)->Unit,
-    val onDrag: DragDropEnvironment.(name: String)->Unit = {},
-    val allowDrag: (name: String, source: String?)-> Boolean = {_,_->true},
-    val allowDrop: (dragged: List<String>, target: String?)->Boolean = {_,_->false},
-    val onDrop: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->},
-    val onDropRejected: DragDropEnvironment.(source: String?, target: String?)->Unit = {_,_->}
+    val onMouseMove: (SyntheticMouseEvent) -> Unit,
+    val onMouseDown: (name: String, source: String?, SyntheticMouseEvent) -> Unit,
+    val onMouseUp: (name: String, SyntheticMouseEvent) -> Unit,
+    val onDrag: DragDropEnvironment.(name: String) -> Unit = {},
+    val allowDrag: (name: String, source: String?) -> Boolean = { _, _ -> true },
+    val allowDrop: (dragged: List<String>, target: String?) -> Boolean = { _, _ -> false },
+    val onDrop: DragDropEnvironment.(source: String?, target: String?) -> Unit = { _, _ -> },
+    val onDropRejected: DragDropEnvironment.(source: String?, target: String?) -> Unit = { _, _ -> }
 )
 
 data class DraggableConfig(
@@ -49,19 +49,20 @@ data class DraggableConfig(
     val dragLayer: Int = 1000
 )
 
-data class SourceConfig(val x : String = "")
+data class SourceConfig(val x: String = "")
 data class TargetConfig(
     val dropExpectedColor: CSSColorValue = Color.lightgreen,
     val dropRejectedColor: CSSColorValue = Color.lightpink,
     val style: StyleScope.(
         name: String,
         environment: DragDropEnvironment
-    )->Unit = {
-        name, environment -> if(
+    ) -> Unit = {
+        name, environment ->
+        if (
             name == environment.hitTarget.read() &&
             name != environment.source.read()
         ) {
-            when ( environment.dropAllowed.read() ) {
+            when (environment.dropAllowed.read()) {
                 true -> backgroundColor(dropExpectedColor)
                 false -> backgroundColor(dropRejectedColor)
             }
@@ -79,4 +80,3 @@ internal fun DragDropEnvironment.drop(): List<String> {
     dragged.write(emptyList())
     return result
 }
-

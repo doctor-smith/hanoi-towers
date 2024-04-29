@@ -7,5 +7,3 @@ const val maxNumberOfSlices = 10
 fun main() {
     Application()
 }
-
-

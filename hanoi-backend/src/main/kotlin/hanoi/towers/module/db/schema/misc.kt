@@ -10,7 +10,4 @@ object DualPlayerGames : UUIDTable() {
     val winner = reference("user", Users)
 }
 
-object Stats : UUIDTable() {
-
-}
-
+object Stats : UUIDTable()

@@ -9,12 +9,11 @@ import lib.compose.Markup
 import lib.compose.storage.Store
 import org.jetbrains.compose.web.renderComposable
 
-
 @Markup
 @Suppress("FunctionName")
 fun Application() = renderComposable(rootElementId = "root") {
     Store({ Storage() }) {
-        when( langLoaded() ) {
+        when (langLoaded()) {
             true -> UI(this)
             false -> Loading()
         }

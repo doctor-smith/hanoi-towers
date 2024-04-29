@@ -10,7 +10,7 @@ import org.w3c.dom.HTMLElement
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Flex(content: @Composable ElementScope<HTMLElement>.()->Unit) {
+fun Flex(content: @Composable ElementScope<HTMLElement>.() -> Unit) {
     Div({
         style {
             display(DisplayStyle("flex"))

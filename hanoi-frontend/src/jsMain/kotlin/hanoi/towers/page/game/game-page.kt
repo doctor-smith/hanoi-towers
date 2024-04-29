@@ -17,7 +17,6 @@ import lib.optics.transform.times
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Text
 
-
 @Markup
 @Composable
 @Suppress("FunctionName")

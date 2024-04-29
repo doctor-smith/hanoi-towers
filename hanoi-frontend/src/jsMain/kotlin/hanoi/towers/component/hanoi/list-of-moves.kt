@@ -17,9 +17,9 @@ fun ListOfMoves(
     isComputingMoves: Storage<Boolean>,
     texts: Block
 
-)  = Div({
+) = Div({
     style {
-       // width(100.percent)
+        // width(100.percent)
     }
 }) {
     H3 { Text(texts["headline"]) }
@@ -35,7 +35,7 @@ fun ListOfMoves(
             Text(texts["computingMovesMessage"])
         } else {
             with(moves.read()) {
-                if(isEmpty()) {
+                if (isEmpty()) {
                     Text(texts["hint"])
                 } else {
                     Ul {
@@ -51,7 +51,6 @@ fun ListOfMoves(
                     }
                 }
             }
-
         }
     }
 }

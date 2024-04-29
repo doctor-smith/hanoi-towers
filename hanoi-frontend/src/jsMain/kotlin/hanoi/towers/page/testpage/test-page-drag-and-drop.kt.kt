@@ -13,56 +13,65 @@ import org.jetbrains.compose.web.dom.*
 @Suppress("FunctionName")
 fun DragDropTestPage() {
 
-    var sourceData: List<String> by remember {  mutableStateOf( listOf(
-        "drag_0",
-        "drag_1",
-        "drag_2",
-        "drag_3",
-        "drag_4",
-        "drag_5",
-        "drag_6",
-        "drag_7",
-        "drag_8",
-        "drag_9",
-    ))}
-    var dropped: List<String> by remember {  mutableStateOf( listOf() ) }
+    var sourceData: List<String> by remember {
+        mutableStateOf(
+            listOf(
+                "drag_0",
+                "drag_1",
+                "drag_2",
+                "drag_3",
+                "drag_4",
+                "drag_5",
+                "drag_6",
+                "drag_7",
+                "drag_8",
+                "drag_9",
+            )
+        )
+    }
+    var dropped: List<String> by remember { mutableStateOf(listOf()) }
 
-    val convert: String.( ) -> Int = {dropWhile { it != '_' }.substring(1).toInt() }
+    val convert: String.() -> Int = { dropWhile { it != '_' }.substring(1).toInt() }
 
     DragDropEnvironment(
-        onDrag = { name -> dragged.add(
-            with(name.convert()){ sourceData.filter { it.convert() > this} }
-        )},
-        allowDrop = { dragged ,target -> target == "area_2"},
+        onDrag = { name ->
+            dragged.add(
+                with(name.convert()) { sourceData.filter { it.convert() > this } }
+            )
+        },
+        allowDrop = { dragged, target -> target == "area_2" },
         onDropRejected = { source, target ->
             resetCoordinatesOfDraggedElements()
         },
         onDrop = {
             source, target ->
-                sourceData = sourceData.filter { it !in dragged.read() }
-                resetCoordinatesOfDraggedElements()
-                dropped = with( arrayListOf(
+            sourceData = sourceData.filter { it !in dragged.read() }
+            resetCoordinatesOfDraggedElements()
+            dropped = with(
+                arrayListOf(
                     *dropped.toTypedArray(),
                     *dragged.read().filter { it !in dropped }.toTypedArray()
-                )){
-                    sort()
-                    this
-                }
+                )
+            ) {
+                sort()
+                this
+            }
         }
-    ){
+    ) {
         H1 { Text("Hello DragDropEnvironment") }
         Flex {
             sourceAndTarget("area_1") {
                 H2 { Text("Area 1") }
                 sourceData.forEach {
                     Draggable(name = it, "area_1") {
-                        Button({style { cursor("inherit") }}) { Text(it) }
+                        Button({ style { cursor("inherit") } }) { Text(it) }
                     }
                 }
             }
             Div({
-                style { width(500.px) }}
-            ){}
+                style { width(500.px) } 
+            }
+            ) {}
             sourceAndTarget("area_2") {
                 H2 { Text("Area 2") }
                 Div({
@@ -78,7 +87,7 @@ fun DragDropTestPage() {
                 }) {
                     dropped.forEach {
                         Draggable(name = it) {
-                            Button({style { cursor("inherit") }}) { Text(it) }
+                            Button({ style { cursor("inherit") } }) { Text(it) }
                         }
                     }
                 }

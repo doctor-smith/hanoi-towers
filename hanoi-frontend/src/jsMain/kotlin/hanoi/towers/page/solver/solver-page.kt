@@ -1,6 +1,5 @@
 package hanoi.towers.page.solver
 
-
 import androidx.compose.runtime.Composable
 import hanoi.towers.component.hanoi.Form
 import hanoi.towers.component.hanoi.HanoiVisualization

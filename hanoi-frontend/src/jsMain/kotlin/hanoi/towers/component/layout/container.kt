@@ -10,7 +10,7 @@ import org.w3c.dom.HTMLElement
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Container(content: @Composable ElementScope<HTMLElement>.()->Unit) {
+fun Container(content: @Composable ElementScope<HTMLElement>.() -> Unit) {
     Div({
         style {
             width(80.percent)

@@ -9,8 +9,8 @@ import org.w3c.dom.HTMLElement
 @Markup
 @Composable
 @Suppress("FunctionName")
-fun Block(name: String, content: @Composable ElementScope<HTMLElement>.()->Unit) {
-    Div{
+fun Block(name: String, content: @Composable ElementScope<HTMLElement>.() -> Unit) {
+    Div {
         content()
     }
 }

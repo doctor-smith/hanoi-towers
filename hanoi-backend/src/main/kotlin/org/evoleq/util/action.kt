@@ -23,23 +23,25 @@ data class BaseState(
 fun Base(call: ApplicationCall, environment: Environment): BaseState = Base(call, environment.connectToDatabase())
 
 @MathDsl
-fun <T> Action(state: suspend (b: Base) -> Pair<T, Base>): Action<T> = State{ b -> state(b)}
+fun <T> Action(state: suspend (b: Base) -> Pair<T, Base>): Action<T> = State { b -> state(b) }
 
 @MathDsl
 @Suppress("FunctionName")
-fun <T> DbAction(state: suspend (Database) -> Pair<T, Database>): Action<T> = Action{
-    base: Base -> state(base.database) mapSecond {database -> base.copy(database = database) }
+fun <T> DbAction(state: suspend (Database) -> Pair<T, Database>): Action<T> = Action {
+    base: Base ->
+    state(base.database) mapSecond { database -> base.copy(database = database) }
 }
 
 @MathDsl
 @Suppress("FunctionName")
-fun <T> ApiAction(state: suspend (ApplicationCall) -> Pair<T, ApplicationCall>): Action<T> = Action{
-        base: Base -> state(base.call) mapSecond {call -> base.copy(call = call) }
+fun <T> ApiAction(state: suspend (ApplicationCall) -> Pair<T, ApplicationCall>): Action<T> = Action {
+    base: Base ->
+    state(base.call) mapSecond { call -> base.copy(call = call) }
 }
 
 @MathDsl
-fun <S, T> KlAction(kleisli: suspend (S)-> Action< T>): KlAction<S, T> = KlState(kleisli)
+fun <S, T> KlAction(kleisli: suspend (S) -> Action< T>): KlAction<S, T> = KlState(kleisli)
 
 @MathDsl
 @Suppress("FunctionName")
-fun <S, T> KlActionF(kleisli: suspend (S)-> suspend (b: Base) -> Pair<T, Base>): KlAction<S, T> = KlStateF(kleisli)
+fun <S, T> KlActionF(kleisli: suspend (S) -> suspend (b: Base) -> Pair<T, Base>): KlAction<S, T> = KlStateF(kleisli)

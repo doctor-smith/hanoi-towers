@@ -1,6 +1,5 @@
 package hanoi.towers.application
 
-
 import hanoi.towers.application.environment.setupEnvironment
 import hanoi.towers.application.routing.setupRouting
 import io.ktor.http.*
@@ -8,7 +7,6 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
-
 
 fun Application.hanoi() {
 
