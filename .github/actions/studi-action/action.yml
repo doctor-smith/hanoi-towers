@@ -4,4 +4,5 @@ runs:
   using: composite
   steps:
     - name: Step 1
+      shell: bash
       run: echo " hello "
