@@ -46,19 +46,29 @@ detekt {
     // Specify the base path for file paths in the formatted reports. 
     // If not set, all file paths reported will be absolute file path.
     basePath = projectDir.absolutePath
+}
 
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     reports {
         // Enable/Disable XML report (default: true)
         xml.required.set(true)
         xml.outputLocation.set(file("build/reports/detekt.xml"))
-        
+
         // Enable/Disable HTML report (default: true)
         html.required.set(true)
         html.outputLocation.set(file("build/reports/detekt.html"))
-        
+
         // Enable/Disable TXT report (default: true)
         txt.required.set(true)
         txt.outputLocation.set(file("build/reports/detekt.txt"))
+
+        // Enable/Disable SARIF report (default: false)
+        sarif.required.set(false)
+        sarif.outputLocation.set(file("build/reports/detekt.sarif"))
+
+        // Enable/Disable MD report (default: false)
+        md.required.set(false)
+        md.outputLocation.set(file("build/reports/detekt.md"))
     }
 }
 
