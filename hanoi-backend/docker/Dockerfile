@@ -1,4 +1,4 @@
-FROM openjdk:11.0.16
+FROM openjdk:17
 # EXPOSE 8081:8080
 RUN mkdir /app
 COPY hanoi-backend/build/libs/*-all.jar /app/server.jar
