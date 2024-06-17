@@ -10,7 +10,8 @@ import lib.maths.o
 import lib.maths.x
 
 fun moveTower(hight: Int, from: Tower, to: Tower, stack: Tower): (Moves)-> Moves = when(hight) {
-    0 -> { moves -> moves }
+    0 ->
+        { moves -> moves }
     1 -> { moves -> Moves(
             *moves.moves.toTypedArray(),
             Move(from, to)
