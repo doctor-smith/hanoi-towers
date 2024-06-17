@@ -1,18 +1,52 @@
-uses: a11ywatch/github-action@v2.1.10
-  with:
-    WEBSITE_URL: ${{ secrets.WEBSITE_URL }}
-    SITE_WIDE: true
-    SUBDOMAINS: true
-    TLD: false
-    SITEMAP: true
-    FAIL_ERRORS_COUNT: 15
-    LIST: true
-    FIX: false
-    UPGRADE: false
-    UPLOAD: true
-    COMPUTER_VISION_SUBSCRIPTION_KEY: ${{ secrets.COMPUTER_VISION_SUBSCRIPTION_KEY }}
-    COMPUTER_VISION_ENDPOINT: ${{ secrets.COMPUTER_VISION_ENDPOINT }}
-  env:
-    DEFAULT_RUNNERS: htmlcs,axe
-    PAGEMIND_IGNORE_WARNINGS: true
-    AI_DISABLED: false
+name: CI Pipeline Hanoi Towers
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+      - develop
+
+jobs:
+  accessibility:
+    name: Web Accessibility Evaluation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Accessibility
+        # You may pin to the exact commit or the version.
+        # uses: a11ywatch/github-actions@d61a01aad49cc54db0a669cc61b7e85f08994162
+        uses: a11ywatch/github-actions@v2.1.10
+        with:
+          # Website domain to scan
+          WEBSITE_URL: https://hanoi-frontend-prod-latest.onrender.com/
+          # Attempt to apply recommendations to code.
+          FIX: false
+          # Use the A11yWatch external API.
+          EXTERNAL: false
+          # Perform a site-wide scan.
+          SITE_WIDE: true
+          # Extend crawl with sitemap links.
+          SITEMAP: false
+          # Include all subdomains.
+          SUBDOMAINS: false
+          # Include all TLD extensions.
+          TLD: false
+          # Enable video recording audits to a directory location.
+          RECORD: fase
+          # Use to fail the CI if the amount of issues of type errors and warnings is greater than the count.
+          FAIL_TOTAL_COUNT: 5
+          # Use to fail the CI if the amount of issues of type errors is greater than the count.
+          FAIL_ERRORS_COUNT: 0
+          # Use to fail the CI if the amount of issues of type warnings is greater than the count.
+          FAIL_WARNINGS_COUNT: 5
+          # Disable the bot from posting on your PR.
+          DISABLE_PR_STATS: true
+          # The github token to use for posting comments.
+          #TOKEN: # optional, default is 
+          # Report the output to github as a pass or fail list.
+          #LIST: # optional
+          # Upgrade the CLI to latest across runs.
+          UPGRADE: false
+          # Upload the audit as an artifact.
+          UPLOAD: true
+          
