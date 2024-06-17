@@ -32,13 +32,13 @@ jobs:
           # Include all TLD extensions.
           TLD: false
           # Enable video recording audits to a directory location.
-          RECORD: fase
+          RECORD: false
           # Use to fail the CI if the amount of issues of type errors and warnings is greater than the count.
-          FAIL_TOTAL_COUNT: 5
+          FAIL_TOTAL_COUNT: 0
           # Use to fail the CI if the amount of issues of type errors is greater than the count.
           FAIL_ERRORS_COUNT: 0
           # Use to fail the CI if the amount of issues of type warnings is greater than the count.
-          FAIL_WARNINGS_COUNT: 5
+          FAIL_WARNINGS_COUNT: 0
           # Disable the bot from posting on your PR.
           DISABLE_PR_STATS: true
           # The github token to use for posting comments.
