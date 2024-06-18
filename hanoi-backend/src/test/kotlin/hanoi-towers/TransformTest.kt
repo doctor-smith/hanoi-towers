@@ -28,7 +28,7 @@ class TransformTest {
     }
 
     fun testSliceEntityToApiType() {
-        val sliceEntity = SliceEntity(0, 5)
+        val sliceEntity = SliceEntity(1, 5)
         val sliceApi = sliceEntity.toApiType()
 
         assertNotNull(sliceApi.id)
