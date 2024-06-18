@@ -90,5 +90,5 @@ jobs:
         id: test
         run: |
           echo "Running Tests"
-          ./gradlew hanoi-frontend:jsTest
+          ./gradlew jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
