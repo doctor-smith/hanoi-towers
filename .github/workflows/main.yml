@@ -21,7 +21,7 @@ jobs:
      - name: Install Chrome with Chrome Driver Manager
        run: npx browser-driver-manager install chrome
      - name: Install Chrome Version
-       run: npm install -g chromedriver@126
+       run: npm install -g chromedriver@125
      - name: Run Axe 
        run: axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver https://hanoi-frontend-prod-latest.onrender.com/
           
