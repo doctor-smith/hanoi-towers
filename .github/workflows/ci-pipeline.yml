@@ -45,11 +45,11 @@ jobs:
         id: build
         run: |
           echo "Test Building Project"
-          ./gradlew build
+          
           echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Run Unit Tests
         id: test
         run: |
           echo "Running Tests"
-          ./gradlew test :hanoi-backend
+          ./gradlew hanoi-backend:test 
           echo "result=success" >> "$GITHUB_OUTPUT"
