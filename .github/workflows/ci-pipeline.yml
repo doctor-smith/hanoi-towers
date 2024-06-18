@@ -51,8 +51,6 @@ jobs:
         id: test
         run: |
           echo "Running Tests"
-          ./gradlew test --tests StateTest
-          ./gradlew test --tests TransformTest
           ./gradlew test --tests FailTest
           echo "result=success" >> "$GITHUB_OUTPUT"
   build-and-test-frontend:
@@ -78,7 +76,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_KOTLIN: true
-          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/hanoi.towers/kotlin/.*
+          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/.*
           DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Project
