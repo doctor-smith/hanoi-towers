@@ -52,6 +52,7 @@ jobs:
         run: |
           echo "Running Tests"
           ./gradlew test --tests StateTest
+          ./gradlew test --tests TransformTest
           echo "result=success" >> "$GITHUB_OUTPUT"
   build-and-test-frontend:
     outputs:
