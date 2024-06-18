@@ -6,7 +6,7 @@ import kotlin.test.fail
 class FailTest {
     @Test
     fun testThatFails() {
-        ("This test is designed to fail.")
+        fail("This test is designed to fail.")
         //assertTrue(true, "Success")
     }
 }

@@ -45,7 +45,6 @@ jobs:
         id: build
         run: |
           echo "Test Building Project"
-
           echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Run Unit Tests
         id: test
