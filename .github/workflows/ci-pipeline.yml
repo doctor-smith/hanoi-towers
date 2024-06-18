@@ -76,7 +76,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_KOTLIN: true
-          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/main/jsMain/hanoi.towers/kotlin/.*
+          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/hanoi.towers/kotlin/.*
           DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Project
@@ -89,4 +89,5 @@ jobs:
         id: test
         run: |
           echo "Running Tests"
+          ./gradlew hanoi-frontend:jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
