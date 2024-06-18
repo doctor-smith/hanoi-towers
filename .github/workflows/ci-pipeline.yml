@@ -45,7 +45,7 @@ jobs:
         id: build
         run: |
           echo "Test Building Project"
-          
+          ./gradlew hanoi-backend:build
           echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Run Unit Tests
         id: test
