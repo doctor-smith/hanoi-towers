@@ -51,4 +51,5 @@ jobs:
         id: test
         run: |
           echo "Running Tests"
+          ./gradlew test :hanoi-backend
           echo "result=success" >> "$GITHUB_OUTPUT"
