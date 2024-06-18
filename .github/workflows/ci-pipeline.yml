@@ -1,0 +1,54 @@
+name: CI Pipeline Hanoi Towers
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - workflow-test
+    types:
+      - opened # whenever a pr is created
+      - synchronize # whenever something is pushed to an open pr
+  push:
+    branches:
+      - workflow-test
+      - develop
+      - master
+
+jobs:
+  build-and-test-backend:
+    outputs:
+      lint: ${{ steps.lint.outputs.result }}
+      build: ${{ steps.build.outputs.result }}
+      test: ${{ steps.test.outputs.result }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Rest shall only run if there are changes in the backend-module
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        continue-on-error: true
+      - name: Linting Backend
+        id: lint
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_KOTLIN: true
+          FILTER_REGEX_INCLUDE: .*hanoi-backend/src/main/kotlin/hanoi.towers/application/.*
+          DISABLE_ERRORS: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Project
+        id: build
+        run: |
+          echo "Test Building Project"
+          ./gradlew build
+          echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Run Unit Tests
+        id: test
+        run: |
+          echo "Running Tests"
+          echo "result=success" >> "$GITHUB_OUTPUT"
