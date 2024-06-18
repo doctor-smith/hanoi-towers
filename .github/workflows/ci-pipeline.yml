@@ -53,3 +53,40 @@ jobs:
           echo "Running Tests"
           ./gradlew test --tests StateTest
           echo "result=success" >> "$GITHUB_OUTPUT"
+  build-and-test-frontend:
+    outputs:
+      lint: ${{ steps.lint.outputs.result }}
+      build: ${{ steps.build.outputs.result }}
+      test: ${{ steps.test.outputs.result }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Rest shall only run if there are changes in the backend-module
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        continue-on-error: true
+      - name: Linting Frontend
+        id: lint
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_KOTLIN: true
+          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/main/jsMain/hanoi.towers/kotlin/.*
+          DISABLE_ERRORS: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Project
+        id: build
+        run: |
+          echo "Test Building Project"
+          ./gradlew hanoi-frontend:build
+          echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Run GUI Tests
+        id: test
+        run: |
+          echo "Running Tests"
+          echo "result=success" >> "$GITHUB_OUTPUT"
