@@ -16,6 +16,8 @@ jobs:
        run: npm install @axe-core/cli -g
      - name: Install Chrome Driver Manager
        run: npm install -g browser-driver-manager
+     - name: Install Commander
+       run: npm install commander --save
      - name: Install Chrome with Chrome Driver Manager
        run: npx browser-driver-manager install chrome
      - name: Run Axe 
