@@ -37,7 +37,9 @@ class RoutingTest {
 
      @Test
     fun routesConfiguration() {
-        val routes = routing {
+        val
+
+                routes = routing {
             route("x/y/z") {
                 route(":id") {
                     route("a"){
