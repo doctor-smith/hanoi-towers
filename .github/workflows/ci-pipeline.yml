@@ -1,0 +1,122 @@
+name: CI Pipeline Hanoi Towers
+on:
+  pull_request:
+    branches:
+      - master
+      - develop
+      - workflow-test
+    types:
+      - opened # whenever a pr is created
+      - synchronize # whenever something is pushed to an open pr
+
+jobs:
+  build-and-test-backend:
+    outputs:
+      lint: ${{ steps.lint.outputs.result }}
+      build: ${{ steps.build.outputs.result }}
+      test: ${{ steps.test.outputs.result }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            backend:
+            - 'hanoi-backend/**'
+            frontend:
+            - 'hanoi-frontend/**'
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+        # Only run the next steps if there were changes in the backend
+      - name: Set up JDK
+        if: steps.changes.outputs.backend == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        if: steps.changes.outputs.backend == 'true'
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        continue-on-error: true
+      - name: Linting Backend
+        id: lint
+        if: steps.changes.outputs.backend == 'true'
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_KOTLIN: true
+          FILTER_REGEX_INCLUDE: .*hanoi-backend/src/main/kotlin/hanoi.towers/application/.*
+          DISABLE_ERRORS: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Project
+        id: build
+        if: steps.changes.outputs.backend == 'true'
+        run: |
+          echo "Test Building Project"
+          echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Run Unit Tests
+        id: test
+        if: steps.changes.outputs.backend == 'true'
+        run: |
+          echo "Running Tests"
+          ./gradlew :hanoi-backend:test
+          echo "result=success" >> "$GITHUB_OUTPUT"
+  build-and-test-frontend:
+    outputs:
+      lint: ${{ steps.lint.outputs.result }}
+      build: ${{ steps.build.outputs.result }}
+      test: ${{ steps.test.outputs.result }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            backend:
+            - 'hanoi-backend/**'
+            frontend:
+            - 'hanoi-frontend/**'
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # Only run the next steps if there were changes in the frontend
+
+      - if: steps.changes.outputs.frontend == 'true'
+        run: ...
+
+      - name: Set up JDK
+        if: steps.changes.outputs.frontend == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        if: steps.changes.outputs.frontend == 'true'
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        continue-on-error: true
+      - name: Linting Frontend
+        id: lint
+        if: steps.changes.outputs.frontend == 'true'
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_KOTLIN: true
+          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/.*
+          DISABLE_ERRORS: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Project
+        id: build
+        if: steps.changes.outputs.frontend == 'true'
+        run: |
+          echo "Test Building Project"
+          ./gradlew hanoi-frontend:build
+          echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Run GUI Tests
+        id: test
+        if: steps.changes.outputs.frontend == 'true'
+        run: |
+          echo "Running Tests"
+          ./gradlew :hanoi-frontend:jsTest
+          echo "result=success" >> "$GITHUB_OUTPUT"
+
+

@@ -1,3 +1,7 @@
+plugins {
+    jacoco
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
