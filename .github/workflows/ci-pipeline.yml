@@ -113,6 +113,7 @@ jobs:
           echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Run GUI Tests
         id: test
+        if: steps.changes.outputs.frontend == 'true'
         run: |
           echo "Running Tests"
           ./gradlew :hanoi-frontend:jsTest
