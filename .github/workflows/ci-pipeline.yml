@@ -9,7 +9,6 @@ on:
       - opened # whenever a pr is created
       - synchronize # whenever something is pushed to an open pr
 
-
 jobs:
   build-and-test-backend:
     outputs:
@@ -30,7 +29,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-        # Rest shall only run if there are changes in the backend-module
+        # Only run the next steps if there were changes in the backend
       - name: Set up JDK
         if: steps.changes.outputs.backend == 'true'
         uses: actions/setup-java@v4
@@ -81,7 +80,7 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3
-        # Rest shall only run if there are changes in the backend-module
+        # Only run the next steps if there were changes in the frontend
 
       - if: steps.changes.outputs.frontend == 'true'
         run: ...
@@ -119,3 +118,17 @@ jobs:
           echo "Running Tests"
           ./gradlew jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
+
+      - name: Run Coverage
+        run: |
+          chmod +x gradlew
+          ./gradlew testCoverage
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: |
+            ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
+            ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
