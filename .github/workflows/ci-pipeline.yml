@@ -60,7 +60,7 @@ jobs:
         if: steps.changes.outputs.backend == 'true'
         run: |
           echo "Running Tests"
-          ./gradlew test --tests TransformTest
+          ./gradlew :hanoi-backend:test
           echo "result=success" >> "$GITHUB_OUTPUT"
   build-and-test-frontend:
     outputs:
