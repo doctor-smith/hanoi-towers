@@ -1,6 +1,7 @@
 import org.evoleq.exposedx.migration.migrations
 
 plugins {
+    jacoco
     application
     kotlin("jvm")
     id("io.ktor.plugin") version "2.1.3"

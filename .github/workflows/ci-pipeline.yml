@@ -62,6 +62,20 @@ jobs:
           echo "Running Tests"
           ./gradlew :hanoi-backend:test
           echo "result=success" >> "$GITHUB_OUTPUT"
+
+      - name: Run coverage
+        run:
+          ./gradlew jacocoTestReport
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: |
+            ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
+            ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+
   build-and-test-frontend:
     outputs:
       lint: ${{ steps.lint.outputs.result }}
@@ -119,17 +133,6 @@ jobs:
           ./gradlew :hanoi-frontend:jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
 
-      - name: Run coverage
-        run:
-          ./gradlew jacocoTestReport
 
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.6.1
-        with:
-          paths: |
-            ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
-            ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
 
 
