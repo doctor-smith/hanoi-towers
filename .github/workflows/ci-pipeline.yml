@@ -64,6 +64,12 @@ jobs:
           echo "Running Tests"
           ./gradlew :hanoi-backend:test
           echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Upload test results
+        if: steps.changes.outputs.backend == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/reports/tests
   build-and-test-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -94,7 +100,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_KOTLIN: true
-          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/.*
+          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/*
           DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Project
@@ -111,6 +117,12 @@ jobs:
           echo "Running Tests"
           ./gradlew :hanoi-frontend:jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
+      - name: Upload test results
+        if: steps.changes.outputs.backend == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: build/reports/tests
   coverage-report:
     needs:
       - build-and-test-frontend
@@ -133,6 +145,11 @@ jobs:
       - name: Run coverage
         run:
           ./gradlew jacocoTestReport
+      - name: Upload JaCoCo coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test/html
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
