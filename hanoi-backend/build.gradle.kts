@@ -8,6 +8,18 @@ plugins {
     kotlin("plugin.serialization")
 }
 
+jacoco {
+  toolVersion = "0.8.7"
+}
+
+tasks.jacocoTestReport {
+  dependsOn(tasks.test)
+  reports {
+    xml.required.set(true)   // Generiere XML-Bericht
+    html.required.set(true)  // Generiere HTML-Bericht
+  }
+}
+
 group = project.extra["hanoi.group"] as String
 version = project.extra["hanoi.version"] as String
 val ktorVersion: String by project
