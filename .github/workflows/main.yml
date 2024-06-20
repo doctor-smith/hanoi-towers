@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - master
-      - staging
-      - develop
 
 jobs:
   accessibility:
-    name: Web Accessibility Evaluation
+    name: Accessibility Evaluation
     runs-on: ubuntu-latest
     steps:
      - name: Install Axe
@@ -20,8 +18,8 @@ jobs:
        run: npm install commander -g
      - name: Install Chrome with Chrome Driver Manager
        run: npx browser-driver-manager install chrome
-     - name: Install Chrome Version
+     - name: Install needed Chrome Version
        run: npm install -g chromedriver@125
-     - name: Run Axe 
-       run: axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver https://hanoi-frontend-prod-latest.onrender.com/
+     - name: Run Axe with set Chromedriver path
+       run: axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver https://hanoi-frontend-prod-latest.onrender.com/, https://hanoi-frontend-prod-latest.onrender.com/game, https://hanoi-frontend-prod-latest.onrender.com/cheat, https://hanoi-frontend-prod-latest.onrender.com/solver --browser chrome
           
