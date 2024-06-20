@@ -8,6 +8,9 @@ on:
     types:
       - opened # whenever a pr is created
       - synchronize # whenever something is pushed to an open pr
+  push_request:
+    branches:
+      - develop
 jobs:
   build-and-test-backend:
     runs-on: ubuntu-latest
@@ -96,7 +99,7 @@ jobs:
         continue-on-error: true
       - name: Linting Frontend
         id: lint
-        if: steps.changes.outputs.frontend == 'true'
+        # if: steps.changes.outputs.frontend == 'true'
         uses: github/super-linter@v4
         env:
           VALIDATE_KOTLIN: true
@@ -107,7 +110,7 @@ jobs:
         id: build
         if: steps.changes.outputs.frontend == 'true'
         run: |
-          echo "Test Building Project"
+          echo "Building Project"
           ./gradlew hanoi-frontend:build
           echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Run GUI Tests
@@ -118,11 +121,11 @@ jobs:
           ./gradlew :hanoi-frontend:jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Upload test results
-        if: steps.changes.outputs.backend == 'true'
+        # if: steps.changes.outputs.backend == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: build/reports/tests
+          path: hanoi-frontend/build/reports/tests/jsTest/index.html
   coverage-report:
     needs:
       - build-and-test-frontend
@@ -133,7 +136,7 @@ jobs:
         uses: actions/checkout@v3
         # Only run the next steps if there were changes in the backend
       - name: Set up JDK
-        if: steps.changes.outputs.backend == 'true'
+        # if: steps.changes.outputs.backend == 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '17'
@@ -149,7 +152,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: jacoco-report
-          path: build/reports/jacoco/test/html
+          path: hanoi-backend/build/reports/jacoco/test/html/index.html
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
