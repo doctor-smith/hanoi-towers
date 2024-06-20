@@ -8,7 +8,7 @@ on:
     types:
       - opened # whenever a pr is created
       - synchronize # whenever something is pushed to an open pr
-  push_request:
+  push:
     branches:
       - develop
 jobs:
