@@ -71,8 +71,8 @@ jobs:
         if: steps.changes.outputs.backend == 'true'
         uses: actions/upload-artifact@v3
         with:
-          name: test-results
-          path: hanoi-backend/build/reports/tests/test/index.html
+          name: test-results-backend
+          path: hanoi-backend/build/reports/tests/test/
   build-and-test-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -124,8 +124,8 @@ jobs:
         # if: steps.changes.outputs.backend == 'true'
         uses: actions/upload-artifact@v3
         with:
-          name: test-results
-          path: hanoi-frontend/build/reports/tests/jsTest/index.html
+          name: test-results-frontend
+          path: hanoi-frontend/build/reports/tests/jsTest/
   coverage-report:
     needs:
       - build-and-test-frontend
@@ -152,7 +152,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: jacoco-report
-          path: hanoi-backend/build/reports/jacoco/test/html/index.html
+          path: hanoi-backend/build/reports/jacoco/test/html/
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
