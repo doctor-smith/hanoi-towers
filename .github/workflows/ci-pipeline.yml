@@ -125,7 +125,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-results-frontend
-          path: hanoi-frontend/build/reports/tests/
+          path: hanoi-frontend/build/reports/tests
   coverage-report:
     needs:
       - build-and-test-frontend
