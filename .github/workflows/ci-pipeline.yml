@@ -51,7 +51,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_KOTLIN: true
-          FILTER_REGEX_INCLUDE: .*hanoi-backend/src/main/kotlin/hanoi.towers/application/.*
+          FILTER_REGEX_INCLUDE: .*hanoi-backend/src/main/kotlin/hanoi.towers/application/*
           DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Project
@@ -72,7 +72,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: build/reports/tests
+          path: hanoi-backend/build/reports/tests/test/index.html
   build-and-test-frontend:
     runs-on: ubuntu-latest
     steps:
