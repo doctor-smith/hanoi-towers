@@ -42,7 +42,7 @@ jobs:
        run: |
           ./gradlew :hanoi-frontend:build
      - name: Run App
-       run: docker compose up
+       run: docker compose up -d
      - name: Install Axe
        run: npm install @axe-core/cli -g
      - name: Install Chrome Driver Manager
