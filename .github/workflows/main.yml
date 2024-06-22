@@ -10,6 +10,8 @@ jobs:
     name: Accessibility Evaluation
     runs-on: ubuntu-latest
     steps:
+     - name: Test
+       run: echo {{secrets.TEST}}
      - name: Install Axe
        run: npm install @axe-core/cli -g
      - name: Install Chrome Driver Manager
