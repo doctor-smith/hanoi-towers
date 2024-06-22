@@ -103,7 +103,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_KOTLIN: true
-          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/action
+          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/*
           DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Project
