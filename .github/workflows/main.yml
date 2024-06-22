@@ -9,6 +9,7 @@ jobs:
   accessibility:
     name: Accessibility Evaluation
     runs-on: ubuntu-latest
+    environment: dev-accessibility
     steps:
      - name: Test
        run: echo {{secrets.TEST}}
