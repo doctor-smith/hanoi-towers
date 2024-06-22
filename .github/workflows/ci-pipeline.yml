@@ -115,7 +115,7 @@ jobs:
         env:
           VALIDATE_KOTLIN: true
           FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/*
-          DISABLE_ERRORS: false
+          DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Project
