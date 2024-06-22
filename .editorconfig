@@ -9,7 +9,7 @@ charset = utf-8
 
 # Tab indentation
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 # Make sure every file has a blank line at the end
 insert_final_newline = true
@@ -33,3 +33,6 @@ indent_size = 4
 # Disable the filename rule because our test case logic requires that files used in test cases
 # follow a certain syntax which is not compatible with what ktlint currently mandates (PascalCase)
 disabled_rules = filename
+
+[*.{kt,kts}]
+disabled_rules=curly-spacing
