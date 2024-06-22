@@ -5,12 +5,16 @@ on:
     branches:
       - master
 
+
+
 jobs:
   accessibility:
     name: Accessibility Evaluation
     runs-on: ubuntu-latest
     environment: dev-accessibility
     steps:
+     - name: Checkout
+       uses: actions/checkout@v4.1.7
      - name: Run App
        run: docker compose up
      - name: Install Axe
