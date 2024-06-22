@@ -16,7 +16,7 @@ jobs:
      - name: Checkout
        uses: actions/checkout@v4.1.7
      - name: Run App
-       run: docker compose up
+       run: docker run -d ./hanoi-frontend/docker/Dockerfile
      - name: Install Axe
        run: npm install @axe-core/cli -g
      - name: Install Chrome Driver Manager
