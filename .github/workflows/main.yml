@@ -54,3 +54,13 @@ jobs:
        run: npm install -g chromedriver@125
      - name: Run Axe with set Chromedriver path
        run: axe http://localhost:8080, http://localhost:8080/game, http://localhost:8080/cheat, http://localhost:8080/solver --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver --exit
+     - name: Comment on PR
+       if: ${{ github.event_name == 'pull_request' }}
+       env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       run: |
+          pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          curl -s -H "Authorization: token $GITHUB_TOKEN" \
+          -X POST \
+          -d "{\"body\": \"Thank you for your contribution! We are reviewing your pull request.\"}" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/$pr_number/comments"
