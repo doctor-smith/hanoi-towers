@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - master
-
-
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
- 
   accessibility:
     name: Accessibility Evaluation
     runs-on: ubuntu-latest
