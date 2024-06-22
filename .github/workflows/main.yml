@@ -53,5 +53,6 @@ jobs:
      - name: Install needed Chrome Version
        run: npm install -g chromedriver@125
      - name: Run Axe with set Chromedriver path
-       run: axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8081 --exit
-          
+       run: axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8080 --exit
+     - name: test1
+       run: ping localhost
