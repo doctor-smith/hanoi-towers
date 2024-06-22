@@ -9,7 +9,7 @@ charset = utf-8
 
 # Tab indentation
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 # Make sure every file has a blank line at the end
 insert_final_newline = true
