@@ -53,4 +53,4 @@ jobs:
      - name: Install needed Chrome Version
        run: npm install -g chromedriver@125
      - name: Run Axe with set Chromedriver path
-       run: axe spec ./axe-worklfow.json --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver --exit
+       run: axe http://localhost:8080, http://localhost:8080/game, http://localhost:8080/cheat, http://localhost:8080/solver --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver --exit
