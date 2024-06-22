@@ -8,15 +8,41 @@ on:
 
 
 jobs:
+ 
   accessibility:
     name: Accessibility Evaluation
     runs-on: ubuntu-latest
     environment: dev-accessibility
+    env:
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      HANOI_FRONTEND_URL: ${{ vars.HANOI_FRONTEND_URL }}
+      HANOI_BACKEND_URL: ${{ vars.HANOI_BACKEND_URL }}
     steps:
      - name: Checkout
        uses: actions/checkout@v4.1.7
+     - name: Set up .env files
+       run: |
+          sed -i "s|^JWT_SECRET=.*|JWT_SECRET=${JWT_SECRET}|" hanoi-backend/.env
+          sed -i "s|^DATABASE_PASSWORD=.*|DATABASE_PASSWORD=${DB_PASSWORD}|" hanoi-backend/.env
+          sed -i "s|^HANOI_FRONTEND_URL=.*|HANOI_FRONTEND_URL=${HANOI_FRONTEND_URL}|" hanoi-frontend/.env
+          sed -i "s|^HANOI_BACKEND_URL=.*|HANOI_BACKEND_URL=${HANOI_BACKEND_URL}|" hanoi-frontend/.env
+     - name: Set up JDK 17
+       uses: actions/setup-java@v4
+       with:
+         distribution: 'temurin'
+         java-version: '17'
+     - name: Grant execute permission for Gradle Wrapper
+       run: chmod +x ./gradlew
+     - name: Build backend
+       run: |
+          ./gradlew :hanoi-backend:build
+     - name: Build frontend
+       if: env.frontend_changed == 'true'
+       run: |
+          ./gradlew :hanoi-frontend:build
      - name: Run App
-       run: docker run -d ./hanoi-frontend/docker
+       run: docker compose up
      - name: Install Axe
        run: npm install @axe-core/cli -g
      - name: Install Chrome Driver Manager
