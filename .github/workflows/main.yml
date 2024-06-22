@@ -53,5 +53,5 @@ jobs:
      - name: Install needed Chrome Version
        run: npm install -g chromedriver@125
      - name: Run Axe with set Chromedriver path
-       run: axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver https://hanoi-frontend-prod-latest.onrender.com/, https://hanoi-frontend-prod-latest.onrender.com/game, https://hanoi-frontend-prod-latest.onrender.com/cheat, https://hanoi-frontend-prod-latest.onrender.com/solver --exit
+       run: axe --chromedriver-path $(npm root -g)/chromedriver/bin/chromedriver http://localhost:8081 --exit
           
