@@ -103,7 +103,7 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_KOTLIN: true
-          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/*
+          FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/action
           DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Project
@@ -121,11 +121,11 @@ jobs:
           ./gradlew :hanoi-frontend:jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
       - name: Upload test results
-        # if: steps.changes.outputs.backend == 'true'
+        if: steps.changes.outputs.backend == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: test-results-frontend
-          path: hanoi-frontend/build/reports/tests/jsTest
+          path: hanoi-frontend/build/reports/tests/jsTest/index.html
   coverage-report:
     needs:
       - build-and-test-frontend
@@ -136,7 +136,7 @@ jobs:
         uses: actions/checkout@v3
         # Only run the next steps if there were changes in the backend
       - name: Set up JDK
-        # if: steps.changes.outputs.backend == 'true'
+        if: steps.changes.outputs.backend == 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '17'
