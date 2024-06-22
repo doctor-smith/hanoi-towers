@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "name": "Hanoi Towers Cookie Banner",
+      "id": "hanoi-towers-cookie-banner",
+      "pageList": [
+        {
+          "name": "homepage",
+          "url": "http://localhost:8080",
+          "actions": [
+            "click element \"#root > div:nth-child(1) > div > div:nth-child(3) > button\"",
+            "analyze page"
+          ]
+        }
+      ]
+    }
+  ]
+}
