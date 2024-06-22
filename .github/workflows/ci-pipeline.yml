@@ -8,9 +8,7 @@ on:
     types:
       - opened # whenever a pr is created
       - synchronize # whenever something is pushed to an open pr
-  push:
-    branches:
-      - develop
+
 jobs:
   build-and-test-backend:
     runs-on: ubuntu-latest
@@ -24,19 +22,23 @@ jobs:
             - 'hanoi-backend/**'
             frontend:
             - 'hanoi-frontend/**'
+
       - name: Checkout Code
         uses: actions/checkout@v3
         # Only run the next steps if there were changes in the backend
+
       - name: Set up JDK
         if: steps.changes.outputs.backend == 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Setup Gradle
         if: steps.changes.outputs.backend == 'true'
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
         continue-on-error: false
+
       - name: Cache Gradle packages
         uses: actions/cache@v3
         with:
@@ -45,6 +47,7 @@ jobs:
             ~/.gradle/wrapper
             key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
             restore-keys: ${{ runner.os }}-gradle
+
       - name: Linting Backend
         id: lint
         if: steps.changes.outputs.backend == 'true'
@@ -54,12 +57,14 @@ jobs:
           FILTER_REGEX_INCLUDE: .*hanoi-backend/src/main/kotlin/hanoi.towers/application/*
           DISABLE_ERRORS: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Project
         id: build
         if: steps.changes.outputs.backend == 'true'
         run: |
           echo "Test Building Project"
           echo "result=success" >> "$GITHUB_OUTPUT"
+
       - name: Run Unit Tests
         id: test
         if: steps.changes.outputs.backend == 'true'
@@ -67,12 +72,14 @@ jobs:
           echo "Running Tests"
           ./gradlew :hanoi-backend:test
           echo "result=success" >> "$GITHUB_OUTPUT"
+
       - name: Upload test results
         if: steps.changes.outputs.backend == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: test-results-backend
           path: hanoi-backend/build/reports/tests/test/
+
   build-and-test-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -84,19 +91,23 @@ jobs:
             - 'hanoi-backend/**'
             frontend:
             - 'hanoi-frontend/**'
+
       - name: Checkout code
         uses: actions/checkout@v3
         # Only run the next steps if there were changes in the frontend
+
       - name: Set up JDK
         if: steps.changes.outputs.frontend == 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Setup Gradle
         if: steps.changes.outputs.frontend == 'true'
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
         continue-on-error: true
+
       - name: Linting Frontend
         id: lint
         # if: steps.changes.outputs.frontend == 'true'
@@ -106,6 +117,7 @@ jobs:
           FILTER_REGEX_INCLUDE: .*hanoi-frontend/src/jsMain/kotlin/hanoi.towers/*
           DISABLE_ERRORS: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build Project
         id: build
         if: steps.changes.outputs.frontend == 'true'
@@ -113,6 +125,7 @@ jobs:
           echo "Building Project"
           ./gradlew hanoi-frontend:build
           echo "result=success" >> "$GITHUB_OUTPUT"
+
       - name: Run GUI Tests
         id: test
         if: steps.changes.outputs.frontend == 'true'
@@ -120,12 +133,14 @@ jobs:
           echo "Running Tests"
           ./gradlew :hanoi-frontend:jsTest
           echo "result=success" >> "$GITHUB_OUTPUT"
+
       - name: Upload test results
         if: steps.changes.outputs.backend == 'true'
         uses: actions/upload-artifact@v3
         with:
           name: test-results-frontend
           path: hanoi-frontend/build/reports/tests/jsTest/index.html
+
   coverage-report:
     needs:
       - build-and-test-frontend
@@ -135,24 +150,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         # Only run the next steps if there were changes in the backend
+
       - name: Set up JDK
         if: steps.changes.outputs.backend == 'true'
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Setup Gradle
         if: steps.changes.outputs.backend == 'true'
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
         continue-on-error: true
+
       - name: Run coverage
         run:
           ./gradlew jacocoTestReport
+
       - name: Upload JaCoCo coverage report
         uses: actions/upload-artifact@v3
         with:
           name: jacoco-report
           path: hanoi-backend/build/reports/jacoco/test/html/
+
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
