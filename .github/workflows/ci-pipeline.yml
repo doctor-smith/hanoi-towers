@@ -6,8 +6,8 @@ on:
       - develop
       - workflow-test
     types:
-      - opened # whenever a pr is created
-      - synchronize # whenever something is pushed to an open pr
+      - opened # whenever a pr is created.
+      - synchronize # whenever something is pushed to an open pr.
 
 jobs:
   build-and-test-backend:
