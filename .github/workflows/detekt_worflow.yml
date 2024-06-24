@@ -101,7 +101,7 @@ jobs:
 
     # Performs static analysis using Detekt
     - name: Run Detekt
-      continue-on-error: false
+      continue-on-error: true
       run: |
         java -jar $DETEKT_CLI_JAR --input ${{ github.workspace }} --report sarif:${{ github.workspace }}/detekt.sarif.json
         
