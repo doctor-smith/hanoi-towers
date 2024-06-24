@@ -84,13 +84,13 @@ jobs:
     # Sets up the detekt cli
     - name: Setup Detekt
       run: |
-        dest=$( mktemp -d )
+        dest=$(mktemp -d)
         curl --request GET \
           --url ${{ steps.detekt_info.outputs.download_url }} \
           --silent \
           --location \
           --output $dest/detekt
-        unzip -d $dest $dest/detekt.zip
+        file $dest/detekt
         chmod a+x $dest/detekt
         echo $dest >> $GITHUB_PATH
 
