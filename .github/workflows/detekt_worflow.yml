@@ -105,18 +105,19 @@ jobs:
       run: |
         java -jar $DETEKT_CLI_JAR \
           --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" \
-          --report sarif:${{ github.workspace }}/reports/detekt.sarif.json \
-          --report txt:${{ github.workspace }}/reports/detekt.txt \
-          --report xml:${{ github.workspace }}/reports/detekt.xml \
-          --report html:${{ github.workspace }}/reports/detekt.html \
+          --report sarif:${{ github.workspace }}/detekt.sarif.json \
+          --report txt:${{ github.workspace }}/detekt.txt \
+          --report xml:${{ github.workspace }}/detekt.xml \
+          --report html:${{ github.workspace }}/detekt.html \
           --config config/detekt/detekt.yml
     
-    - uses: actions/upload-artifact@v4
+    - name: Upload Detekt reports to GitHub
+      uses: actions/upload-artifact@v4
       with:
-        name: detekt-report
-        path: ${{ github.workspace }}/reports/detekt.sarif.json
+      name: detekt-reports
+      path: ${{ github.workspace }}/detekt.sarif.json, ${{ github.workspace }}/detekt.txt, ${{ github.workspace }}/detekt.xml, ${{ github.workspace }}/detekt.html
 
     - name: Upload SARIF report to GitHub
       uses: github/codeql-action/upload-sarif@v3
       with:
-        sarif_file: ${{ github.workspace }}/reports/detekt.sarif.json
+        sarif_file: ${{ github.workspace }}/detekt.sarif.json
