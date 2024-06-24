@@ -81,14 +81,18 @@ jobs:
         DETEKT_DOWNLOAD_URL=$(jq --raw-output '.data.repository.release.releaseAssets.nodes[0].downloadUrl' gh_response.json)
         echo "download_url=$DETEKT_DOWNLOAD_URL" >> $GITHUB_OUTPUT
 
+    # Sets up the detekt cli
     - name: Setup Detekt
       run: |
-        DETEKT_CLI_VERSION=${{ env.DETEKT_RELEASE_TAG }}
-        curl -sSLO ${{ steps.detekt_info.outputs.download_url }}
-        echo "java -jar $(pwd)/detekt-cli-${DETEKT_CLI_VERSION}-all.jar \$@" > detekt
-        chmod +x detekt
-        echo "$(pwd)" >> $GITHUB_PATH
-  
+        dest=$(mktemp -d)
+        curl --request GET \
+          --url ${{ steps.detekt_info.outputs.download_url }} \
+          --silent \
+          --location \
+          --output $dest/detekt
+        chmod a+x $dest/detekt
+        echo $dest >> $GITHUB_PATH
+
     # Performs static analysis using Detekt
     - name: Run Detekt
       continue-on-error: false
