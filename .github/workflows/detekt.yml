@@ -57,6 +57,12 @@ jobs:
           query getReleaseAssetDownloadUrl($tagName: String!) {
             repository(name: "detekt", owner: "detekt") {
               release(tagName: $tagName) {
+                releaseAssets(first: 1) {  # Hole bis zu 10 Assets, um zu debuggen
+                  nodes {
+                    name
+                    downloadUrl
+                  }
+                }
                 tagCommit {
                   oid
                 }
@@ -64,7 +70,7 @@ jobs:
             }
           }
         ' > gh_response.json
-
+        
         DETEKT_RELEASE_SHA=$(jq --raw-output '.data.repository.release.tagCommit.oid' gh_response.json)
         if [ $DETEKT_RELEASE_SHA != "2f6a52a0f6ddf3ae72f5c7c182590f9a3f4889af" ]; then
           echo "SHA=$DETEKT_RELEASE_SHA"
