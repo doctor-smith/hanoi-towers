@@ -111,12 +111,15 @@ jobs:
           --report html:${{ github.workspace }}/detekt.html \
           --config config/detekt/detekt.yml
     
-    - name: Upload Detekt reports to GitHub
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
       with:
-      name: detekt-reports
-      path: ${{ github.workspace }}/detekt.sarif.json, ${{ github.workspace }}/detekt.txt, ${{ github.workspace }}/detekt.xml, ${{ github.workspace }}/detekt.html
-
+        name: detekt-reports
+        path: |
+          ${{ github.workspace }}/detekt.sarif.json
+          ${{ github.workspace }}/detekt.xml
+          ${{ github.workspace }}/detekt.html
+          ${{ github.workspace }}/detekt.txt
+          
     - name: Upload SARIF report to GitHub
       uses: github/codeql-action/upload-sarif@v3
       with:
