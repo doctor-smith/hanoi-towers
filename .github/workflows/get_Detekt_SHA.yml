@@ -11,14 +11,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install GitHub CLI
-      run: sudo apt-get install -y gh
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gh jq
 
     - name: Authenticate GitHub CLI
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo $GITHUB_TOKEN | gh auth login --with-token
+        echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
     - name: Get Detekt release SHA
       id: get_sha
