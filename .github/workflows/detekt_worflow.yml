@@ -103,7 +103,13 @@ jobs:
     - name: Run Detekt
       continue-on-error: true
       run: |
-        java -jar $DETEKT_CLI_JAR --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" --report sarif:${{ github.workspace }}/reports/detekt.sarif.json --config config/detekt/detekt.yml
+        java -jar $DETEKT_CLI_JAR \
+          --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" \
+          --report sarif:${{ github.workspace }}/reports/detekt.sarif.json \
+          --report txt:${{ github.workspace }}/reports/detekt.txt \
+          --report xml:${{ github.workspace }}/reports/detekt.xml \
+          --report html:${{ github.workspace }}/reports/detekt.html \
+          --config config/detekt/detekt.yml
     
     - uses: actions/upload-artifact@v2
       with:
