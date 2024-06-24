@@ -103,5 +103,4 @@ jobs:
     - name: Run Detekt
       continue-on-error: true
       run: |
-        java -jar $DETEKT_CLI_JAR --input ${{ github.workspace }} --report sarif:${{ github.workspace }}/detekt.sarif.json
-        
+        java -jar $DETEKT_CLI_JAR --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" --report sarif:${{ github.workspace }}/reports/detekt.sarif.json --config config/detekt/detekt.yml
