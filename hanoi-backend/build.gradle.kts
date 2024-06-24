@@ -1,10 +1,23 @@
 import org.evoleq.exposedx.migration.migrations
 
 plugins {
+    jacoco
     application
     kotlin("jvm")
     id("io.ktor.plugin") version "2.1.3"
     kotlin("plugin.serialization")
+}
+
+jacoco {
+  toolVersion = "0.8.7"
+}
+
+tasks.jacocoTestReport {
+  dependsOn(tasks.test)
+  reports {
+    xml.required.set(true)   // Generiere XML-Bericht
+    html.required.set(true)  // Generiere HTML-Bericht
+  }
 }
 
 group = project.extra["hanoi.group"] as String
@@ -67,4 +80,3 @@ migrations(
     "db",
     "migrations"
 )
-

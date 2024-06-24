@@ -4,10 +4,9 @@ import hanoi.towers.application.Application
 import io.ktor.http.*
 import org.jetbrains.compose.web.testutils.ComposeWebExperimentalTestsApi
 import org.jetbrains.compose.web.testutils.runTest
-import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class MainTest {
+class mainTest {
 
 
      @OptIn(ComposeWebExperimentalTestsApi::class)
@@ -20,7 +19,8 @@ class MainTest {
                   this.root.children.item(0)
              }
 
-             val textNode = testNode as? ContentType.Text ?: error("Text node not found")
+             val
+                     textNode = testNode as? ContentType.Text ?: error("Text node not found")
 
             assertTrue { true }
      }
