@@ -83,7 +83,7 @@ jobs:
 
     # Ensure Java is installed
     - name: Set up JDK
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v4
       with:
         distribution: 'temurin' # This is one of the most common distributions
         java-version: '11' # Detekt requires Java 11 or newer
@@ -111,12 +111,12 @@ jobs:
           --report html:${{ github.workspace }}/reports/detekt.html \
           --config config/detekt/detekt.yml
     
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: detekt-report
         path: ${{ github.workspace }}/reports/detekt.sarif.json
 
     - name: Upload SARIF report to GitHub
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: ${{ github.workspace }}/reports/detekt.sarif.json
