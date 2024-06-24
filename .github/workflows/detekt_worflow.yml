@@ -97,5 +97,5 @@ jobs:
     - name: Run Detekt
       continue-on-error: false
       run: |
-        ./detekt --input ${{ github.workspace }} --report sarif:${{ github.workspace }}/detekt.sarif.json
+        detekt --input ${{ github.workspace }} --report sarif:${{ github.workspace }}/detekt.sarif.json
         
