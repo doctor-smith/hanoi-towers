@@ -4,3 +4,8 @@
 build
 kotlin-js-store
 .env
+node_modules
+.vscode
+package-lock.json
+package.json
+gh_response.json

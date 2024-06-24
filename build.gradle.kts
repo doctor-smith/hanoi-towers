@@ -70,9 +70,7 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         md.required.set(false)
         md.outputLocation.set(file("build/reports/detekt.md"))
     }
-}
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     this.jvmTarget = "1.8"
     jdkHome.set(file("C:/Program Files/Java/jdk-17"))
 }

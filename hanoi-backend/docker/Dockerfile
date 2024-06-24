@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM openjdk:17
 # EXPOSE 8081:8080
 RUN mkdir /app
 WORKDIR /app
