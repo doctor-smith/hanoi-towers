@@ -104,3 +104,13 @@ jobs:
       continue-on-error: true
       run: |
         java -jar $DETEKT_CLI_JAR --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" --report sarif:${{ github.workspace }}/reports/detekt.sarif.json --config config/detekt/detekt.yml
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: detekt-report
+        path: ${{ github.workspace }}/reports/detekt.sarif.json
+
+    - name: Upload SARIF report to GitHub
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: ${{ github.workspace }}/reports/detekt.sarif.json
