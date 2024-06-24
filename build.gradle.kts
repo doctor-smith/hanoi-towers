@@ -63,11 +63,11 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         txt.outputLocation.set(file("build/reports/detekt.txt"))
 
         // Enable/Disable SARIF report (default: false)
-        sarif.required.set(false)
+        sarif.required.set(true)
         sarif.outputLocation.set(file("build/reports/detekt.sarif"))
 
         // Enable/Disable MD report (default: false)
-        md.required.set(false)
+        md.required.set(true)
         md.outputLocation.set(file("build/reports/detekt.md"))
     }
 
