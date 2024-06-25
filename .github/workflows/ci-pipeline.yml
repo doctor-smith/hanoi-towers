@@ -6,8 +6,8 @@ on:
       - develop
       - workflow-test
     types:
-      - opened # whenever a pr is created
-      - synchronize # whenever something is pushed to an open pr
+      - opened # whenever a pr is created.
+      - synchronize # whenever something is pushed to an open pr.
 
 jobs:
   build-and-test-backend:
@@ -38,15 +38,6 @@ jobs:
         if: steps.changes.outputs.backend == 'true'
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
         continue-on-error: false
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-            restore-keys: ${{ runner.os }}-gradle
 
       - name: Linting Backend
         id: lint
