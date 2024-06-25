@@ -1,5 +1,6 @@
 .gradle
 .idea
+.env
 *.iml
 build
 kotlin-js-store
