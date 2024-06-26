@@ -110,7 +110,7 @@ jobs:
           --report xml:${{ github.workspace }}/detekt.xml \
           --report html:${{ github.workspace }}/detekt.html \
           --config config/detekt/detekt.yml
-          --base-path "/home/runner/work/hanoi-towers-Gruppe-C/hanoi-towers-Gruppe-C"
+          --base-path /home/runner/work/hanoi-towers-Gruppe-C/hanoi-towers-Gruppe-C
     
     - uses: actions/upload-artifact@v4
       with:
