@@ -103,6 +103,7 @@ jobs:
     - name: Run Detekt
       continue-on-error: true
       run: |
+        BASE_PATH="${{ github.workspace }}"
         java -jar $DETEKT_CLI_JAR \
           --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" \
           --report sarif:${{ github.workspace }}/detekt.sarif.json \
@@ -110,7 +111,7 @@ jobs:
           --report xml:${{ github.workspace }}/detekt.xml \
           --report html:${{ github.workspace }}/detekt.html \
           --config config/detekt/detekt.yml
-          --base-path ${{ github.workspace }}
+          --base-path "$BASE_PATH"
     
     - uses: actions/upload-artifact@v4
       with:
