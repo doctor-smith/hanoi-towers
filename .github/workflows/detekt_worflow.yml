@@ -104,7 +104,6 @@ jobs:
       continue-on-error: true
       run: |
         java -jar $DETEKT_CLI_JAR \
-          --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" \
           --report sarif:${{ github.workspace }}/detekt.sarif.json \
           --report txt:${{ github.workspace }}/detekt.txt \
           --report xml:${{ github.workspace }}/detekt.xml \

@@ -323,7 +323,7 @@ naming:
     active: false
     forbiddenName: []
   FunctionMaxLength:
-    active: false
+    active: true
     maximumFunctionNameLength: 30
   FunctionMinLength:
     active: false
@@ -393,7 +393,7 @@ performance:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**']
   UnnecessaryPartOfBinaryExpression:
-    active: false
+    active: true
   UnnecessaryTemporaryInstantiation:
     active: true
 
@@ -734,9 +734,9 @@ style:
     active: true
     allowedNames: 'ignored|expected'
   UnusedPrivateClass:
-    active: true
+    active: false
   UnusedPrivateMember:
-    active: true
+    active: false
     allowedNames: ''
   UnusedPrivateProperty:
     active: true
@@ -779,6 +779,6 @@ style:
     active: true
     ignoreLateinitVar: false
   WildcardImport:
-    active: true
+    active: false
     excludeImports:
       - 'java.util.*'
