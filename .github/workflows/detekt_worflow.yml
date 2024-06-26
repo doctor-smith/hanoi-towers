@@ -103,7 +103,7 @@ jobs:
     - name: Run Detekt
       continue-on-error: true
       run: |
-        BASE_PATH="${{ github.workspace }}"
+        BASE_PATH=${{ github.workspace }}
         java -jar $DETEKT_CLI_JAR \
           --input "hanoi-frontend/src/jsMain/kotlin","hanoi-backend/src/main/kotlin" \
           --report sarif:${{ github.workspace }}/detekt.sarif.json \
