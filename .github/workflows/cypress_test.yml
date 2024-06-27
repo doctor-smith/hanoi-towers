@@ -1,6 +1,11 @@
+# This workflow performs a Cypress end-to-end test on the application.
+#
+
 name: Cypress Tests
 
 on:
+  schedule:
+     - cron: '0 0 * * *'
 
   workflow_dispatch:
 
@@ -8,6 +13,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # Define the services to start with Docker Compose
     services:
       docker:
         image: docker:19.03.12
@@ -16,9 +22,12 @@ jobs:
           - 8080:8080
 
     steps:
+
+    # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
     - name: Checkout code
       uses: actions/checkout@v4
 
+    # Create the .env files for the frontend, backend, and database from the secrets
     - name: Create .env files
       run: |
         echo "ENVIRONMENT=${{ secrets.ENVIRONMENT }}" > hanoi-frontend/.env
@@ -38,21 +47,25 @@ jobs:
         echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> hanoi-backend/.env
         echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> hanoi-backend/.env
 
-    - name: Set up JDK 11
+    # Ensure Java is installed
+    - name: Set up JDK
       uses: actions/setup-java@v4
       with:
         distribution: 'adopt'
-        java-version: '11'
+        java-version: '17'
 
+    # Ensure Node.js is installed
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20.14.0'
 
-    - name: Set up cypress
+    #Ensure Cypress is installed
+    - name: Set up Cypress
       run: |
         npm install cypress --save-dev
 
+    # Build the application
     - name: Build with Gradle
       run: |
         ./gradlew build -x detekt
@@ -60,10 +73,12 @@ jobs:
         ./gradlew hanoi-backend:build
         ./gradlew hanoi-backend:buildFatJar
 
+    # Start the application with Docker Compose
     - name: Start Docker Compose
       run: |
         docker-compose up -d --build
-        
+    
+    # Run the Cypress tests
     - name: Run Cypress tests 
       uses: cypress-io/github-action@v6
       with: 
