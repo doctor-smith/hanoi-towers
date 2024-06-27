@@ -59,10 +59,6 @@ jobs:
       uses: jakejarvis/wait-action@master
       with:
         time: '30s' # Adjust this depending on how long your app takes to start
-
+        
     - name: Run Cypress tests
-      uses: cypress-io/github-action@v2
-      with:
-        start: echo "Skipping start script because the app is already running via Docker"
-        wait-on: 'http://localhost:8080'
-        wait-on-timeout: 300
+      run: npx cypress run
