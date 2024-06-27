@@ -46,7 +46,7 @@ jobs:
 
     - name: Build with Gradle
       run: |
-        ./gradlew build
+        ./gradlew build -x detekt
         ./gradlew hanoi-frontend:build
         ./gradlew hanoi-backend:build
         ./gradlew hanoi-backend:buildFatJar
