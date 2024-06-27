@@ -27,6 +27,3 @@ suspend fun getAllUsers() = DbAction {
  } bind { users -> ApiAction{ call ->
     call.respond(users) x call
 } }
-
-
-

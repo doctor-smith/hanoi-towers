@@ -52,6 +52,3 @@ import lib.optics.lens.Lens
     get = {whole -> whole.texts},
     set = {{it}}
 ) }
-
-
-

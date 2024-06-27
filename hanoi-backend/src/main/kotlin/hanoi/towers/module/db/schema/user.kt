@@ -24,4 +24,3 @@ class User(id: EntityID<UUID>) : UUIDEntity(id) {
     val games by Game via UserGames
 
 }
-

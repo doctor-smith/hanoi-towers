@@ -79,4 +79,3 @@ internal fun DragDropEnvironment.drop(): List<String> {
     dragged.write(emptyList())
     return result
 }
-

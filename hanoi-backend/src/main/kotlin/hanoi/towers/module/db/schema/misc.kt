@@ -13,4 +13,3 @@ object DualPlayerGames : UUIDTable() {
 object Stats : UUIDTable() {
 
 }
-

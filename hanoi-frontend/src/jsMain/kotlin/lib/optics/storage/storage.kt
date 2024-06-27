@@ -95,4 +95,3 @@ fun <T> Storage<Map<Int, T>>.nextId(): Int = read().keys.fold(1){ acc, next -> w
     abs(acc-next) >= 2 -> min(acc,next) +1
     else -> max(acc, next)
 } }
-

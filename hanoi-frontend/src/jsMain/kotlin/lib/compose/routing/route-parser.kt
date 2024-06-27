@@ -32,4 +32,3 @@ fun RouteParser(): Parser<Route> = SplitAtFirst('?') map {
         it.second.result!!
     )
 }
-

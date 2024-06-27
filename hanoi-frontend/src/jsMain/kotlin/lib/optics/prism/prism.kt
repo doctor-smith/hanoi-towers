@@ -74,5 +74,3 @@ operator fun <R, S, T, A, B, C> Prism<S, T, A, B>.times(other: Prism<R,   B,  S,
      multRight<A, T>() o liftRight(build) o liftLeft(match) o other.match,
     build o other.build
 )
-
-

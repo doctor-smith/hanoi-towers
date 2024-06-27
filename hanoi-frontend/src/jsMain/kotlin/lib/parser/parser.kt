@@ -135,6 +135,3 @@ infix fun <S, T> Parser<S>.dL(right: Parser<T>): Parser<T> = this discardLeft ri
 infix fun <S, T> Parser<S>.discardRight(right: Parser<T>): Parser<S> = this * { s -> right map { s } }
 
 infix fun <S, T> Parser<S>.dR(right: Parser<T>): Parser<S> = this discardRight right
-
-
-

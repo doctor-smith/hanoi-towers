@@ -22,5 +22,3 @@ infix fun <A, B, C> ((B)->C).o(after: (A)->B) : (A)->C= { a:A  -> this(after(a))
 infix fun <A, B, C, D> ((A)->B).x(other: (C)->D): (Pair<A,C>)->Pair<B, D> = {
     aXc -> this(aXc.first) x other(aXc.second)
 }
-
-

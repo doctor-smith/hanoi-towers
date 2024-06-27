@@ -7,5 +7,5 @@ import org.evoleq.util.ApiAction
 import org.evoleq.util.KlAction
 
 val Respond: KlAction<Hanoi, Unit> = { hanoi: Hanoi -> ApiAction { call ->
-    call.respond(hanoi) x call
-} }
+    call.respond(hanoi) x call } 
+}
