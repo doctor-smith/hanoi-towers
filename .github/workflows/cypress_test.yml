@@ -44,6 +44,15 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
 
+    - name: Set up cypress
+      run: |
+        npm install cypress --save-dev
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.14.0'
+
     - name: Build with Gradle
       run: |
         ./gradlew build -x detekt
@@ -61,4 +70,9 @@ jobs:
         time: '30s' # Adjust this depending on how long your app takes to start
         
     - name: Run Cypress tests
-      run: npx cypress run
+      uses: cypress-io/github-action@v2
+      with:
+        start: echo "Skipping start script because the app is already running via Docker"
+        wait-on: 'http://localhost:8080'
+        wait-on-timeout: 300
+
