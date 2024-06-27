@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package hanoi.towers.module.db.schema
 
 import org.jetbrains.exposed.dao.UUIDEntity

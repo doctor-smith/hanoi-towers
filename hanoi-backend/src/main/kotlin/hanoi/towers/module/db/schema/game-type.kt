@@ -1,4 +1,4 @@
-@file:Suppress("MatchingDeclarationName")
+@file:Suppress("MatchingDeclarationName", "MagicNumber")
 package hanoi.towers.module.db.schema
 
 import org.jetbrains.exposed.dao.id.UUIDTable

@@ -14,7 +14,11 @@ import lib.optics.storage.Storage
 import lib.optics.transform.times
 import org.jetbrains.compose.web.dom.*
 
-const val LOREM_IPSUM = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, ..."
+const val LOREM_IPSUM = (
+    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod " +
+    "tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero " +
+    "eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, ..."
+)
 @Markup
 @Composable
 @Suppress("FunctionName")

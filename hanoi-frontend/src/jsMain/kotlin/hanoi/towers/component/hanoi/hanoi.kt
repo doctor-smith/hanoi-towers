@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package hanoi.towers.component.hanoi
 
 import androidx.compose.runtime.*
@@ -18,7 +19,7 @@ import org.jetbrains.compose.web.dom.Div
 
 @Markup
 @Composable
-@Suppress("FunctionName")
+@Suppress("FunctionName", "UnusedParameter")
 fun Hanoi(
     moves: Moves,
     one: Storage<List<Int>>,

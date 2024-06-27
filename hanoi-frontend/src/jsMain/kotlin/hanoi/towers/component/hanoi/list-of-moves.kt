@@ -39,15 +39,15 @@ fun ListOfMoves(
                     Text(texts["hint"])
                 } else {
                     Ul {
-                        forEachIndexed { index, it ->
+                        forEachIndexed { index, value ->
                             Li({
                                 style {
                                     listStyleType("none")
                                 }
                             }) {
-                                Text("$it // ${index + 1}")
+                                Text("$value // ${index + 1}")
                             }
-                        }
+                        }                        
                     }
                 }
             }

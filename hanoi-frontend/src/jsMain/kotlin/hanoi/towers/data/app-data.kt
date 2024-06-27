@@ -1,4 +1,4 @@
-@file:Suppress("MatchingDeclarationName")
+@file:Suppress("MatchingDeclarationName", "MagicNumber")
 package hanoi.towers.data
 
 import androidx.compose.runtime.Composable
@@ -169,7 +169,8 @@ val locale = Lens<AppData,String>(
 
 val locales = Lens<AppData, List<String>>(
     {data -> data.locales},
-    {s: List<String> ->  {data -> data.copy(locales = s)}}//TODO("Locales is to be Readonly")} //-> {data -> data.copy(locale = s)}}
+    {s: List<String> ->  {data -> data.copy(locales = s)}}
+    //TODO("Locales is to be Readonly")} //-> {data -> data.copy(locale = s)}}
 )
 
 val language = Lens<AppData,Lang>(

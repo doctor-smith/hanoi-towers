@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package hanoi.towers.data
 
 import androidx.compose.runtime.*

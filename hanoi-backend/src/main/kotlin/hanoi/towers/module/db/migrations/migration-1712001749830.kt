@@ -17,6 +17,7 @@ import org.jetbrains.exposed.sql.Transaction
  *
  * Description: ...
  */
+@Suppress("MagicNumber")
 class Migration1712001749830(
     override val database: Database
 ) : Migration {
@@ -34,11 +35,11 @@ class Migration1712001749830(
 
         SchemaUtils.create(Users)
 
-        val smith = User.new {
+        User.new {
             username = "schmidt@alpha-structure.com"
             password = "pass1234"
         }
-        val sulz = User.new {
+        User.new {
             username = "florian.schmidt@sulzer.de"
             password = "pass1234"
         }

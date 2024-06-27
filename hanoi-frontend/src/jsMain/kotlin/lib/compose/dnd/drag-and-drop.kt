@@ -13,7 +13,7 @@ import org.jetbrains.compose.web.dom.Div
 
 @Markup
 @Composable
-@Suppress("FunctionName")
+@Suppress("FunctionName", "UnusedPrivateProperty")
 fun DragDropEnvironment(
     onDrag: DragDropEnvironment.(name: String)->Unit = {},
     allowDrag: (name: String, source: String?)->Boolean = {_,_->true},

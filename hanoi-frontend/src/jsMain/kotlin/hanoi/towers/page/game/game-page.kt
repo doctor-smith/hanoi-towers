@@ -7,7 +7,7 @@ import hanoi.towers.data.*
 import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.pages.game.*
 import hanoi.towers.data.pages.game.component.hanoi
-import hanoi.towers.maxNumberOfSlices
+import hanoi.towers.MAX_NUMBER_OF_SLICES
 import lib.compose.Markup
 import lib.language.component
 import lib.language.get
@@ -37,7 +37,7 @@ fun GamePage(storage: Storage<HanoiGamePage>) {
         storage * indexOfCurrentMove,
         storage * error,
         "form" of texts,
-        maxNumberOfSlices
+        MAX_NUMBER_OF_SLICES
     )
 
     Flex {

@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package lib.compose.modal
 
 import androidx.compose.runtime.Composable

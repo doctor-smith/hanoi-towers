@@ -9,6 +9,8 @@ import io.ktor.server.application.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.cors.routing.*
 
+const val SECONDS_PER_DAY = 24L * 3600L
+
 
 fun Application.hanoi() {
 
@@ -26,7 +28,7 @@ fun Application.hanoi() {
         allowHeader(HttpHeaders.AccessControlAllowMethods)
         allowCredentials = true
         anyHost()
-        maxAgeInSeconds = 24 * 3600 // 1 day
+        maxAgeInSeconds = SECONDS_PER_DAY // 1 day
     }
     install(ContentNegotiation) {
         json()

@@ -11,7 +11,7 @@ import hanoi.towers.data.*
 import hanoi.towers.data.hanoi.Mode
 import hanoi.towers.data.pages.solver.*
 import hanoi.towers.data.pages.solver.component.hanoi
-import hanoi.towers.maxNumberOfSlices
+import hanoi.towers.MAX_NUMBER_OF_SLICES
 import lib.compose.Markup
 import lib.language.component
 import lib.language.get
@@ -39,7 +39,7 @@ fun SolverPage(storage: Storage<HanoiSolverPage>) {
         storage * indexOfCurrentMove,
         storage * error,
         "form" of texts,
-        maxNumberOfSlices
+        MAX_NUMBER_OF_SLICES
     )
 
     Statistics(

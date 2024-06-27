@@ -178,8 +178,6 @@ class ParserTest {
 
         val TillRight = CollectWhile { it != right }
 
-        val TillLeftOrRight = CollectWhile { it != left && it != right}
-
         //println(Left.run("      {     }   "))
         //println(Right.run("      }    "))
 
@@ -199,14 +197,6 @@ class ParserTest {
         val content = " { nested{} }"
         //val result = Parser().run(content)
         //println(result)
-
-        val c1 = "{ how {do {you{ feel  } }} }---{}"
-
-        //println(Parser().run(c1))
-
-
-        //println(Balance(left, right).run(c1))
-       // println(BetweenNested(left, right).run(c1))
     }
 
     @Test fun getResource() {
