@@ -19,6 +19,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Create .env files
+      run: |
+        echo "ENVIRONMENT=${{ secrets.ENVIRONMENT }}" > hanoi-towers-Gruppe-C/hanoi-frontend/.env
+        echo "HANOI_FRONTEND_URL=${{ secrets.HANOI_FRONTEND_URL }}" >> hanoi-towers-Gruppe-C/hanoi-frontend/.env
+        echo "HANOI_FRONTEND_PORT=${{ secrets.HANOI_FRONTEND_PORT }}" >> hanoi-towers-Gruppe-C/hanoi-frontend/.env
+        echo "HANOI_BACKEND_URL=${{ secrets.HANOI_BACKEND_URL }}" >> hanoi-towers-Gruppe-C/hanoi-frontend/.env
+        echo "HANOI_BACKEND_PORT=${{ secrets.HANOI_BACKEND_PORT }}" >> hanoi-towers-Gruppe-C/hanoi-frontend/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" > hanoi-towers-Gruppe-C/hanoi-database/.env
+        echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> hanoi-towers-Gruppe-C/hanoi-database/.env
+        echo "KTOR_ENV=${{ secrets.KTOR_ENV }}" > hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "JWT_DOMAIN=${{ secrets.JWT_DOMAIN }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "JWT_AUDIENCE=${{ secrets.JWT_AUDIENCE }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "JWT_REALM=${{ secrets.JWT_REALM }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "DATABASE_DRIVER=${{ secrets.DATABASE_DRIVER }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "DATABASE_USER=${{ secrets.DATABASE_USER }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+        echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> hanoi-towers-Gruppe-C/hanoi-backend/.env
+
     - name: Start Docker Compose
       run: |
         docker-compose up -d --build
