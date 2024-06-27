@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package lib.optics.lens
 
 import lib.optics.P

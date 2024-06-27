@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.api.data
 
 import kotlinx.serialization.Serializable

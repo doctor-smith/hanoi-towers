@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.data.i18n
 
 import lib.language.Lang

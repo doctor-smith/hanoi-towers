@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package lib.maths
 
 @DslMarker annotation class Maths

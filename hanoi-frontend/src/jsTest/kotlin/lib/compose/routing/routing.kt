@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package lib.compose.routing
 
 import lib.parser.*

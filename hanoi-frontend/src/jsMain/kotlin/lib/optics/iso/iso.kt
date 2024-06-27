@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package lib.optics.iso
 
 data class Iso<S, T>(

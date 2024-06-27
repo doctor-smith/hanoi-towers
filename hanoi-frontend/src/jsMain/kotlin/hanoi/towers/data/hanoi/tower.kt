@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.data.hanoi
 
 sealed class Tower {

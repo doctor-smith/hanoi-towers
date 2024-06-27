@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package lib.parser
 
 import kotlin.test.Test

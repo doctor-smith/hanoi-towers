@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.module.db.schema
 
 import org.jetbrains.exposed.dao.id.UUIDTable

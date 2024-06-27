@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.data.pages.cheat.component
 
 import hanoi.towers.data.hanoi.Hanoi

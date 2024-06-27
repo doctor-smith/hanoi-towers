@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.data.navigation
 
 import hanoi.towers.data.environment.Environment

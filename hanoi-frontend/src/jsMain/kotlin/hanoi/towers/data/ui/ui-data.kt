@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.data.ui
 
 import androidx.compose.runtime.Composable

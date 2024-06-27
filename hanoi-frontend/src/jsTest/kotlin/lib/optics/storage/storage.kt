@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package lib.optics.storage
 
 import lib.optics.P

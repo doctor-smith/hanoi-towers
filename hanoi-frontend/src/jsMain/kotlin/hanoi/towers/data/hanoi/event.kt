@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.data.hanoi
 
 import lib.compose.dnd.Coordinates

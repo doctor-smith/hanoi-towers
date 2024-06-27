@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package lib.language
 
 import kotlin.test.Test

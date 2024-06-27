@@ -1,3 +1,4 @@
+@file:Suppress("MatchingDeclarationName")
 package hanoi.towers.module.db.migrations
 
 import hanoi.towers.module.db.schema.User
