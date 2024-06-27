@@ -16,7 +16,7 @@ detekt {
 
     // The directories where detekt looks for source files. 
     // Defaults to `files("src/main/java", "src/test/java", "src/main/kotlin", "src/test/kotlin")`.
-    source.setFrom("hanoi-frontend/src/jsMain/kotlin", "hanoi-backend/src/main/kotlin")
+    source.setFrom("hanoi-frontend/src", "hanoi-backend/src")
 
     // Builds the AST in parallel. Rules are always executed in parallel. 
     // Can lead to speedups in larger projects. `false` by default.
@@ -71,6 +71,6 @@ tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
         md.outputLocation.set(file("build/reports/detekt.md"))
     }
 
-    this.jvmTarget = "1.8"
-    jdkHome.set(file("C:/Program Files/Java/jdk-17"))
+    //this.jvmTarget = "1.8"
+    //jdkHome.set(file("C:/Program Files/Java/jdk-17"))
 }

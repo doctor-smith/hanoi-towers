@@ -85,7 +85,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
-        distribution: 'temurin' # This is one of the most common distributions
+        distribution: 'adopt' # This is one of the most common distributions
         java-version: '11' # Detekt requires Java 11 or newer
 
     # Sets up the detekt cli

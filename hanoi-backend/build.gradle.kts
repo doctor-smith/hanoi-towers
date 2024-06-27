@@ -67,4 +67,3 @@ migrations(
     "db",
     "migrations"
 )
-
