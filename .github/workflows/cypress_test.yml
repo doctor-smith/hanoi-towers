@@ -63,11 +63,6 @@ jobs:
     - name: Start Docker Compose
       run: |
         docker-compose up -d --build
-
-    - name: Wait for application to be ready
-      uses: jakejarvis/wait-action@master
-      with:
-        time: '1s' # Adjust this depending on how long your app takes to start
         
     - name: Run Cypress tests 
       uses: cypress-io/github-action@v6
