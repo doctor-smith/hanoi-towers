@@ -1,4 +1,5 @@
-Suppress("UtilityClassWithPublicConstructor")
+@file:Suppress("UtilityClassWithPublicConstructor")
+
 package lib.optics.storage
 
 import kotlin.math.abs
