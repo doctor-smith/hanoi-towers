@@ -3,6 +3,8 @@
   RewriteBase /
 
   # Redirect all requests to the index.html except those for existing files/directories
+  
+  RewriteCond %{REQUEST_URI} !^/server-status
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]
