@@ -49,7 +49,20 @@ services:
       - hanoi-database/.env
     networks:
       - backend
-
+ 
+  hanoi_vector:
+    build:
+      context: .
+      args:
+      - BETTERSTACK_TOKEN
+      dockerfile: hanoi-vector/Dockerfile
+    container_name: hanoi_vector
+    hostname: hanoi_vector
+    depends_on:
+      - hanoi_frontend
+    networks:
+      - frontend
+      - backend
 
  # adminer:
  #   image: adminer
